@@ -4,8 +4,12 @@
 
 class Ficha
 {
+private:
+    char letra;
 public:
-    Ficha();
+    Ficha(char letra);
+    char getLetra() const;
+    void setLetra(char value);
 };
 
 #endif // FICHA_H

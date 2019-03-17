@@ -31,7 +31,9 @@ SOURCES += \
     jugador.cpp \
     tablero.cpp \
     sala.cpp \
-    ficha.cpp
+    ficha.cpp \
+    linkedlist.cpp \
+    node.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +41,9 @@ HEADERS += \
     jugador.h \
     tablero.h \
     sala.h \
-    ficha.h
+    ficha.h \
+    linkedlist.h \
+    node.h
 
 FORMS += \
         mainwindow.ui
