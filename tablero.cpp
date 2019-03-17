@@ -62,13 +62,13 @@ void Tablero::ValorFicha()
 }
 /**
  * @brief Tablero::VerificarPos Se encarga de verificar si una ficha no cae sobre otra
- * @param PosX eje X
- * @param PosY eje Y
+ * @param Fila eje X
+ * @param Columna eje Y
  * @return false si ya hay otra ficha, true si no
  */
-bool Tablero::VerificarPos(int PosX, int PosY)
+bool Tablero::VerificarPos(int Fila, int Columna)
 {
-    if (this->FichasColocadas[PosX][PosY]==nullptr){
+    if (this->FichasColocadas[Fila][Columna]==nullptr){
         return true;
     }
     else{
@@ -78,14 +78,14 @@ bool Tablero::VerificarPos(int PosX, int PosY)
 
 /**
  * @brief Tablero::ColocarFicha coloca una ficha existente en el tablero
- * @param PosX eje X
- * @param PosY eje Y
+ * @param Fila eje X
+ * @param Columna eje Y
  * @param ficha ficha del jugador a colocar
  * @return true si es válida la colocación, false sino
  */
-void Tablero::ColocarFicha(int PosX, int PosY, Ficha* ficha)
+void Tablero::ColocarFicha(Ficha* ficha)
 {
-    this->FichasColocadas[PosX][PosY]=ficha;
+    this->FichasColocadas[ficha->getFila()][ficha->getColumna()]=ficha;
 }
 /**
  * @brief Tablero::ColocarPorOrden Verifica y luego coloca un conjunto de fichas.
@@ -94,6 +94,182 @@ void Tablero::ColocarFicha(int PosX, int PosY, Ficha* ficha)
  */
 void Tablero::ColocarPorOrden(LinkedList* L)
 {
-    L->Print();
+    //Caso de que solo ponga una ficha
+    Node* tmp1=L->getFirst();
+    Node* tmp2=L->getFirst()->getNext();
+    Ficha* F1=(Ficha*)tmp1->getData();
+    if (tmp2==nullptr){
+        BuscarTodoSentido(F1);
+        cout<<"Puntaje= "<<PuntajePorFicha(F1)<<endl;
+        return;
+    }
+
+    //Se define el sentido de la palabra
+    Ficha* F2=(Ficha*)tmp2->getData();
+    int referencia;
+    bool EsHorizontal=false;
+    if (F1->getFila()==F2->getFila()){
+        referencia=F1->getFila();
+        EsHorizontal=true;
+    }
+    else if (F1->getColumna()==F2->getColumna()){
+        referencia=F1->getColumna();
+        EsHorizontal=false;
+    }
+    else{
+        cout<<"fichas en diferentes filas y columnas"<<endl;
+        return;
+    }
+
+    Ficha* Menor=F1;
+    ColocarFicha(F1);
+    //Se verifica que compartan fila o columna
+    //Además se busca la ficha más cercana a (0,0)
+    if(EsHorizontal){
+        while(tmp2!=nullptr){
+            F2=(Ficha*)tmp2->getData();
+            if(F2->getFila()!=referencia){
+                cout<<"fichas en diferentes filas"<<endl;
+                return;
+            }
+            if(F2->getColumna()<Menor->getColumna()){
+                Menor=F2;
+            }
+            ColocarFicha(F2);
+            tmp2=tmp2->getNext();
+        }
+        BuscarAdyacentes(Menor,true,true);
+    }
+    else{
+        while(tmp2!=nullptr){
+            F2=(Ficha*)tmp2->getData();
+            if(F2->getColumna()!=referencia){
+                cout<<"fichas en diferentes columnas"<<endl;
+                return;
+            }
+            if(F2->getFila()<Menor->getFila()){
+                Menor=F2;
+            }
+            ColocarFicha(F2);
+            tmp2=tmp2->getNext();
+        }
+        BuscarAdyacentes(Menor,false,true);
+    }
+    cout<<"Puntaje= "<<PuntajePorConjunto(L)<<endl;
+
+
 }
+/**
+ * @brief Tablero::BuscarAdyacentes Busca fichas adyacnetes a una cierta posicion en ciertas direcciones
+ * @param Fila eje x
+ * @param Columna eje y
+ * @param Horizontal si el sentido es horizontal
+ * @param SentidoPositivo positivo si es hacia la derecha o arriba
+ */
+void Tablero::BuscarAdyacentes(Ficha* F, bool Horizontal, bool SentidoPositivo)
+{
+    string palabra;
+    palabra+=F->getLetra();
+    int Fila=F->getFila();
+    int Columna=F->getColumna();
+    if (!Horizontal){
+        if (SentidoPositivo){
+            cout<<"Leyendo hacia abajo: ";
+            Fila++;
+            while(Fila<=14 && this->FichasColocadas[Fila][Columna]!=nullptr){
+                palabra+=this->FichasColocadas[Fila][Columna]->getLetra();
+                Fila++;
+            }
+        }
+        else{
+            cout<<"Leyendo hacia arriba: ";
+            Fila--;
+            while(Fila>=0 && this->FichasColocadas[Fila][Columna]!=nullptr){
+                palabra+=this->FichasColocadas[Fila][Columna]->getLetra();
+                Fila--;
+            }
+        }
+    }
+    else{
+        if (SentidoPositivo){
+            cout<<"Leyendo hacia la derecha: ";
+            Columna++;
+            while(Columna<=14 &&this->FichasColocadas[Fila][Columna]!=nullptr){
+                palabra+=this->FichasColocadas[Fila][Columna]->getLetra();
+                Columna++;
+            }
+        }
+        else{
+            cout<<"Leyendo hacia la izquierda: ";
+            Columna--;
+            while(Columna>=0 &&this->FichasColocadas[Fila][Columna]!=nullptr){
+                palabra+=this->FichasColocadas[Fila][Columna]->getLetra();
+                Columna--;
+            }
+        }
+    }
+    cout<<palabra<<endl;
+}
+/**
+ * @brief Tablero::BuscarTodoSentido caso especial de BuscarAdyacentes
+ * @param Fila eje X
+ * @param Columna eje Y
+ */
+void Tablero::BuscarTodoSentido(Ficha* F1)
+{
+    BuscarAdyacentes( F1, true, false);
+    BuscarAdyacentes( F1, true, true);
+    BuscarAdyacentes( F1, false,false);
+    BuscarAdyacentes( F1, false,true);
+}
+
+/**
+ * @brief Tablero::PuntajePorFicha da puntaje por la ficha y su posición
+ * @param F ficha a evaluar
+ * @return cantidad de puntos
+ */
+int Tablero::PuntajePorFicha(Ficha* F)
+{
+    int Puntos=0;
+    Puntos+=F->getValor();
+    int columna=F->getFila();
+    int fila=F->getColumna();
+    if(this->PosEspeciales[fila][columna]==1){
+        Puntos*=2;
+    }
+    //cout<<"Ficha: "<<F->getLetra()<<"="<<Puntos<<endl;
+    return Puntos;
+}
+
+/**
+ * @brief Tablero::PuntajePorConjunto Recoje un conjunto de fichas y suma sus puntos
+ * @param L Lista de fichas a evaluar
+ * @return Suma de puntos
+ */
+int Tablero::PuntajePorConjunto(LinkedList *L)
+{
+    int Puntos=0;
+    int Doble=1;
+    int columna;
+    int fila;
+    Node* tmp=L->getFirst();
+    Ficha* F;
+    while(tmp!=nullptr){
+        F=(Ficha*)tmp->getData();
+        columna=F->getFila();
+        fila=F->getColumna();
+        if(this->PosEspeciales[fila][columna]==2){
+            Doble=2;
+        }
+        Puntos+=PuntajePorFicha(F);
+        tmp=tmp->getNext();
+    }
+    return Puntos*Doble;
+}
+
+
+
+
+
+
 

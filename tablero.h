@@ -14,8 +14,12 @@ public:
     void ValorPos();
     void ValorFicha();
     bool VerificarPos(int PosX,int PosY);
-    void ColocarFicha(int PosX,int PosY,Ficha* ficha);
+    void ColocarFicha(Ficha* ficha);
     void ColocarPorOrden(LinkedList* L);
+    void BuscarAdyacentes(Ficha* F,bool Horizontal, bool SentidoPositivo);
+    void BuscarTodoSentido(Ficha* F);
+    int PuntajePorFicha(Ficha* F);
+    int PuntajePorConjunto(LinkedList* L);
 };
 
 #endif // TABLERO_H
