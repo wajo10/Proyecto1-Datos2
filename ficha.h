@@ -2,10 +2,14 @@
 #define FICHA_H
 
 
-class Ficha
-{
-public:
-    Ficha();
-};
+#include <QObject>
+#include <QGraphicsPixmapItem>
 
-#endif // FICHA_H
+class ficha: public QObject, public QGraphicsPixmapItem
+{
+    Q_OBJECT
+public:
+    ficha(QGraphicsItem *parent=nullptr);
+    ficha(char letra = 'A');
+};
+#endif // PANTALLA_H

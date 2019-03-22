@@ -31,7 +31,8 @@ SOURCES += \
     jugador.cpp \
     tablero.cpp \
     sala.cpp \
-    ficha.cpp
+    ficha.cpp \
+    pantalla.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     jugador.h \
     tablero.h \
     sala.h \
-    ficha.h
+    ficha.h \
+    pantalla.h
 
 FORMS += \
         mainwindow.ui
@@ -48,3 +50,8 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc
+
+DISTFILES +=
