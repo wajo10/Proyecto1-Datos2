@@ -1,9 +1,9 @@
 #ifndef FICHA_H
 #define FICHA_H
 
-
 #include <QObject>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
 
 class ficha: public QObject, public QGraphicsPixmapItem
 {
@@ -11,5 +11,7 @@ class ficha: public QObject, public QGraphicsPixmapItem
 public:
     ficha(QGraphicsItem *parent=nullptr);
     ficha(char letra = 'A');
+    void keyPressEvent(QKeyEvent *event);
+
 };
-#endif // PANTALLA_H
+#endif // FICHA_H

@@ -1,8 +1,7 @@
 #include "ficha.h"
-#include <QGraphicsScene>
-#include <QObject>
 #include <iostream>
 #include <stdlib.h>
+#include <QDebug>
 
 
 ficha::ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
@@ -38,4 +37,8 @@ ficha::ficha(char letra){
         case('Y'):setPixmap(QPixmap(":/images/Y.jpg"));break;
         case('Z'):setPixmap(QPixmap(":/images/Z.jpg"));break;
 };
+}
+void ficha::keyPressEvent(QKeyEvent *event){
+    this->setX(this->x()+5);
+
 }

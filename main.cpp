@@ -23,11 +23,15 @@ int main(int argc, char *argv[])
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scene->setSceneRect(0,0,1300,700);
     pantalla * Pantalla = new pantalla();
-    ficha * Ficha = new ficha('Z');
+    scene->addItem(Pantalla);
+    ficha * Ficha = new ficha('M');
     Ficha->setX(45);
     Ficha->setY(45);
-
-    scene->addItem(Pantalla);
     scene->addItem(Ficha);
+    Ficha->setFlag(QGraphicsItem:: ItemIsFocusable);
+    Ficha->setFocus();
+
+
+
     return a.exec();
 }
