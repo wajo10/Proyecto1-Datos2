@@ -31,6 +31,7 @@ Tablero::Tablero()
     this->PosEspeciales[8][12]=2;
 }
 
+
 /**
  * @brief Tablero::ValorPos imprime las posiciones especiales
  */

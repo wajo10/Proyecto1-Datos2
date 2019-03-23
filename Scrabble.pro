@@ -33,7 +33,9 @@ SOURCES += \
     sala.cpp \
     ficha.cpp \
     linkedlist.cpp \
-    node.cpp
+    node.cpp \
+    tablero_servidor.cpp \
+    tablero_cliente.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +45,9 @@ HEADERS += \
     sala.h \
     ficha.h \
     linkedlist.h \
-    node.h
+    node.h \
+    tablero_servidor.h \
+    tablero_cliente.h
 
 FORMS += \
         mainwindow.ui
