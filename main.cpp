@@ -29,10 +29,10 @@ int main(int argc, char *argv[])
     Ficha->setY(45);
     scene->addItem(Ficha);
 
-    ficha * Ficha1 = new ficha('M');
+    ficha * Ficha1 = new ficha('Z');
     Ficha1->setX(90);
     Ficha1->setY(45);
     scene->addItem(Ficha1);
-    qDebug()<<Ficha1->columna;
+
     return a.exec();
 }

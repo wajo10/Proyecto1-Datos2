@@ -11,6 +11,7 @@ ficha::ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 }
 ficha::ficha(char letra){
 //Casos para cada letra
+    this->letra = letra;
     switch (letra) {
         case('A'):setPixmap(QPixmap(":/images/A.jpg"));break;
         case('B'):setPixmap(QPixmap(":/images/B.jpg"));break;
@@ -59,14 +60,23 @@ void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
     this->fila = *(posicion);
     this->columna = *(posicion+1);
-    this->setX((fila*43.65)+43.513);
-    this->setY((columna*43.65)+43);
-    qDebug()<<fila;
+    qDebug()<<this->fila;
+    if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0){
+        this->setX((fila*43.65)+43.513);
+        this->setY((columna*43.65)+43);
+
+    }
+    else{
+
+        this->setX(xInicial);
+        this->setY(yInicial);
+    }
+
 
 }
  int* ficha:: agregar(int x, int y){
     int posicion[2];
-    int inicial = 44.78;
+    int inicial = 44;
     int* posicionPtr = posicion;
     posicion[0] = (x-inicial)/44;
     posicion[1] = (y-inicial)/44;

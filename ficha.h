@@ -13,6 +13,7 @@ class ficha: public QObject, public QGraphicsPixmapItem
 public:
     ficha(QGraphicsItem *parent=nullptr);
     ficha(char letra = 'A');
+    char letra;
     int yInicial, xInicial, fila, columna;
     int *agregar(int x, int y);
     int inicial = 44;//Espacio antes de las celdas
