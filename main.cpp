@@ -19,7 +19,11 @@ int main(int argc, char *argv[])
     T->JugarFicha(A3,1,12);
     LinkedList* L=T->ResumenFichas();
     Tablero_Servidor* T2=new Tablero_Servidor();
-    T2->ColocarFichas(L);
+    T2->Desempaquetar(L);
+    T2->ColocarFichaManual('d',1,2);
+    T2->ColocarFichaManual('e',1,5);
+    T2->ColocarFichas();
+    T2->Leer();
     T2->print();
 
 

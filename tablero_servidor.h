@@ -8,13 +8,26 @@
 class Tablero_Servidor
 {
 private:
-    int PosEspeciales[15][15];
+
     char FichasColocadas[15][15];
-    LinkedList *FichasJugadas;
+    char LetrasJugadas[7];
+    char FilasJugadas[7];
+    char ColumnasJugadas[7];
+    bool VaHorizontal;
+    int tam;
+    int menor;
+    int ref;
+    LinkedList* ListaPalabras;
+    int PosEspeciales[15][15];
 public:
     Tablero_Servidor();
-    void ColocarFichas(LinkedList* FichasJugadas);
+    void ColocarFichas();
+    void ColocarFichaManual(char letra,int fila, int columna);
+    void MenorDesdeTablero();
+    LinkedList* Leer();
     void print();
+    void Desempaquetar(LinkedList* L);
+    int SumaParcial(int a,int t);
 };
 
 #endif // TABLERO_SERVIDOR_H
