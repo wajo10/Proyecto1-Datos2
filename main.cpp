@@ -28,10 +28,11 @@ int main(int argc, char *argv[])
     Ficha->setX(45);
     Ficha->setY(45);
     scene->addItem(Ficha);
-    Ficha->setFlag(QGraphicsItem:: ItemIsFocusable);
-    Ficha->setFocus();
 
-
+    ficha * Ficha1 = new ficha('M');
+    Ficha1->setX(90);
+    Ficha1->setY(45);
+    scene->addItem(Ficha1);
 
     return a.exec();
 }

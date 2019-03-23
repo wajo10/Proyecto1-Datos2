@@ -6,6 +6,8 @@ class Tablero
 {
 public:
     Tablero();
+
+
 };
 
 #endif // TABLERO_H

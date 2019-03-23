@@ -1,14 +1,16 @@
 #include "ficha.h"
 #include <iostream>
 #include <stdlib.h>
-#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
 
 
+int* agregar(int,int);
 ficha::ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
 
 }
 ficha::ficha(char letra){
+//Casos para cada letra
     switch (letra) {
         case('A'):setPixmap(QPixmap(":/images/A.jpg"));break;
         case('B'):setPixmap(QPixmap(":/images/B.jpg"));break;
@@ -38,7 +40,36 @@ ficha::ficha(char letra){
         case('Z'):setPixmap(QPixmap(":/images/Z.jpg"));break;
 };
 }
-void ficha::keyPressEvent(QKeyEvent *event){
-    this->setX(this->x()+5);
+//Deteccion
+void ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
+    this->setX(ev->scenePos().x());
+    this->setY(ev->scenePos().y());
+}
+
+ void ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+     xInicial = (int)this->x();
+     yInicial = (int)this->y();
+
+}
+
+void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+
+    int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
+    this->fila = *(posicion);
+    this->columna = *(posicion+1);
+    this->setX((fila+1)*44);
+    this->setY((columna+1)*44);
+    qDebug()<<fila;
+
+}
+ int* ficha:: agregar(int x, int y){
+    int posicion[2];
+    int inicial = 44;
+    int* posicionPtr = posicion;
+    posicion[0] = (x-inicial)/44;
+    posicion[1] = (y-inicial)/44;
+    return posicionPtr;
 
 }

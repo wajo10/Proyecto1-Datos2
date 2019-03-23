@@ -7,18 +7,4 @@ pantalla::pantalla(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent
 
 
 };
-void pantalla::mouseMoveEvent(QMouseEvent *ev){
-    this->x = ev->x();
-    this->y = ev->y();
-    emit Mouse_Pos();
-}
 
-void pantalla::mousePressEvent(QMouseEvent *ev)
-{
-    emit Mouse_Pressed();
-}
-
-void pantalla::leaveEvent(QEvent *)
-{
-    emit Mouse_Left();
-}
