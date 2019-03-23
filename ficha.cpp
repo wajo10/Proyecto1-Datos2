@@ -59,14 +59,14 @@ void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
     this->fila = *(posicion);
     this->columna = *(posicion+1);
-    this->setX((fila+1)*44);
-    this->setY((columna+1)*44);
+    this->setX((fila*43.65)+43.513);
+    this->setY((columna*43.65)+43);
     qDebug()<<fila;
 
 }
  int* ficha:: agregar(int x, int y){
     int posicion[2];
-    int inicial = 44;
+    int inicial = 44.78;
     int* posicionPtr = posicion;
     posicion[0] = (x-inicial)/44;
     posicion[1] = (y-inicial)/44;
