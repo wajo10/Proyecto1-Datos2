@@ -2,6 +2,9 @@
 #include "tablero_servidor.h"
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <QDebug>
+#include <qfile.h>
 using namespace std;
 
 Tablero_Servidor::Tablero_Servidor()
@@ -73,6 +76,7 @@ LinkedList* Tablero_Servidor::LeerPalabras()
     if(tam==1){
         L=CasoUnaFicha();
         ValidarPalabras(L);
+        PuntajeFichas();
         return L;
     }
 
@@ -91,6 +95,7 @@ LinkedList* Tablero_Servidor::LeerPalabras()
     L->Add(stmp);
     AgregarPerpendiculares(L);
     ValidarPalabras(L);
+    PuntajeFichas();
     return L;
 }
 /**
@@ -206,16 +211,16 @@ void Tablero_Servidor::Desempaquetar(LinkedList *L)
         this->LetrasJugadas[k]='.';
     }
 
-    this->LetrasJugadas[0]='b';
-    this->FilasJugadas[0]=1;
-    this->ColumnasJugadas[0]=3;
+    this->LetrasJugadas[0]='x';
+    this->FilasJugadas[0]=2;
+    this->ColumnasJugadas[0]=6;
 
-    this->LetrasJugadas[1]='g';
-    this->FilasJugadas[1]=1;
-    this->ColumnasJugadas[1]=4;
+    this->LetrasJugadas[1]='q';
+    this->FilasJugadas[1]=3;
+    this->ColumnasJugadas[1]=6;
 
     this->tam=2;
-    this->VaHorizontal=true;
+    this->VaHorizontal=false;
 }
 /**
  * @brief Tablero_Servidor::SumaParcial suma elementos desde a hasta a+t
@@ -262,10 +267,23 @@ bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
  */
 bool Tablero_Servidor::Validar(string *s)
 {
-    if (1){
-        return true;
+    QFile file(":/txt/txt/words_alpha.txt");
+    if(!file.exists()){
+        qDebug() <<"No abre el diccionario xd";
+        return false;
     }
     else{
+        file.open(QFile::ReadOnly);
+        QString line;
+        QTextStream stream(&file);
+        while (!stream.atEnd()){
+            line = stream.readLine();
+            if(*s==line.toUtf8().constData()){
+                return true;
+            }
+        }
+        file.flush();
+        file.close();
         return false;
     }
 }
@@ -310,6 +328,33 @@ LinkedList *Tablero_Servidor::CasoUnaFicha()
         L->Add(stmp);
     }
     return L;
+}
+/**
+ * @brief Tablero_Servidor::PuntajeFichas Obtiene el puntaje por cada ficha jugada basado en su letra y su posció el tablero
+ * @return puntos totales por el turno
+ */
+int Tablero_Servidor::PuntajeFichas()
+{
+    int p=0;
+    bool doble=false;
+    char letra;
+    int fila;
+    int columna;
+    int puntos;
+    for (int i=0;i<tam;i++){
+        letra=LetrasJugadas[i];
+        fila=FilasJugadas[i];
+        columna=ColumnasJugadas[i];
+        puntos=Ficha::Puntos(letra);
+        if (this->PosEspeciales[fila][columna]==2) doble=true;
+        else if (this->PosEspeciales[fila][columna]==1) puntos*=2;
+        p+=puntos;
+        printf("Puntos (%c)=%d\n",letra,puntos);
+    }
+
+    if (doble) p*=2;
+    cout<<"Puntaje final: "<<p<<endl;
+    return p;
 }
 
 

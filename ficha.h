@@ -10,6 +10,7 @@ private:
     int Columna;
     int Valor;
 public:
+    static int Puntos(char letra);
     Ficha(char letra);
     Ficha(int Fila,int Columna,char letra);
     char getLetra() const;

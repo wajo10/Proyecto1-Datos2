@@ -36,6 +36,7 @@ public:
     bool Validar(string* s);
     void Limpiar();
     LinkedList* CasoUnaFicha();
+    int PuntajeFichas();
 };
 
 #endif // TABLERO_SERVIDOR_H

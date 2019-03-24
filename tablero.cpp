@@ -238,7 +238,6 @@ int Tablero::PuntajePorFicha(Ficha* F)
     if(this->PosEspeciales[fila][columna]==1){
         Puntos*=2;
     }
-    //cout<<"Ficha: "<<F->getLetra()<<"="<<Puntos<<endl;
     return Puntos;
 }
 
