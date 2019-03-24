@@ -3,7 +3,7 @@
 
 
 pantalla::pantalla(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
-   setPixmap(QPixmap(":/images/Tablero.jpg"));
+   setPixmap(QPixmap(":/images/Hud.png"));
 
 
 };

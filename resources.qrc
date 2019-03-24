@@ -27,6 +27,7 @@
         <file>X.jpg</file>
         <file>Y.jpg</file>
         <file>Z.jpg</file>
+        <file>Hud.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

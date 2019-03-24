@@ -6,7 +6,9 @@
 #include <QGraphicsScene>
 #include <QMouseEvent>
 #include <QDebug>
+#include "linkedlist.h"
 
+class linkedlist;
 class ficha: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -17,6 +19,9 @@ public:
     int yInicial, xInicial, fila, columna;
     int *agregar(int x, int y);
     int inicial = 44;//Espacio antes de las celdas
+    LinkedList *listaTablero;
+    LinkedList *listaJugar;
+    bool validar(int,int);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

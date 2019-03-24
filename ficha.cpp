@@ -4,6 +4,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 
+
 int* agregar(int,int);
 ficha::ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
@@ -11,6 +12,9 @@ ficha::ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 }
 ficha::ficha(char letra){
 //Casos para cada letra
+   listaTablero = new LinkedList();
+   listaJugar = new LinkedList();
+
     this->letra = letra;
     switch (letra) {
         case('A'):setPixmap(QPixmap(":/images/A.jpg"));break;
@@ -39,12 +43,13 @@ ficha::ficha(char letra){
         case('X'):setPixmap(QPixmap(":/images/X.jpg"));break;
         case('Y'):setPixmap(QPixmap(":/images/Y.jpg"));break;
         case('Z'):setPixmap(QPixmap(":/images/Z.jpg"));break;
+
 };
 }
 //Deteccion
 void ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
-    this->setX(ev->scenePos().x());
-    this->setY(ev->scenePos().y());
+    this->setX(ev->scenePos().x()-22);
+    this->setY(ev->scenePos().y()-22);
 }
 
  void ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -54,16 +59,19 @@ void ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
 
 }
 
-void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
 {
 
     int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
     this->fila = *(posicion);
     this->columna = *(posicion+1);
     qDebug()<<this->fila;
-    if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0){
-        this->setX((fila*43.65)+43.513);
-        this->setY((columna*43.65)+43);
+    if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0){ //&& validar(fila,columna)){
+        this->setX((fila*43.65)+41.513);
+        this->setY((columna*43.65)+44);
+        listaTablero->Add(this);
+        ficha *fichaE = (ficha*) (listaTablero->getFirst()->getData());
+        qDebug()<<fichaE->letra;
 
     }
     else{
@@ -83,3 +91,26 @@ void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     return posicionPtr;
 
 }
+ bool ficha:: validar(int f, int c){
+    Node *iterator = listaTablero->getFirst();
+    if (iterator == nullptr){
+        return false;
+    }
+    else{
+        ficha* ficha5 = (ficha*) iterator->getData();
+        while(iterator->getNext()!=nullptr ){
+            ficha *aux = (ficha*) iterator->getData();
+            if (aux->fila == f & aux->columna == c){
+
+                return true;
+                break;
+            }
+            else{
+                iterator = iterator->getNext();
+            }
+
+        }
+
+    }
+    return false;
+ }
