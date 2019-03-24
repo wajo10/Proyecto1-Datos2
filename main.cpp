@@ -45,6 +45,12 @@ int main(int argc, char *argv[])
     ficha1->setY(237);
     scene->addItem(ficha1);
 
+    //Tercera Ficha
+    Ficha * ficha2 = new Ficha('a');
+    ficha2->setX(920);
+    ficha2->setY(237);
+    scene->addItem(ficha2);
+
     //Boton
     botones *Boton = new botones();
     Boton->setX(1000);

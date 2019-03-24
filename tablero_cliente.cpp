@@ -13,7 +13,7 @@ Tablero_Cliente::Tablero_Cliente()
  * @param fila eje Y
  * @param columna eje X
  */
-void Tablero_Cliente::JugarFicha(Ficha* F,int fila, int columna)
+bool Tablero_Cliente::JugarFicha(Ficha* F,int fila, int columna)
 {
     if (VerificarPos(fila,columna) && VerificarSentido(fila,columna)){
         this->FichasColocadas[fila][columna]=1;
@@ -21,9 +21,11 @@ void Tablero_Cliente::JugarFicha(Ficha* F,int fila, int columna)
         F->setColumna(columna);
         this->FichasJugadas->Add(F);
         cout<<"Se acepta la ficha: "<<fila<<","<<columna<<endl;
+        return true;
     }
     else{
         cout<<"Se niega la ficha: "<<fila<<","<<columna<<endl;
+        return false;
     }
 }
 
@@ -67,7 +69,7 @@ LinkedList* Tablero_Cliente::ResumenFichas()
         filas[i]=F->getFila();
         columnas[i]=F->getColumna();
         letras[i]=F->getLetra();
-        printf("%c(%d%d), ",letras[i],filas[i],columnas[i]);
+        printf("%c(%d,%d), ",letras[i],filas[i],columnas[i]);
         i++;
         tmp=tmp->getNext();
     }
@@ -158,3 +160,9 @@ void Tablero_Cliente::print()
         cout<<endl;
     }
 }
+
+LinkedList Tablero_Cliente::getFichasJugadas()
+{
+    return *FichasJugadas;
+}
+

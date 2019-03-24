@@ -9,5 +9,5 @@ botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Tablero_Cliente::getInstance().print();
+    Tablero_Cliente::getInstance().ResumenFichas();
 }

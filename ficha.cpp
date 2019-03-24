@@ -145,23 +145,34 @@ Ficha::Ficha(int Fila,int Columna,char letra)
 
 void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
 {
+    if (flagMove){
+        int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
+        this->columna = *(posicion);
+        this->fila = *(posicion+1);
+        int cantidadFichas = Tablero_Cliente::getInstance().getFichasJugadas().getT();
+        if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0 &&
+                (cantidadFichas > 0 || (this->fila ==7 && this->columna ==7) )){
+            if (Tablero_Cliente::getInstance().JugarFicha(this,this->fila,this->columna)){
+                this->setX((columna*43.65)+41.513);
+                this->setY((fila*43.65)+44);
+                flagMove = false;
+                }
+            else{
+                this->setX(xInicial);
+                this->setY(yInicial);
 
-    int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
-    this->columna = *(posicion);
-    this->fila = *(posicion+1);
-    qDebug()<<this->fila;
-    if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0 && flagMove){
-        this->setX((columna*43.65)+41.513);
-        this->setY((fila*43.65)+44);
-        flagMove = false;
-        Tablero_Cliente::getInstance().JugarFicha(this,this->fila,this->columna);
+            }
 
+        }
+        else{
+            qDebug()<<"In";
+            this->setX(xInicial);
+            this->setY(yInicial);
+        }
 
     }
     else{
 
-        this->setX(xInicial);
-        this->setY(yInicial);
     }
 
 

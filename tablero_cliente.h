@@ -15,12 +15,13 @@ private:
     int referencia;
 public:
     Tablero_Cliente();
-    void JugarFicha(Ficha* F,int fila, int columna);
+    bool JugarFicha(Ficha* F,int fila, int columna);
     bool VerificarPos(int fila, int columna);
     LinkedList* ResumenFichas();
     bool VerificarSentido(int fila,int columna);
     void RemoverFichas();
     void print();
+    LinkedList getFichasJugadas();
     static Tablero_Cliente& getInstance(){
         static Tablero_Cliente instance;
         return instance;
