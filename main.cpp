@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
     T2->ColocarFichaManual('d',1,2);
     T2->ColocarFichaManual('e',1,5);
     T2->ColocarFichas();
-    T2->Leer();
     T2->print();
 
 

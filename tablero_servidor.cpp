@@ -45,10 +45,12 @@ void Tablero_Servidor::ColocarFichas()
         int c=ColumnasJugadas[i];
         this->FichasColocadas[f][c]=LetrasJugadas[i];
         if (VaHorizontal){
-            if(menor>c) menor=c;
+            ref=f;
             det+=c;
+            if(menor>c) menor=c;
         }
         else{
+            ref=c;
             det+=f;
             if(menor>f) menor=f;
         }
@@ -56,7 +58,20 @@ void Tablero_Servidor::ColocarFichas()
     if (det!=SumaParcial(menor,tam)){
         cout<<"Fragmentación"<<endl;
     }
-    MenorDesdeTablero();
+
+    cout<<"Menor: "<<menor<<endl;
+    cout<<"Ref: "<<ref<<endl;
+
+    if (VaHorizontal){
+         menor= MenorDesdeTablero(VaHorizontal,ref,menor);
+         Leer(VaHorizontal,ref,menor);
+    }
+    else{
+        menor= MenorDesdeTablero(VaHorizontal,menor,ref);
+        Leer(VaHorizontal,menor,ref);
+    }
+
+
 
 }
 /**
@@ -73,59 +88,59 @@ void Tablero_Servidor::ColocarFichaManual(char letra, int fila, int columna)
  * @brief Tablero_Servidor::MenorDesdeTablero Con la menor posición de las fichas jugadas
  * busca si hay una menor conectada a en la palabra
  */
-void Tablero_Servidor::MenorDesdeTablero()
+int Tablero_Servidor::MenorDesdeTablero(bool VaHorizontal,int fila, int columna)
 {
+
     char tmp;
-    if (menor==0){
-        if (VaHorizontal)ref=FilasJugadas[0];
-        else ref=ColumnasJugadas[0];
-    }
-    else if(VaHorizontal){
-        ref=FilasJugadas[0];
-        tmp=this->FichasColocadas[ref][menor-1];
-        while (tmp!='.' && menor!=0){
-            menor--;
-            tmp=this->FichasColocadas[ref][menor-1];
+
+    if(VaHorizontal){
+        if (columna==0) return 0;
+        fila=FilasJugadas[0];
+        tmp=this->FichasColocadas[fila][columna-1];
+        while (tmp!='.' && columna!=0){
+            columna--;
+            tmp=this->FichasColocadas[fila][columna-1];
         }
+        return columna;
     }
     else{
-        ref=ColumnasJugadas[0];
-        tmp=this->FichasColocadas[menor-1][ref];
-        while (tmp!='.' && menor!=0){
-            menor--;
-            tmp=this->FichasColocadas[menor-1][ref];
+        if (fila==0) return 0;
+        columna=ColumnasJugadas[0];
+        tmp=this->FichasColocadas[menor-1][fila];
+        while (tmp!='.' && fila!=0){
+            fila--;
+            tmp=this->FichasColocadas[fila-1][columna];
         }
+        return fila;
     }
-    cout<<"Menor: "<<menor<<endl;
-    cout<<"Ref: "<<ref<<endl;
 
 }
 /**
  * @brief Tablero_Servidor::Leer Se encarga de leer a partir de una posicón en sentido horizontal o vertical
  * @return Palabra principal formada
  */
-LinkedList *Tablero_Servidor::Leer()
+LinkedList *Tablero_Servidor::Leer(bool VaHorizontal,int fila,int columna)
 {
     LinkedList* L=new LinkedList();
     char tmp;
     string palabra;
     if(VaHorizontal){
-        tmp=this->FichasColocadas[ref][menor];
+        tmp=this->FichasColocadas[fila][columna];
         while (tmp!='.' && menor!=14){
             palabra+=tmp;
-            menor++;
-            tmp=this->FichasColocadas[ref][menor];
+            columna++;
+            tmp=this->FichasColocadas[fila][columna];
         }
     }
     else{
-        tmp=this->FichasColocadas[menor][ref];
+        tmp=this->FichasColocadas[fila][columna];
         while (tmp!='.' && menor!=14){
             palabra+=tmp;
-            menor++;
-            tmp=this->FichasColocadas[menor][ref];
+            fila++;
+            tmp=this->FichasColocadas[fila][columna];
         }
     }
-    cout<<palabra<<endl;
+    cout<<"Palabra: "<<palabra<<endl;
     return L;
 }
 

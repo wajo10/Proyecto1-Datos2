@@ -23,8 +23,8 @@ public:
     Tablero_Servidor();
     void ColocarFichas();
     void ColocarFichaManual(char letra,int fila, int columna);
-    void MenorDesdeTablero();
-    LinkedList* Leer();
+    int MenorDesdeTablero(bool VaHorizontal,int fila, int columna);
+    LinkedList* Leer(bool VaHorizontal,int fila,int columna);
     void print();
     void Desempaquetar(LinkedList* L);
     int SumaParcial(int a,int t);
