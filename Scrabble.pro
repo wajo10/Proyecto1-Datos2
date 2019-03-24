@@ -32,9 +32,11 @@ SOURCES += \
     tablero.cpp \
     sala.cpp \
     ficha.cpp \
-    pantalla.cpp \
     linkedlist.cpp \
     node.cpp \
+    tablero_servidor.cpp \
+    tablero_cliente.cpp
+    pantalla.cpp \
     botones.cpp
 
 HEADERS += \
@@ -44,9 +46,11 @@ HEADERS += \
     tablero.h \
     sala.h \
     ficha.h \
-    pantalla.h \
     linkedlist.h \
     node.h \
+    tablero_servidor.h \
+    tablero_cliente.h
+    pantalla.h \
     botones.h
 
 FORMS += \
@@ -57,7 +61,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    resources.qrc
-
 DISTFILES +=
+
+RESOURCES += \
+    resource.qrc
