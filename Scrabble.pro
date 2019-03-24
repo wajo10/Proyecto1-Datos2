@@ -34,7 +34,8 @@ SOURCES += \
     ficha.cpp \
     pantalla.cpp \
     linkedlist.cpp \
-    node.cpp
+    node.cpp \
+    botones.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     ficha.h \
     pantalla.h \
     linkedlist.h \
-    node.h
+    node.h \
+    botones.h
 
 FORMS += \
         mainwindow.ui

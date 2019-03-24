@@ -12,8 +12,6 @@ ficha::ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 }
 ficha::ficha(char letra){
 //Casos para cada letra
-   listaTablero = new LinkedList();
-   listaJugar = new LinkedList();
 
     this->letra = letra;
     switch (letra) {
@@ -48,8 +46,11 @@ ficha::ficha(char letra){
 }
 //Deteccion
 void ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
-    this->setX(ev->scenePos().x()-22);
-    this->setY(ev->scenePos().y()-22);
+    if (flagMove){
+        this->setX(ev->scenePos().x()-22);
+        this->setY(ev->scenePos().y()-22);
+    }
+
 }
 
  void ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -66,12 +67,11 @@ void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
     this->fila = *(posicion);
     this->columna = *(posicion+1);
     qDebug()<<this->fila;
-    if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0){ //&& validar(fila,columna)){
+    if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0 && flagMove){
         this->setX((fila*43.65)+41.513);
         this->setY((columna*43.65)+44);
-        listaTablero->Add(this);
-        ficha *fichaE = (ficha*) (listaTablero->getFirst()->getData());
-        qDebug()<<fichaE->letra;
+        flagMove = false;
+
 
     }
     else{
@@ -91,26 +91,4 @@ void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
     return posicionPtr;
 
 }
- bool ficha:: validar(int f, int c){
-    Node *iterator = listaTablero->getFirst();
-    if (iterator == nullptr){
-        return false;
-    }
-    else{
-        ficha* ficha5 = (ficha*) iterator->getData();
-        while(iterator->getNext()!=nullptr ){
-            ficha *aux = (ficha*) iterator->getData();
-            if (aux->fila == f & aux->columna == c){
 
-                return true;
-                break;
-            }
-            else{
-                iterator = iterator->getNext();
-            }
-
-        }
-
-    }
-    return false;
- }

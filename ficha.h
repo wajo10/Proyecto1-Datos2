@@ -19,12 +19,10 @@ public:
     int yInicial, xInicial, fila, columna;
     int *agregar(int x, int y);
     int inicial = 44;//Espacio antes de las celdas
-    LinkedList *listaTablero;
-    LinkedList *listaJugar;
-    bool validar(int,int);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    bool flagMove = true;
 };
 #endif // FICHA_H
