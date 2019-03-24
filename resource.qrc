@@ -2,4 +2,34 @@
     <qresource prefix="/txt">
         <file>txt/words_alpha.txt</file>
     </qresource>
+    <qresource prefix="/images">
+        <file>Hud.png</file>
+        <file>U.jpg</file>
+        <file>jugar.png</file>
+        <file>Z.jpg</file>
+        <file>Y.jpg</file>
+        <file>X.jpg</file>
+        <file>W.jpg</file>
+        <file>V.jpg</file>
+        <file>T.jpg</file>
+        <file>S.jpg</file>
+        <file>R.jpg</file>
+        <file>Q.jpg</file>
+        <file>P.jpg</file>
+        <file>O.jpg</file>
+        <file>N.jpg</file>
+        <file>M.jpg</file>
+        <file>L.jpg</file>
+        <file>K.jpg</file>
+        <file>J.jpg</file>
+        <file>I.jpg</file>
+        <file>H.jpg</file>
+        <file>G.jpg</file>
+        <file>F.jpg</file>
+        <file>E.jpg</file>
+        <file>B.jpg</file>
+        <file>A.jpg</file>
+        <file>C.jpg</file>
+        <file>D.jpg</file>
+    </qresource>
 </RCC>

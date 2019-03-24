@@ -23,4 +23,5 @@ void Node::setData(void *value)
 Node::Node(void* data)
 {
     this->data=data;
+    this->next=nullptr;
 }

@@ -2,52 +2,55 @@
 #include <map>
 #include <iostream>
 #include <stdlib.h>
+#include "tablero_cliente.h"
 #include <QGraphicsSceneMouseEvent>
 
-char Ficha::getLetra() const
+char Ficha::getLetra() const{
+    return letra;
+}
 
 
 int* agregar(int,int);
-ficha::ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
+Ficha::Ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
 
 }
-ficha::ficha(char letra){
+Ficha::Ficha(char letra){
 //Casos para cada letra
 
     this->letra = letra;
     switch (letra) {
-        case('A'):setPixmap(QPixmap(":/images/A.jpg"));break;
-        case('B'):setPixmap(QPixmap(":/images/B.jpg"));break;
-        case('C'):setPixmap(QPixmap(":/images/C.jpg"));break;
-        case('D'):setPixmap(QPixmap(":/images/D.jpg"));break;
-        case('E'):setPixmap(QPixmap(":/images/E.jpg"));break;
-        case('F'):setPixmap(QPixmap(":/images/F.jpg"));break;
-        case('G'):setPixmap(QPixmap(":/images/G.jpg"));break;
-        case('H'):setPixmap(QPixmap(":/images/H.jpg"));break;
-        case('I'):setPixmap(QPixmap(":/images/I.jpg"));break;
-        case('J'):setPixmap(QPixmap(":/images/J.jpg"));break;
-        case('K'):setPixmap(QPixmap(":/images/K.jpg"));break;
-        case('L'):setPixmap(QPixmap(":/images/L.jpg"));break;
-        case('M'):setPixmap(QPixmap(":/images/M.jpg"));break;
-        case('N'):setPixmap(QPixmap(":/images/N.jpg"));break;
-        case('O'):setPixmap(QPixmap(":/images/O.jpg"));break;
-        case('P'):setPixmap(QPixmap(":/images/P.jpg"));break;
-        case('Q'):setPixmap(QPixmap(":/images/Q.jpg"));break;
-        case('R'):setPixmap(QPixmap(":/images/R.jpg"));break;
-        case('S'):setPixmap(QPixmap(":/images/S.jpg"));break;
-        case('T'):setPixmap(QPixmap(":/images/T.jpg"));break;
-        case('U'):setPixmap(QPixmap(":/images/U.jpg"));break;
-        case('V'):setPixmap(QPixmap(":/images/V.jpg"));break;
-        case('W'):setPixmap(QPixmap(":/images/W.jpg"));break;
-        case('X'):setPixmap(QPixmap(":/images/X.jpg"));break;
-        case('Y'):setPixmap(QPixmap(":/images/Y.jpg"));break;
-        case('Z'):setPixmap(QPixmap(":/images/Z.jpg"));break;
+        case('a'):setPixmap(QPixmap(":/images/A.jpg"));break;
+        case('b'):setPixmap(QPixmap(":/images/B.jpg"));break;
+        case('c'):setPixmap(QPixmap(":/images/C.jpg"));break;
+        case('d'):setPixmap(QPixmap(":/images/D.jpg"));break;
+        case('e'):setPixmap(QPixmap(":/images/E.jpg"));break;
+        case('f'):setPixmap(QPixmap(":/images/F.jpg"));break;
+        case('g'):setPixmap(QPixmap(":/images/G.jpg"));break;
+        case('h'):setPixmap(QPixmap(":/images/H.jpg"));break;
+        case('i'):setPixmap(QPixmap(":/images/I.jpg"));break;
+        case('j'):setPixmap(QPixmap(":/images/J.jpg"));break;
+        case('k'):setPixmap(QPixmap(":/images/K.jpg"));break;
+        case('l'):setPixmap(QPixmap(":/images/L.jpg"));break;
+        case('m'):setPixmap(QPixmap(":/images/M.jpg"));break;
+        case('n'):setPixmap(QPixmap(":/images/N.jpg"));break;
+        case('o'):setPixmap(QPixmap(":/images/O.jpg"));break;
+        case('p'):setPixmap(QPixmap(":/images/P.jpg"));break;
+        case('q'):setPixmap(QPixmap(":/images/Q.jpg"));break;
+        case('r'):setPixmap(QPixmap(":/images/R.jpg"));break;
+        case('s'):setPixmap(QPixmap(":/images/S.jpg"));break;
+        case('t'):setPixmap(QPixmap(":/images/T.jpg"));break;
+        case('u'):setPixmap(QPixmap(":/images/U.jpg"));break;
+        case('v'):setPixmap(QPixmap(":/images/V.jpg"));break;
+        case('w'):setPixmap(QPixmap(":/images/W.jpg"));break;
+        case('x'):setPixmap(QPixmap(":/images/X.jpg"));break;
+        case('y'):setPixmap(QPixmap(":/images/Y.jpg"));break;
+        case('z'):setPixmap(QPixmap(":/images/Z.jpg"));break;
 
 };
 }
 //Deteccion
-void ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
+void Ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
     if (flagMove){
         this->setX(ev->scenePos().x()-22);
         this->setY(ev->scenePos().y()-22);
@@ -55,10 +58,6 @@ void ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
 
 }
 
- void ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-     xInicial = (int)this->x();
-     yInicial = (int)this->y();
 
 void Ficha::setLetra(char value)
 {
@@ -135,11 +134,6 @@ int Ficha::Puntos(char letra)
     return m[letra];
 }
 
-Ficha::Ficha(char letra)
-{
-    this->Valor=5;
-    this->letra=letra;
-}
 Ficha::Ficha(int Fila,int Columna,char letra)
 {
     this->Valor=5;
@@ -149,17 +143,18 @@ Ficha::Ficha(int Fila,int Columna,char letra)
 }
 
 
-void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
+void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
 {
 
     int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
-    this->fila = *(posicion);
-    this->columna = *(posicion+1);
+    this->columna = *(posicion);
+    this->fila = *(posicion+1);
     qDebug()<<this->fila;
     if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0 && flagMove){
-        this->setX((fila*43.65)+41.513);
-        this->setY((columna*43.65)+44);
+        this->setX((columna*43.65)+41.513);
+        this->setY((fila*43.65)+44);
         flagMove = false;
+        Tablero_Cliente::getInstance().JugarFicha(this,this->fila,this->columna);
 
 
     }
@@ -171,7 +166,14 @@ void ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
 
 
 }
- int* ficha:: agregar(int x, int y){
+
+void Ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    xInicial = (int)this->x();
+    yInicial = (int)this->y();
+}
+
+ int* Ficha:: agregar(int x, int y){
     int posicion[2];
     int inicial = 44;
     int* posicionPtr = posicion;

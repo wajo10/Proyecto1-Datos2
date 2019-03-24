@@ -21,6 +21,10 @@ public:
     bool VerificarSentido(int fila,int columna);
     void RemoverFichas();
     void print();
+    static Tablero_Cliente& getInstance(){
+        static Tablero_Cliente instance;
+        return instance;
+    }
 };
 
 #endif // TABLERO_CLIENTE_H

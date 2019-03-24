@@ -53,4 +53,5 @@ void LinkedList::Print()
 LinkedList::LinkedList()
 {
     this->t=0;
+    this->first=0;
 }

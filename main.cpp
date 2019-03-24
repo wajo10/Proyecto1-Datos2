@@ -13,26 +13,8 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[])
+
 {
-    Ficha* A1=new Ficha('a');
-    Ficha* A2=new Ficha('b');
-    Ficha* A3=new Ficha('c');
-    Tablero_Cliente* T=new Tablero_Cliente();
-    T->JugarFicha(A1,1,2);
-    T->JugarFicha(A2,1,3);
-    T->JugarFicha(A3,1,12);
-    LinkedList* L=T->ResumenFichas();
-    Tablero_Servidor* T2=new Tablero_Servidor();
-    T2->Desempaquetar(L);
-    T2->ColocarFichaManual('d',1,2);
-    //T2->ColocarFichaManual('e',1,4);
-    T2->ColocarFichaManual('f',2,4);
-    T2->LeerPalabras();
-    T2->print();
-
-
-
-
     QApplication a(argc, argv);
 
     //Crear scene
@@ -52,16 +34,16 @@ int main(int argc, char *argv[])
     scene->addItem(Pantalla);
 
     //Primera Ficha
-    ficha * Ficha = new ficha('M');
-    Ficha->setX(807);
-    Ficha->setY(237);
-    scene->addItem(Ficha);
+    Ficha * ficha = new Ficha('m');
+    ficha->setX(807);
+    ficha->setY(237);
+    scene->addItem(ficha);
 
     //Segunda Ficha
-    ficha * Ficha1 = new ficha('Z');
-    Ficha1->setX(862);
-    Ficha1->setY(237);
-    scene->addItem(Ficha1);
+    Ficha * ficha1 = new Ficha('z');
+    ficha1->setX(862);
+    ficha1->setY(237);
+    scene->addItem(ficha1);
 
     //Boton
     botones *Boton = new botones();
@@ -71,3 +53,4 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+

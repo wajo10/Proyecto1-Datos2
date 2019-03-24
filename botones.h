@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QGraphicsPixmapItem>
+#include "tablero_cliente.h"
 
 class botones: public QObject, public QGraphicsPixmapItem
 {

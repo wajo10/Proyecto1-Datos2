@@ -35,7 +35,7 @@ SOURCES += \
     linkedlist.cpp \
     node.cpp \
     tablero_servidor.cpp \
-    tablero_cliente.cpp
+    tablero_cliente.cpp \
     pantalla.cpp \
     botones.cpp
 
@@ -49,7 +49,7 @@ HEADERS += \
     linkedlist.h \
     node.h \
     tablero_servidor.h \
-    tablero_cliente.h
+    tablero_cliente.h \
     pantalla.h \
     botones.h
 
