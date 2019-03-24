@@ -34,6 +34,8 @@ public:
     int SumaParcial(int a,int t);
     bool ValidarPalabras(LinkedList* L);
     bool Validar(string* s);
+    void Limpiar();
+    LinkedList* CasoUnaFicha();
 };
 
 #endif // TABLERO_SERVIDOR_H

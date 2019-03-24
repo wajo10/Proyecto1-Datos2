@@ -63,13 +63,22 @@ void Tablero_Servidor::ColocarFichas()
     cout<<"Menor: "<<menor<<endl;
     cout<<"Ref: "<<ref<<endl;
 }
-
+/**
+ * @brief Tablero_Servidor::LeerPalabras Coloca y lee todas las palabras nuevas formadas
+ * @return una lista con las strings de las palabras formadas
+ */
 LinkedList* Tablero_Servidor::LeerPalabras()
 {
+    LinkedList* L;
+    if(tam==1){
+        L=CasoUnaFicha();
+        ValidarPalabras(L);
+        return L;
+    }
 
-    ColocarFichas();
-    LinkedList* L= new LinkedList();
+    L= new LinkedList();
     string* stmp;
+    ColocarFichas();
     if (VaHorizontal){
          menor= MenorDesdeTablero(VaHorizontal,ref,menor);
          stmp=Leer(VaHorizontal,ref,menor);
@@ -84,7 +93,10 @@ LinkedList* Tablero_Servidor::LeerPalabras()
     ValidarPalabras(L);
     return L;
 }
-
+/**
+ * @brief Tablero_Servidor::AgregarPerpendiculares Agrega a una lista palabras perpendiculares a la principal
+ * @param L lista dentro de la cual agregar
+ */
 void Tablero_Servidor::AgregarPerpendiculares(LinkedList *L)
 {
     int tmp;
@@ -102,7 +114,7 @@ void Tablero_Servidor::AgregarPerpendiculares(LinkedList *L)
             tmp=MenorDesdeTablero(true,fila,columna);
             stmp=Leer(true,fila,tmp);
         }
-        if (stmp->length()<2) return;
+        if (stmp->length()<2) continue;
         cout<<"Palabra perpendicular: "<<*stmp<<endl;
         L->Add(stmp);
     }
@@ -199,11 +211,11 @@ void Tablero_Servidor::Desempaquetar(LinkedList *L)
     this->ColumnasJugadas[0]=3;
 
     this->LetrasJugadas[1]='g';
-    this->FilasJugadas[1]=2;
-    this->ColumnasJugadas[1]=3;
+    this->FilasJugadas[1]=1;
+    this->ColumnasJugadas[1]=4;
 
     this->tam=2;
-    this->VaHorizontal=false;
+    this->VaHorizontal=true;
 }
 /**
  * @brief Tablero_Servidor::SumaParcial suma elementos desde a hasta a+t
@@ -220,7 +232,11 @@ int Tablero_Servidor::SumaParcial(int a, int t)
     }
     return b;
 }
-
+/**
+ * @brief Tablero_Servidor::ValidarPalabras método que valida una lista de string
+ * @param L lista de palabras
+ * @return true si todas pasan la validación
+ */
 bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
 {
     Node* tmp=L->getFirst();
@@ -229,13 +245,21 @@ bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
     while (tmp!=nullptr){
         s=(string*)tmp->getData();
         cout<<*s<<", ";
-        if (!Validar(s)) return false;
+        if (!Validar(s)) {
+            cout<<"-VALIDADCIÓN FALLA EN: "<<*s<<endl;
+            Limpiar();
+            return false;
+        }
         tmp=tmp->getNext();
     }
     cout<<"-VALIDADCIÓN EXITOSA"<<endl;
     return true;
 }
-
+/**
+ * @brief Tablero_Servidor::Validar valida una palabra según el diccionario inglés
+ * @param s palabra
+ * @return true si esta en el diccionario
+ */
 bool Tablero_Servidor::Validar(string *s)
 {
     if (1){
@@ -244,6 +268,48 @@ bool Tablero_Servidor::Validar(string *s)
     else{
         return false;
     }
+}
+/**
+ * @brief Tablero_Servidor::Limpiar En caso de que la validación falle se limpian las fichas jugadas
+ */
+void Tablero_Servidor::Limpiar()
+{
+    int fila;
+    int columna;
+    for (int i=0;i<tam;i++){
+        fila=FilasJugadas[i];
+        columna=ColumnasJugadas[i];
+        this->FichasColocadas[fila][columna]='.';
+    }
+}
+/**
+ * @brief Tablero_Servidor::CasoUnaFicha Método que abarca el caso de tener una sola ficha
+ * @return Lista con maxímo dos palabras resultantes
+ */
+LinkedList *Tablero_Servidor::CasoUnaFicha()
+{
+    string * stmp;
+    LinkedList* L=new LinkedList();
+
+    int fila=FilasJugadas[0];
+    int columna=ColumnasJugadas[0];
+    int tmp;
+    this->FichasColocadas[fila][columna]=LetrasJugadas[0];
+
+    tmp=MenorDesdeTablero(true,fila,columna);
+    stmp= Leer(true,fila,tmp);
+    if(stmp->length()>1){
+        cout<<"Palabra 1: "<<*stmp<<endl;
+        L->Add(stmp);
+    }
+
+    tmp=MenorDesdeTablero(false,fila,columna);
+    stmp=Leer(false,tmp,columna);
+    if(stmp->length()>1){
+        cout<<"Palabra 2: "<<*stmp<<endl;
+        L->Add(stmp);
+    }
+    return L;
 }
 
 
