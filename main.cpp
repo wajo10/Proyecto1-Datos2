@@ -21,8 +21,9 @@ int main(int argc, char *argv[])
     Tablero_Servidor* T2=new Tablero_Servidor();
     T2->Desempaquetar(L);
     T2->ColocarFichaManual('d',1,2);
-    T2->ColocarFichaManual('e',1,5);
-    T2->ColocarFichas();
+    //T2->ColocarFichaManual('e',1,4);
+    T2->ColocarFichaManual('f',2,4);
+    T2->LeerPalabras();
     T2->print();
 
 

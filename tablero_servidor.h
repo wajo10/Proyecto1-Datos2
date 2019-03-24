@@ -2,6 +2,8 @@
 #define TABLERO_SERVIDOR_H
 
 #include "linkedlist.h"
+#include <string>
+using namespace std;
 
 
 
@@ -22,12 +24,16 @@ private:
 public:
     Tablero_Servidor();
     void ColocarFichas();
+    LinkedList* LeerPalabras();
+    void AgregarPerpendiculares(LinkedList* L);
     void ColocarFichaManual(char letra,int fila, int columna);
     int MenorDesdeTablero(bool VaHorizontal,int fila, int columna);
-    LinkedList* Leer(bool VaHorizontal,int fila,int columna);
+    string* Leer(bool VaHorizontal,int fila,int columna);
     void print();
     void Desempaquetar(LinkedList* L);
     int SumaParcial(int a,int t);
+    bool ValidarPalabras(LinkedList* L);
+    bool Validar(string* s);
 };
 
 #endif // TABLERO_SERVIDOR_H

@@ -1,6 +1,7 @@
 #include "ficha.h"
 #include "tablero_servidor.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 Tablero_Servidor::Tablero_Servidor()
@@ -61,18 +62,50 @@ void Tablero_Servidor::ColocarFichas()
 
     cout<<"Menor: "<<menor<<endl;
     cout<<"Ref: "<<ref<<endl;
+}
 
+LinkedList* Tablero_Servidor::LeerPalabras()
+{
+
+    ColocarFichas();
+    LinkedList* L= new LinkedList();
+    string* stmp;
     if (VaHorizontal){
          menor= MenorDesdeTablero(VaHorizontal,ref,menor);
-         Leer(VaHorizontal,ref,menor);
+         stmp=Leer(VaHorizontal,ref,menor);
     }
     else{
         menor= MenorDesdeTablero(VaHorizontal,menor,ref);
-        Leer(VaHorizontal,menor,ref);
+        stmp=Leer(VaHorizontal,menor,ref);
     }
+    cout<<"Palabra principal: "<<*stmp<<endl;
+    L->Add(stmp);
+    AgregarPerpendiculares(L);
+    ValidarPalabras(L);
+    return L;
+}
 
-
-
+void Tablero_Servidor::AgregarPerpendiculares(LinkedList *L)
+{
+    int tmp;
+    int fila;
+    int columna;
+    string* stmp;
+    for (int i=0;i<tam;i++){
+        fila=FilasJugadas[i];
+        columna=ColumnasJugadas[i];
+        if(VaHorizontal){
+            tmp=MenorDesdeTablero(false,fila,columna);
+            stmp=Leer(false,tmp,columna);
+        }
+        else{
+            tmp=MenorDesdeTablero(true,fila,columna);
+            stmp=Leer(true,fila,tmp);
+        }
+        if (stmp->length()<2) return;
+        cout<<"Palabra perpendicular: "<<*stmp<<endl;
+        L->Add(stmp);
+    }
 }
 /**
  * @brief Tablero_Servidor::ColocarFichaManual Coloca fichas sin restricciones para pruebas
@@ -90,12 +123,9 @@ void Tablero_Servidor::ColocarFichaManual(char letra, int fila, int columna)
  */
 int Tablero_Servidor::MenorDesdeTablero(bool VaHorizontal,int fila, int columna)
 {
-
     char tmp;
-
     if(VaHorizontal){
         if (columna==0) return 0;
-        fila=FilasJugadas[0];
         tmp=this->FichasColocadas[fila][columna-1];
         while (tmp!='.' && columna!=0){
             columna--;
@@ -105,29 +135,26 @@ int Tablero_Servidor::MenorDesdeTablero(bool VaHorizontal,int fila, int columna)
     }
     else{
         if (fila==0) return 0;
-        columna=ColumnasJugadas[0];
-        tmp=this->FichasColocadas[menor-1][fila];
+        tmp=this->FichasColocadas[fila-1][columna];
         while (tmp!='.' && fila!=0){
             fila--;
             tmp=this->FichasColocadas[fila-1][columna];
         }
         return fila;
     }
-
 }
 /**
  * @brief Tablero_Servidor::Leer Se encarga de leer a partir de una posicón en sentido horizontal o vertical
  * @return Palabra principal formada
  */
-LinkedList *Tablero_Servidor::Leer(bool VaHorizontal,int fila,int columna)
+string* Tablero_Servidor::Leer(bool VaHorizontal,int fila,int columna)
 {
-    LinkedList* L=new LinkedList();
     char tmp;
-    string palabra;
+    string* palabra=new string("");
     if(VaHorizontal){
         tmp=this->FichasColocadas[fila][columna];
         while (tmp!='.' && menor!=14){
-            palabra+=tmp;
+            *palabra+=tmp;
             columna++;
             tmp=this->FichasColocadas[fila][columna];
         }
@@ -135,13 +162,12 @@ LinkedList *Tablero_Servidor::Leer(bool VaHorizontal,int fila,int columna)
     else{
         tmp=this->FichasColocadas[fila][columna];
         while (tmp!='.' && menor!=14){
-            palabra+=tmp;
+            *palabra+=tmp;
             fila++;
             tmp=this->FichasColocadas[fila][columna];
         }
     }
-    cout<<"Palabra: "<<palabra<<endl;
-    return L;
+    return palabra;
 }
 
 
@@ -173,11 +199,11 @@ void Tablero_Servidor::Desempaquetar(LinkedList *L)
     this->ColumnasJugadas[0]=3;
 
     this->LetrasJugadas[1]='g';
-    this->FilasJugadas[1]=1;
-    this->ColumnasJugadas[1]=4;
+    this->FilasJugadas[1]=2;
+    this->ColumnasJugadas[1]=3;
 
     this->tam=2;
-    this->VaHorizontal=true;
+    this->VaHorizontal=false;
 }
 /**
  * @brief Tablero_Servidor::SumaParcial suma elementos desde a hasta a+t
@@ -193,6 +219,31 @@ int Tablero_Servidor::SumaParcial(int a, int t)
         b+=a;
     }
     return b;
+}
+
+bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
+{
+    Node* tmp=L->getFirst();
+    string* s;
+    cout<<"VALIDANDO: ";
+    while (tmp!=nullptr){
+        s=(string*)tmp->getData();
+        cout<<*s<<", ";
+        if (!Validar(s)) return false;
+        tmp=tmp->getNext();
+    }
+    cout<<"-VALIDADCIÓN EXITOSA"<<endl;
+    return true;
+}
+
+bool Tablero_Servidor::Validar(string *s)
+{
+    if (1){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 
