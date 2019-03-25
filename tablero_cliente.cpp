@@ -76,6 +76,7 @@ string Tablero_Cliente::ResumenFichas()
         i++;
         tmp=tmp->getNext();
     }
+    cout<<endl;
 
     const char* json = "{\"tam\":0,"
                        "\"horizontal\":true,"

@@ -13,8 +13,8 @@ private:
 
     char FichasColocadas[15][15];
     char LetrasJugadas[7];
-    char FilasJugadas[7];
-    char ColumnasJugadas[7];
+    int FilasJugadas[7];
+    int ColumnasJugadas[7];
     bool VaHorizontal;
     int tam;
     int menor;
@@ -23,6 +23,10 @@ private:
     int PosEspeciales[15][15];
 public:
     Tablero_Servidor();
+    static Tablero_Servidor& getInstance(){
+        static Tablero_Servidor instance;
+        return instance;
+    }
     void ColocarFichas();
     LinkedList* LeerPalabras();
     void AgregarPerpendiculares(LinkedList* L);

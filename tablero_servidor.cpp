@@ -226,7 +226,6 @@ void Tablero_Servidor::Desempaquetar(string s)
     Writer<StringBuffer> writer(buffer);
     d.Accept(writer);
     cout << buffer.GetString() << endl;
-    cout<<LetrasJugadas[2]<<endl;
 }
 /**
  * @brief Tablero_Servidor::SumaParcial suma elementos desde a hasta a+t
