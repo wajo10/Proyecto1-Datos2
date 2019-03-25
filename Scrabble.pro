@@ -31,6 +31,7 @@ SOURCES += \
     jugador.cpp \
     tablero.cpp \
     sala.cpp \
+    bolsa.cpp
     ficha.cpp \
     linkedlist.cpp \
     node.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
     jugador.h \
     tablero.h \
     sala.h \
+    bolsa.h
     ficha.h \
     linkedlist.h \
     node.h \
