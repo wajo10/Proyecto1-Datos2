@@ -3,7 +3,8 @@
 
 #include "ficha.h"
 #include "linkedlist.h"
-
+#include <string>
+using namespace std;
 
 
 class Tablero_Cliente
@@ -17,11 +18,12 @@ public:
     Tablero_Cliente();
     bool JugarFicha(Ficha* F,int fila, int columna);
     bool VerificarPos(int fila, int columna);
-    LinkedList* ResumenFichas();
+    string ResumenFichas();
     bool VerificarSentido(int fila,int columna);
     void RemoverFichas();
     void print();
     LinkedList getFichasJugadas();
+
     static Tablero_Cliente& getInstance(){
         static Tablero_Cliente instance;
         return instance;

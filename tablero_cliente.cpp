@@ -1,7 +1,11 @@
 #include "ficha.h"
 #include "tablero_cliente.h"
 #include <iostream>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 using namespace std;
+using namespace rapidjson;
 
 Tablero_Cliente::Tablero_Cliente()
 {
@@ -49,17 +53,16 @@ bool Tablero_Cliente::VerificarPos(int fila, int columna)
  * @brief Tablero_Cliente::ResumenFichas Hace tres arrays: uno de letras, otro de filas y otro de columnas
  * @return una lista con los tres arrays para el servidor
  */
-LinkedList* Tablero_Cliente::ResumenFichas()
+string Tablero_Cliente::ResumenFichas()
 {
-    LinkedList* L=new LinkedList();
     int tam=this->FichasJugadas->getT();
     if (tam==0){
-        return L;
+        return "";
     }
 
-    int filas[tam];
-    int columnas[tam];
-    char letras[tam];
+    int filas[7];
+    int columnas[7];
+    char letras[7];
     cout<<"RESUMEN DE FICHAS DEL TURNO: ";
     int i=0;
     Node* tmp=this->FichasJugadas->getFirst();
@@ -73,12 +76,31 @@ LinkedList* Tablero_Cliente::ResumenFichas()
         i++;
         tmp=tmp->getNext();
     }
-    cout<<endl;
-    L->Add(&VaHorizontal);
-    L->Add(columnas);
-    L->Add(filas);
-    L->Add(letras);
-    return L;
+
+    const char* json = "{\"tam\":0,"
+                       "\"horizontal\":true,"
+                       "\"letras\":\"abcdefg\","
+                       "\"filas\":[0,0,0,0,0,0,0],"
+                       "\"columnas\":[0,0,0,0,0,0,0]}";
+
+    Document d;
+
+    d.Parse(json);
+    d["tam"].SetInt(tam);
+    d["horizontal"].SetBool(VaHorizontal);
+    string stmp;
+    for (int i=0;i<tam;i++){
+        stmp=d["letras"].GetString();
+        stmp[i]=letras[i];
+        d["letras"].SetString(stmp.c_str(),sizeof (char)*7);
+        d["filas"].GetArray()[i]=filas[i];
+        d["columnas"].GetArray()[i]=columnas[i];
+    }
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+    //cout << buffer.GetString() << endl;
+    return buffer.GetString();
 }
 
 /**

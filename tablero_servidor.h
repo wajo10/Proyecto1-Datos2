@@ -30,7 +30,7 @@ public:
     int MenorDesdeTablero(bool VaHorizontal,int fila, int columna);
     string* Leer(bool VaHorizontal,int fila,int columna);
     void print();
-    void Desempaquetar(LinkedList* L);
+    void Desempaquetar(string s);
     int SumaParcial(int a,int t);
     bool ValidarPalabras(LinkedList* L);
     bool Validar(string* s);
