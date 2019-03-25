@@ -5,6 +5,7 @@
 #include "pantalla.h"
 #include "ficha.h"
 #include "botones.h"
+#include "bolsa.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -19,6 +20,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
+    Bolsa *bolsa = new Bolsa();
+    int aux = 0;
+    char* ptrIniciales = bolsa->fichas_turno(7);
+    char array[7];
+    while (aux<7){
+        array[aux] = *(ptrIniciales+aux);
+        aux++;
+    }
+    aux = 0;
+
     //Crear scene
     QGraphicsScene * scene = new QGraphicsScene();
 
@@ -34,25 +45,16 @@ void MainWindow::on_pushButton_clicked()
     //Hud
     pantalla * Pantalla = new pantalla();
     scene->addItem(Pantalla);
-
-    //Primera Ficha
-    Ficha * ficha = new Ficha('m');
-    ficha->setX(807);
-    ficha->setY(237);
-    scene->addItem(ficha);
-
-    //Segunda Ficha
-    Ficha * ficha1 = new Ficha('z');
-    ficha1->setX(862);
-    ficha1->setY(237);
-    scene->addItem(ficha1);
-
-    //Tercera Ficha
-    Ficha * ficha2 = new Ficha('a');
-    ficha2->setX(920);
-    ficha2->setY(237);
-    scene->addItem(ficha2);
-
+    int xInicial = 807;
+    //Creacion de fichas
+    while(aux<7){
+        Ficha * ficha = new Ficha(array[aux]);
+        ficha->setX(xInicial);
+        ficha->setY(237);
+        scene->addItem(ficha);
+        aux++;
+        xInicial+=57;
+    }
     //Boton
     botones *Boton = new botones();
     Boton->setX(1000);

@@ -28,6 +28,7 @@ public:
         static Tablero_Cliente instance;
         return instance;
     }
+    void generar(int cantidad);
 };
 
 #endif // TABLERO_CLIENTE_H
