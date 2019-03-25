@@ -3,16 +3,22 @@
 class Bolsa
 {
 private:
+int cantidad_total=100;
  char* letras="abcdefghijklmnopqrstuvwxyz ";
- //
-//0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
- int cantidad[27] = { 9,2,2,4,12,2,3,2,9,2,2,7,6,13,15,4,2,13,10,15,7,3,4,2,4,2,2};
+//                  a b c d  e f g h i j k l m n o p q r s t u v w x y z _
+ int cantidad[27] = {9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1,2};
 public:
   Bolsa();
- char agarrar_ficha();
- int prueba();
- bool revisar_cantidad();
- void poner_cero();
+char agarrar_ficha_aux(int valor);
+char agarrar_ficha();
+char prueba(int r);
+bool revisar_cantidad();
+void poner_cero();
+int contar_cantidad();
+
+ int getCantidad_total() const;
+ void setCantidad_total(int value);
+ char* fichas_turno(int numero_de_fichas);
 };
 
 #endif // BOLSA_H

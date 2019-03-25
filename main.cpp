@@ -6,11 +6,16 @@
 using namespace std;
 int main(int argc, char *argv[])
 {
+    int valor=0;
     Bolsa* prueba1= new Bolsa();
-    cout<< "la ficha que se agarro fue "<< prueba1->agarrar_ficha()<< "la ficha que se agarro fue "<< prueba1->agarrar_ficha()<<endl;
-    prueba1->poner_cero();
+    //cout<<"hola"<< prueba1->contar_cantidad()<<endl;
+   //cout<< prueba1->agarrar_ficha()<<endl;
+    char* ptr=prueba1->fichas_turno(6);
 
-     cout<< "valor "<< prueba1->revisar_cantidad()<<endl;
+    //cout<< *ptr+2<<endl;
+    //cout<< *ptr+3<<endl;
+    //cout<< *ptr+4<<endl;
+   //cout<< valor<<" "<<"fichas"<<endl;
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
