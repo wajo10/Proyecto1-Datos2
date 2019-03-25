@@ -21,14 +21,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     Bolsa *bolsa = new Bolsa();
-    int aux = 0;
-    char* ptrIniciales = bolsa->fichas_turno(7);
+    string ptrIniciales = bolsa->fichas_turno(7);
     char array[7];
-    while (aux<7){
-        array[aux] = *(ptrIniciales+aux);
-        aux++;
-    }
-    aux = 0;
+
 
     //Crear scene
     QGraphicsScene * scene = new QGraphicsScene();
@@ -47,14 +42,15 @@ void MainWindow::on_pushButton_clicked()
     scene->addItem(Pantalla);
     int xInicial = 807;
     //Creacion de fichas
-    while(aux<7){
-        Ficha * ficha = new Ficha(array[aux]);
+    for (int i=0;i<7;i++){
+        array[i] = ptrIniciales[i];
+        Ficha * ficha = new Ficha(array[i]);
         ficha->setX(xInicial);
         ficha->setY(237);
         scene->addItem(ficha);
-        aux++;
         xInicial+=57;
     }
+
     //Boton
     botones *Boton = new botones();
     Boton->setX(1000);

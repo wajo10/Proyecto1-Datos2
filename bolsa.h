@@ -1,5 +1,7 @@
 #ifndef BOLSA_H
 #define BOLSA_H
+#include <string>
+using namespace std;
 class Bolsa
 {
 private:
@@ -18,7 +20,7 @@ int contar_cantidad();
 
  int getCantidad_total() const;
  void setCantidad_total(int value);
- char* fichas_turno(int numero_de_fichas);
+ string fichas_turno(int numero_de_fichas);
 };
 
 #endif // BOLSA_H
