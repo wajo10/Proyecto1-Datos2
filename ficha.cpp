@@ -150,8 +150,10 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
         this->columna = *(posicion);
         this->fila = *(posicion+1);
         int cantidadFichas = Tablero_Cliente::getInstance().getFichasJugadas().getT();
+        //Si esta dentro el tablero, y la primera se pone en el centro
         if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0 &&
                 (cantidadFichas > 0 || (this->fila ==7 && this->columna ==7) )){
+            //Valida la ficha
             if (Tablero_Cliente::getInstance().JugarFicha(this,this->fila,this->columna)){
                 this->setX((columna*43.65)+41.513);
                 this->setY((fila*43.65)+44);
