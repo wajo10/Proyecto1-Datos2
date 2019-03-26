@@ -168,6 +168,9 @@ void Tablero_Cliente::RemoverFichas()
         fila=F->getFila();
         columna=F->getColumna();
         this->FichasColocadas[fila][columna]=0;
+        F->setX(F->xInicial);
+        F->setY(F->yInicial);
+        F->flagMove =true;
         tmp=tmp->getNext();
     }
     delete(this->FichasJugadas);

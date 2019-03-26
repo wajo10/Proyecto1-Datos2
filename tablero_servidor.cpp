@@ -80,7 +80,6 @@ LinkedList* Tablero_Servidor::LeerPalabras()
     if(tam==1){
         L=CasoUnaFicha();
         ValidarPalabras(L);
-        PuntajeFichas();
         return L;
     }
 
@@ -99,7 +98,6 @@ LinkedList* Tablero_Servidor::LeerPalabras()
     L->Add(stmp);
     AgregarPerpendiculares(L);
     ValidarPalabras(L);
-    PuntajeFichas();
     return L;
 }
 /**
@@ -263,6 +261,7 @@ bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
         tmp=tmp->getNext();
     }
     cout<<"-VALIDADCIÓN EXITOSA"<<endl;
+    PuntajeFichas();
     return true;
 }
 /**

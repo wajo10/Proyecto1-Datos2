@@ -31,12 +31,12 @@ public:
     void setColumna(int value);
     int getValor() const;
     void setValor(int value);
+    bool flagMove = true;
     static int Puntos(char letra);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    bool flagMove = true;
 
 
 };

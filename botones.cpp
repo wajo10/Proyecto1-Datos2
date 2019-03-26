@@ -1,5 +1,6 @@
 #include "botones.h"
 #include "tablero_servidor.h"
+#include "tablero_cliente.h"
 
 
 botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
@@ -13,5 +14,8 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     string s=Tablero_Cliente::getInstance().ResumenFichas();
     Tablero_Servidor::getInstance().Desempaquetar(s);
-    Tablero_Servidor::getInstance().LeerPalabras();
+    LinkedList *valid = Tablero_Servidor::getInstance().LeerPalabras();
+    if(!Tablero_Servidor::getInstance().ValidarPalabras(valid)){
+        Tablero_Cliente::getInstance().RemoverFichas();
+    }
 }

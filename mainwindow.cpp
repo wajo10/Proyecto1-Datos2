@@ -21,7 +21,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     Bolsa *bolsa = new Bolsa();
-    string ptrIniciales = bolsa->fichas_turno(7);
+    string Iniciales = bolsa->fichas_turno(7);
     char array[7];
 
 
@@ -43,7 +43,7 @@ void MainWindow::on_pushButton_clicked()
     int xInicial = 807;
     //Creacion de fichas
     for (int i=0;i<7;i++){
-        array[i] = ptrIniciales[i];
+        array[i] = Iniciales[i];
         Ficha * ficha = new Ficha(array[i]);
         ficha->setX(xInicial);
         ficha->setY(237);
