@@ -47,6 +47,7 @@ Tablero_Servidor::Tablero_Servidor()
 void Tablero_Servidor::ColocarFichas()
 {
     menor=15;
+    mayor=0;
     int det=0;
     for(int i=0;i<tam;i++){
         int f=FilasJugadas[i];
@@ -56,25 +57,25 @@ void Tablero_Servidor::ColocarFichas()
             ref=f;
             det+=c;
             if(menor>c) menor=c;
+            if(c>mayor) mayor=c;
         }
         else{
             ref=c;
             det+=f;
             if(menor>f) menor=f;
+            if(f>mayor) mayor=f;
         }
-    }
-    if (det!=SumaParcial(menor,tam)){
-        cout<<"Fragmentación"<<endl;
     }
 
     cout<<"Menor: "<<menor<<endl;
+    cout<<"Mayor: "<<mayor<<endl;
     cout<<"Ref: "<<ref<<endl;
 }
 /**
  * @brief Tablero_Servidor::LeerPalabras Coloca y lee todas las palabras nuevas formadas
  * @return una lista con las strings de las palabras formadas
  */
-LinkedList* Tablero_Servidor::LeerPalabras()
+bool Tablero_Servidor::LeerPalabras()
 {
     LinkedList* L;
     if(tam==1){
@@ -86,6 +87,7 @@ LinkedList* Tablero_Servidor::LeerPalabras()
     L= new LinkedList();
     string* stmp;
     ColocarFichas();
+    int dif=menor;
     if (VaHorizontal){
          menor= MenorDesdeTablero(VaHorizontal,ref,menor);
          stmp=Leer(VaHorizontal,ref,menor);
@@ -94,11 +96,20 @@ LinkedList* Tablero_Servidor::LeerPalabras()
         menor= MenorDesdeTablero(VaHorizontal,menor,ref);
         stmp=Leer(VaHorizontal,menor,ref);
     }
+
+    dif=dif-menor;
+    if ((*stmp).length()!=mayor-menor+1){
+        cout<<"Fragmentación, las fichas colocadas no se conectan"<<endl;
+    }
+
+    if ((*stmp).length()==tam){
+        cout<<"La palabra no conecta con otras "<<*stmp<<endl;
+    }
+
     cout<<"Palabra principal: "<<*stmp<<endl;
     L->Add(stmp);
     AgregarPerpendiculares(L);
-    ValidarPalabras(L);
-    return L;
+    return ValidarPalabras(L);
 }
 /**
  * @brief Tablero_Servidor::AgregarPerpendiculares Agrega a una lista palabras perpendiculares a la principal
@@ -170,11 +181,13 @@ string* Tablero_Servidor::Leer(bool VaHorizontal,int fila,int columna)
 {
     char tmp;
     string* palabra=new string("");
+    int i=0;
     if(VaHorizontal){
         tmp=this->FichasColocadas[fila][columna];
         while (tmp!='.' && menor!=14){
             *palabra+=tmp;
             columna++;
+            i++;
             tmp=this->FichasColocadas[fila][columna];
         }
     }
@@ -183,6 +196,7 @@ string* Tablero_Servidor::Leer(bool VaHorizontal,int fila,int columna)
         while (tmp!='.' && menor!=14){
             *palabra+=tmp;
             fila++;
+            i++;
             tmp=this->FichasColocadas[fila][columna];
         }
     }

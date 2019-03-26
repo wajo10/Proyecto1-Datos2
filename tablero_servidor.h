@@ -18,6 +18,7 @@ private:
     bool VaHorizontal;
     int tam;
     int menor;
+    int mayor;
     int ref;
     LinkedList* ListaPalabras;
     int PosEspeciales[15][15];
@@ -28,7 +29,7 @@ public:
         return instance;
     }
     void ColocarFichas();
-    LinkedList* LeerPalabras();
+    bool LeerPalabras();
     void AgregarPerpendiculares(LinkedList* L);
     void ColocarFichaManual(char letra,int fila, int columna);
     int MenorDesdeTablero(bool VaHorizontal,int fila, int columna);

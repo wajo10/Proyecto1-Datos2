@@ -14,6 +14,7 @@ private:
     bool VaHorizontal;
     LinkedList* FichasJugadas;
     int referencia;
+    int menor;
 public:
     Tablero_Cliente();
     bool JugarFicha(Ficha* F,int fila, int columna);
