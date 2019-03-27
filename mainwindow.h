@@ -1,5 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+using namespace std;
+
 
 #include <QMainWindow>
 
@@ -12,6 +17,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    static MainWindow & getInstance(){
+        static MainWindow instance;
+        return instance;
+    }
+    void request(string,int);
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

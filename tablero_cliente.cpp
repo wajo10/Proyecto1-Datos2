@@ -163,6 +163,7 @@ void Tablero_Cliente::RemoverFichas()
     Ficha* F;
     int fila;
     int columna;
+    int i = 0;
     while (tmp!=nullptr){
         F=(Ficha*)tmp->getData();
         fila=F->getFila();
@@ -171,7 +172,12 @@ void Tablero_Cliente::RemoverFichas()
         F->setX(F->xInicial);
         F->setY(F->yInicial);
         F->flagMove =true;
+        if(*(F->ptrPosicionUnplayed + i)==0){
+            *(F->ptrPosicionUnplayed + i)=1;
+             F->posInicial = i;
+            }
         tmp=tmp->getNext();
+        i++;
     }
     delete(this->FichasJugadas);
     this->FichasJugadas=new LinkedList();

@@ -18,4 +18,8 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(!Tablero_Servidor::getInstance().ValidarPalabras(valid)){
         Tablero_Cliente::getInstance().RemoverFichas();
     }
+    else{
+        int solicitar = Tablero_Cliente::getInstance().getFichasJugadas().getT();
+
+    }
 }

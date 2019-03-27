@@ -95,6 +95,7 @@ void Ficha::setValor(int value)
 }
 
 
+
 int Ficha::Puntos(char letra)
 {
     std::map<char, char> m;
@@ -134,6 +135,8 @@ int Ficha::Puntos(char letra)
     return m[letra];
 }
 
+
+
 Ficha::Ficha(int Fila,int Columna,char letra)
 {
     this->Valor=5;
@@ -141,7 +144,22 @@ Ficha::Ficha(int Fila,int Columna,char letra)
     this->Fila=Fila;
     this->Columna=Columna;
 }
+//Setea las posiciones ocupadas de las fichas no utilizadas
 
+void Ficha::setUnplayed()
+{   int contador= 0;
+    while(contador < 8){
+        if (this->posInicial==(contador)){
+            posiciones[contador]=1;
+        }
+        contador++;
+    }
+}
+
+void Ficha:: setPlayed(){
+    this->posiciones[this->posInicial]=0;
+    this->posInicial=-1;
+}
 
 void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
 {
@@ -157,6 +175,7 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
             if (Tablero_Cliente::getInstance().JugarFicha(this,this->fila,this->columna)){
                 this->setX((columna*43.65)+41.513);
                 this->setY((fila*43.65)+44);
+                this->posInicial=0;
                 flagMove = false;
                 }
             else{
@@ -182,8 +201,11 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
 
 void Ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    xInicial = (int)this->x();
-    yInicial = (int)this->y();
+    if (flagMove){
+       xInicial = (int)this->x();
+       yInicial = (int)this->y();
+    }
+
 }
 
  int* Ficha:: agregar(int x, int y){

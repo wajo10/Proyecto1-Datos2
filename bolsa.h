@@ -18,6 +18,11 @@ bool revisar_cantidad();
 void poner_cero();
 int contar_cantidad();
 
+static Bolsa &getInstance(){
+    static Bolsa instance;
+    return instance;
+}
+
  int getCantidad_total() const;
  void setCantidad_total(int value);
  string fichas_turno(int numero_de_fichas);
