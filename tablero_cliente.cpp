@@ -79,23 +79,23 @@ string Tablero_Cliente::ResumenFichas()
     cout<<endl;
 
     const char* json = "{\"tam\":0,"
+                       "\"id\":0,"
                        "\"horizontal\":true,"
                        "\"letras\":\"abcdefg\","
                        "\"filas\":[0,0,0,0,0,0,0],"
                        "\"columnas\":[0,0,0,0,0,0,0]}";
 
     Document d;
-
     d.Parse(json);
     d["tam"].SetInt(tam);
     d["horizontal"].SetBool(VaHorizontal);
     string stmp;
-    for (int i=0;i<tam;i++){
+    for (int j=0;j<tam;j++){
         stmp=d["letras"].GetString();
-        stmp[i]=letras[i];
+        stmp[j]=letras[j];
         d["letras"].SetString(stmp.c_str(),sizeof (char)*7);
-        d["filas"].GetArray()[i]=filas[i];
-        d["columnas"].GetArray()[i]=columnas[i];
+        d["filas"].GetArray()[j]=filas[j];
+        d["columnas"].GetArray()[j]=columnas[j];
     }
     StringBuffer buffer;
     Writer<StringBuffer> writer(buffer);
