@@ -14,20 +14,15 @@ void Bolsa::setCantidad_total(int value)
     cantidad_total = value;
 }
 
-char *Bolsa::fichas_turno(int numero_de_fichas)
+string Bolsa::fichas_turno(int numero_de_fichas)
 {
-    char letras [7];
-
+   string s;
    int contador=0;
    while (contador<numero_de_fichas){
-       letras[contador]=agarrar_ficha();
-       cout<<  letras[contador]<<endl;
+       s+=agarrar_ficha();
        contador=contador+1;
    }
-   char* fichas=letras;
-   cout<< *fichas<<endl;
-  cout<<  *(fichas+1)<<endl;
-   return fichas;
+   return s;
 }
 
 

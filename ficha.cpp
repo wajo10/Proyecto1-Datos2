@@ -15,9 +15,10 @@ Ficha::Ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
 
 }
+int* Ficha:: ptrPosicionUnplayed = posiciones;
+int Ficha:: posiciones[7];
 Ficha::Ficha(char letra){
 //Casos para cada letra
-
     this->letra = letra;
     switch (letra) {
         case('a'):setPixmap(QPixmap(":/images/A.jpg"));break;
@@ -46,6 +47,7 @@ Ficha::Ficha(char letra){
         case('x'):setPixmap(QPixmap(":/images/X.jpg"));break;
         case('y'):setPixmap(QPixmap(":/images/Y.jpg"));break;
         case('z'):setPixmap(QPixmap(":/images/Z.jpg"));break;
+        case(' '):setPixmap(QPixmap(":/images/1.jpg"));break;
 
 };
 }
@@ -94,6 +96,12 @@ void Ficha::setValor(int value)
     Valor = value;
 }
 
+int *Ficha::getFichasIniciales()
+{
+    return ptrPosicionUnplayed;
+}
+
+
 
 int Ficha::Puntos(char letra)
 {
@@ -134,6 +142,8 @@ int Ficha::Puntos(char letra)
     return m[letra];
 }
 
+
+
 Ficha::Ficha(int Fila,int Columna,char letra)
 {
     this->Valor=5;
@@ -141,7 +151,25 @@ Ficha::Ficha(int Fila,int Columna,char letra)
     this->Fila=Fila;
     this->Columna=Columna;
 }
+//Setea las posiciones ocupadas de las fichas no utilizadas
 
+void Ficha::setUnplayed()
+{   int contador= 0;
+    while(contador < 7){
+        if (this->posInicial==(contador)){
+            posiciones[contador]=1;
+        }
+        contador++;
+
+    }
+}
+
+void Ficha:: setPlayed(){
+    posiciones[this->posInicial]=0;
+    for(int i =0; i<7;i++){
+        qDebug()<<posiciones[i]<<i;
+    }
+}
 
 void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
 {
@@ -151,13 +179,14 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
         this->fila = *(posicion+1);
         int cantidadFichas = Tablero_Cliente::getInstance().getFichasJugadas().getT();
         //Si esta dentro el tablero, y la primera se pone en el centro
-        if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0 &&
-                (cantidadFichas > 0 || (this->fila ==7 && this->columna ==7) )){
+        if (this->fila<15 && this->columna <15 && this->fila>=0 && this->columna>=0){
             //Valida la ficha
             if (Tablero_Cliente::getInstance().JugarFicha(this,this->fila,this->columna)){
                 this->setX((columna*43.65)+41.513);
                 this->setY((fila*43.65)+44);
                 flagMove = false;
+                setPlayed();
+                qDebug()<<this->posInicial<<"Init";
                 }
             else{
                 this->setX(xInicial);
@@ -182,8 +211,11 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
 
 void Ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    xInicial = (int)this->x();
-    yInicial = (int)this->y();
+    if (flagMove){
+       xInicial = (int)this->x();
+       yInicial = (int)this->y();
+    }
+
 }
 
  int* Ficha:: agregar(int x, int y){

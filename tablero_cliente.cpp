@@ -1,7 +1,11 @@
 #include "ficha.h"
 #include "tablero_cliente.h"
 #include <iostream>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 using namespace std;
+using namespace rapidjson;
 
 Tablero_Cliente::Tablero_Cliente()
 {
@@ -49,17 +53,16 @@ bool Tablero_Cliente::VerificarPos(int fila, int columna)
  * @brief Tablero_Cliente::ResumenFichas Hace tres arrays: uno de letras, otro de filas y otro de columnas
  * @return una lista con los tres arrays para el servidor
  */
-LinkedList* Tablero_Cliente::ResumenFichas()
+string Tablero_Cliente::ResumenFichas()
 {
-    LinkedList* L=new LinkedList();
     int tam=this->FichasJugadas->getT();
     if (tam==0){
-        return L;
+        return "";
     }
 
-    int filas[tam];
-    int columnas[tam];
-    char letras[tam];
+    int filas[7];
+    int columnas[7];
+    char letras[7];
     cout<<"RESUMEN DE FICHAS DEL TURNO: ";
     int i=0;
     Node* tmp=this->FichasJugadas->getFirst();
@@ -74,11 +77,31 @@ LinkedList* Tablero_Cliente::ResumenFichas()
         tmp=tmp->getNext();
     }
     cout<<endl;
-    L->Add(&VaHorizontal);
-    L->Add(columnas);
-    L->Add(filas);
-    L->Add(letras);
-    return L;
+
+    const char* json = "{\"tam\":0,"
+                       "\"id\":0,"
+                       "\"horizontal\":true,"
+                       "\"letras\":\"abcdefg\","
+                       "\"filas\":[0,0,0,0,0,0,0],"
+                       "\"columnas\":[0,0,0,0,0,0,0]}";
+
+    Document d;
+    d.Parse(json);
+    d["tam"].SetInt(tam);
+    d["horizontal"].SetBool(VaHorizontal);
+    string stmp;
+    for (int j=0;j<tam;j++){
+        stmp=d["letras"].GetString();
+        stmp[j]=letras[j];
+        d["letras"].SetString(stmp.c_str(),sizeof (char)*7);
+        d["filas"].GetArray()[j]=filas[j];
+        d["columnas"].GetArray()[j]=columnas[j];
+    }
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+    //cout << buffer.GetString() << endl;
+    return buffer.GetString();
 }
 
 /**
@@ -140,12 +163,21 @@ void Tablero_Cliente::RemoverFichas()
     Ficha* F;
     int fila;
     int columna;
+    int i = 0;
     while (tmp!=nullptr){
         F=(Ficha*)tmp->getData();
         fila=F->getFila();
         columna=F->getColumna();
         this->FichasColocadas[fila][columna]=0;
+        F->setX(F->xInicial);
+        F->setY(F->yInicial);
+        F->flagMove =true;
+        if(*(F->ptrPosicionUnplayed + i)==0){
+            *(F->ptrPosicionUnplayed + i)=1;
+             F->posInicial = i;
+            }
         tmp=tmp->getNext();
+        i++;
     }
     delete(this->FichasJugadas);
     this->FichasJugadas=new LinkedList();
