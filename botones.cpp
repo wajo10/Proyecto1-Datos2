@@ -1,6 +1,7 @@
 #include "botones.h"
 #include "tablero_servidor.h"
 #include "tablero_cliente.h"
+#include "mainwindow.h"
 
 
 botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
@@ -18,6 +19,6 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
     else{
         int solicitar = Tablero_Cliente::getInstance().getFichasJugadas().getT();
-
+        MainWindow::request(solicitar);
     }
 }

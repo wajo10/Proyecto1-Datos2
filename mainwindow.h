@@ -3,6 +3,14 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include "ui_mainwindow.h"
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include "pantalla.h"
+#include "ficha.h"
+#include "botones.h"
+#include "bolsa.h"
+
 using namespace std;
 
 
@@ -21,8 +29,10 @@ public:
         static MainWindow instance;
         return instance;
     }
-    void request(string,int);
+    static void request(int);
     explicit MainWindow(QWidget *parent = nullptr);
+    static QGraphicsScene * scene;
+    QGraphicsScene **ptrScene = &scene;
     ~MainWindow();
 
 private slots:
@@ -32,6 +42,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
 };
 
 #endif // MAINWINDOW_H

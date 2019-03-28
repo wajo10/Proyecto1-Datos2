@@ -16,7 +16,7 @@ private:
     int Fila;
     int Columna;
     int Valor;
-    int posiciones[7];
+    static int posiciones[7];
 public:
     Ficha(QGraphicsItem *parent=nullptr);
     int yInicial, xInicial, fila, columna, posInicial;
@@ -33,11 +33,11 @@ public:
     int getValor() const;
     void setValor(int value);
     bool flagMove = true;
-    int *getFichasIniciales();
+    static int *getFichasIniciales();
     static int Puntos(char letra);
+    static int *ptrPosicionUnplayed;
     void setUnplayed();
     void setPlayed();
-    int *ptrPosicionUnplayed = posiciones;
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
