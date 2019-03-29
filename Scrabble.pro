@@ -38,7 +38,9 @@ SOURCES += \
     tablero_servidor.cpp \
     tablero_cliente.cpp \
     pantalla.cpp \
-    botones.cpp
+    botones.cpp \
+    traductorcliente.cpp \
+    traductorservidor.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,7 +55,9 @@ HEADERS += \
     tablero_servidor.h \
     tablero_cliente.h \
     pantalla.h \
-    botones.h
+    botones.h \
+    traductorcliente.h \
+    traductorservidor.h
 
 FORMS += \
         mainwindow.ui

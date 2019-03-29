@@ -80,8 +80,8 @@ bool Tablero_Servidor::LeerPalabras()
     LinkedList* L;
     if(tam==1){
         L=CasoUnaFicha();
-        ValidarPalabras(L);
-        return L;
+        if (L->getT()>0) return ValidarPalabras(L);
+        return false;
     }
 
     L= new LinkedList();
@@ -223,21 +223,8 @@ void Tablero_Servidor::print()
  */
 void Tablero_Servidor::Desempaquetar(string s)
 {
-    Document d;
-    d.Parse(s.c_str());
-    tam =d["tam"].GetInt();
-    VaHorizontal=d["horizontal"].GetBool();
-    string stmp;
-    for (int i=0;i<tam;i++){
-        stmp=d["letras"].GetString();
-        LetrasJugadas[i]=stmp[i];
-        FilasJugadas[i]= d["filas"].GetArray()[i].GetInt();
-        ColumnasJugadas[i]= d["columnas"].GetArray()[i].GetInt();
-    }
-    StringBuffer buffer;
-    Writer<StringBuffer> writer(buffer);
-    d.Accept(writer);
-    cout << buffer.GetString() << endl;
+    TraductorServidor T=TraductorServidor::getInstance();
+    T.DeserializarFichasJugadas(s,&tam,&VaHorizontal,LetrasJugadas,FilasJugadas,ColumnasJugadas);
 }
 /**
  * @brief Tablero_Servidor::SumaParcial suma elementos desde a hasta a+t

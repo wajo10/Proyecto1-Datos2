@@ -77,31 +77,9 @@ string Tablero_Cliente::ResumenFichas()
         tmp=tmp->getNext();
     }
     cout<<endl;
-
-    const char* json = "{\"tam\":0,"
-                       "\"id\":0,"
-                       "\"horizontal\":true,"
-                       "\"letras\":\"abcdefg\","
-                       "\"filas\":[0,0,0,0,0,0,0],"
-                       "\"columnas\":[0,0,0,0,0,0,0]}";
-
-    Document d;
-    d.Parse(json);
-    d["tam"].SetInt(tam);
-    d["horizontal"].SetBool(VaHorizontal);
-    string stmp;
-    for (int j=0;j<tam;j++){
-        stmp=d["letras"].GetString();
-        stmp[j]=letras[j];
-        d["letras"].SetString(stmp.c_str(),sizeof (char)*7);
-        d["filas"].GetArray()[j]=filas[j];
-        d["columnas"].GetArray()[j]=columnas[j];
-    }
-    StringBuffer buffer;
-    Writer<StringBuffer> writer(buffer);
-    d.Accept(writer);
-    //cout << buffer.GetString() << endl;
-    return buffer.GetString();
+    TraductorCliente T=TraductorCliente::getInstance();
+    string s=T.SerilizarFichasJugadas(tam,VaHorizontal,letras,filas,columnas);
+    return s;
 }
 
 /**

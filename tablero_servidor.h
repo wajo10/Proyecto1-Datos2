@@ -5,6 +5,8 @@
 #include <string>
 using namespace std;
 
+#include "traductorservidor.h"
+
 
 
 class Tablero_Servidor

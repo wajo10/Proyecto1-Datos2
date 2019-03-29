@@ -5,6 +5,7 @@
 #include "linkedlist.h"
 #include <string>
 using namespace std;
+#include "traductorcliente.h"
 
 
 class Tablero_Cliente
