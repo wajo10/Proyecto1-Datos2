@@ -20,10 +20,24 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
     Ts.Desempaquetar(s1);
     string s2=Ts.LeerPalabras();
     Tc.RecibirRespuesta(s2);
+
+
     if(Tc.getVal()){
         MainWindow::request(Tc.getRepo());
+        if (Tc.getHayFichas()){
+
+        }
+        else{
+            qDebug()<< "no hay suficientes fichas en bolsa para reponer";
+        }
     }
-    else{ 
-        Tablero_Cliente::getInstance().RemoverFichas();
+    else{
+        if (Tc.getHayFichas()){
+            qDebug()<< "Fichas inválidas";
+        }
+        else{
+            qDebug()<< "Fin del juego";
+        }
+        Tc.RemoverFichas();
     }
 }

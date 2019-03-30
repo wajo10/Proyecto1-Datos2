@@ -111,9 +111,15 @@ string Tablero_Servidor::LeerPalabras()
         AgregarPerpendiculares(L);
     }
 
-    if (L->getT()>0) val=ValidarPalabras(L);
-    else val=false;
-    string s=Bolsa::getInstance().fichas_turno(tam);
+    string s;
+    if (L->getT()>0){
+        val=ValidarPalabras(L);
+        s=Bolsa::getInstance().fichas_turno(tam);
+    }
+    else {
+        val=false;
+        s="";
+    }
     bool hayfichas;
     if (s.length()==tam){
         hayfichas=true;
