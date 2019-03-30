@@ -18,7 +18,26 @@ void TraductorServidor::DeserializarFichasJugadas(string json, int *tam, bool *E
         letras[i]=stmp[i];
         filas[i]=d["filas"].GetArray()[i].GetInt();
         columnas[i]= d["columnas"].GetArray()[i].GetInt();
-        qDebug() <<"$$$"<<i;
     }
-    qDebug() <<json.c_str();
 }
+
+string TraductorServidor::SerializarRespuestaTurnoPropio(bool val, bool hayfichas, int puntos, string repo)
+{
+    const char* json = "{\"val\":true,"
+                       "\"hayfichas\":true,"
+                       "\"puntos\":0,"
+                       "\"repo\":\"abcd\"}";
+
+    Document d;
+    d.Parse(json);
+    d["val"].SetBool(val);
+    d["hayfichas"].SetBool(hayfichas);
+    d["puntos"].SetInt(puntos);
+    d["repo"].SetString(repo.c_str(),sizeof (char)*repo.length());
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+    qDebug() <<buffer.GetString();
+    return buffer.GetString();
+}
+

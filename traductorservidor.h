@@ -17,6 +17,7 @@ public:
         return instance;
     }
     void DeserializarFichasJugadas(string json, int* tam,bool* EsHorizontal, char* letras,int* filas,int* columnas);
+    string SerializarRespuestaTurnoPropio(bool val, bool hayfichas,int puntos, string repo);
 };
 
 #endif // TRADUCTORSERVIDOR_H

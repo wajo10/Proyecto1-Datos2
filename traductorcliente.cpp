@@ -32,3 +32,13 @@ string TraductorCliente::SerilizarFichasJugadas(int tam, bool EsHorizontal, char
     d.Accept(writer);
     return buffer.GetString();
 }
+
+void TraductorCliente::DeserializarRespuestaTurnoPropio(string json,bool *val, bool *hayfichas, int *puntos, string *repo)
+{
+    Document d;
+    d.Parse(json.c_str());
+    *val =d["val"].GetBool();
+    *hayfichas=d["hayfichas"].GetBool();
+    *puntos=d["puntos"].GetInt();
+    *repo=d["repo"].GetString();
+}

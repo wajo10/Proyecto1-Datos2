@@ -16,6 +16,10 @@ private:
     LinkedList* FichasJugadas;
     int referencia;
     int menor;
+    bool HayFichas=true;
+    bool Val;
+    int puntos;
+    string repo;
 public:
     Tablero_Cliente();
     bool JugarFicha(Ficha* F,int fila, int columna);
@@ -25,12 +29,18 @@ public:
     void RemoverFichas();
     void print();
     LinkedList getFichasJugadas();
-
     static Tablero_Cliente& getInstance(){
         static Tablero_Cliente instance;
         return instance;
     }
-    void generar(int cantidad);
+    void RecibirRespuesta(string json);
+
+    bool getHayFichas() const;
+    void setHayFichas(bool value);
+    bool getVal() const;
+    void setVal(bool value);
+    string getRepo() const;
+    void setRepo(const string &value);
 };
 
 #endif // TABLERO_CLIENTE_H

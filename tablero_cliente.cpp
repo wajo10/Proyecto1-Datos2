@@ -7,6 +7,36 @@
 using namespace std;
 using namespace rapidjson;
 
+bool Tablero_Cliente::getHayFichas() const
+{
+    return HayFichas;
+}
+
+void Tablero_Cliente::setHayFichas(bool value)
+{
+    HayFichas = value;
+}
+
+bool Tablero_Cliente::getVal() const
+{
+    return Val;
+}
+
+void Tablero_Cliente::setVal(bool value)
+{
+    Val = value;
+}
+
+string Tablero_Cliente::getRepo() const
+{
+    return repo;
+}
+
+void Tablero_Cliente::setRepo(const string &value)
+{
+    repo = value;
+}
+
 Tablero_Cliente::Tablero_Cliente()
 {
     this->FichasJugadas=new LinkedList();
@@ -174,5 +204,12 @@ void Tablero_Cliente::print()
 LinkedList Tablero_Cliente::getFichasJugadas()
 {
     return *FichasJugadas;
+}
+
+void Tablero_Cliente::RecibirRespuesta(string json)
+{
+    int p=0;
+    TraductorCliente::getInstance().DeserializarRespuestaTurnoPropio(json,&Val,&HayFichas,&p,&repo);
+    puntos+=p;
 }
 

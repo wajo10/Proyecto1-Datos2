@@ -55,11 +55,12 @@ void MainWindow::on_lineEdit_editingFinished()
 {
 
 }
-void MainWindow::request(int cantidad)
+void MainWindow::request(string agregar)
 {
-    string agregar = Bolsa::getInstance().fichas_turno(cantidad);
     char array[7];
     int xInicial = 807;
+
+    int cantidad= agregar.length();
 
     for (int i=0;i<cantidad;i++){
         int aux=0;

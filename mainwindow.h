@@ -29,7 +29,7 @@ public:
         static MainWindow instance;
         return instance;
     }
-    static void request(int);
+    static void request(string s);
     explicit MainWindow(QWidget *parent = nullptr);
     static QGraphicsScene * scene;
     QGraphicsScene **ptrScene = &scene;

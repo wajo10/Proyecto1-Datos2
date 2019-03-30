@@ -2,6 +2,7 @@
 #include "tablero_servidor.h"
 #include "tablero_cliente.h"
 #include "mainwindow.h"
+#include "traductorcliente.h"
 
 
 botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
@@ -12,13 +13,17 @@ botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    string s=Tablero_Cliente::getInstance().ResumenFichas();
-    Tablero_Servidor::getInstance().Desempaquetar(s);
-    if(!Tablero_Servidor::getInstance().LeerPalabras()){
-        Tablero_Cliente::getInstance().RemoverFichas();
+    Tablero_Cliente Tc=Tablero_Cliente::getInstance();
+    Tablero_Servidor Ts=Tablero_Servidor::getInstance();
+
+    string s1=Tc.ResumenFichas();
+    Ts.Desempaquetar(s1);
+    string s2=Ts.LeerPalabras();
+    Tc.RecibirRespuesta(s2);
+    if(Tc.getVal()){
+        MainWindow::request(Tc.getRepo());
     }
-    else{
-        int solicitar = Tablero_Cliente::getInstance().getFichasJugadas().getT();
-        MainWindow::request(solicitar);
+    else{ 
+        Tablero_Cliente::getInstance().RemoverFichas();
     }
 }

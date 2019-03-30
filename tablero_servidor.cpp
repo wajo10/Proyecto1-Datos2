@@ -75,41 +75,53 @@ void Tablero_Servidor::ColocarFichas()
  * @brief Tablero_Servidor::LeerPalabras Coloca y lee todas las palabras nuevas formadas
  * @return una lista con las strings de las palabras formadas
  */
-bool Tablero_Servidor::LeerPalabras()
+string Tablero_Servidor::LeerPalabras()
 {
     LinkedList* L;
+    bool val;
+    TraductorServidor T=TraductorServidor::getInstance();
     if(tam==1){
         L=CasoUnaFicha();
-        if (L->getT()>0) return ValidarPalabras(L);
-        return false;
-    }
-
-    L= new LinkedList();
-    string* stmp;
-    ColocarFichas();
-    int dif=menor;
-    if (VaHorizontal){
-         menor= MenorDesdeTablero(VaHorizontal,ref,menor);
-         stmp=Leer(VaHorizontal,ref,menor);
     }
     else{
-        menor= MenorDesdeTablero(VaHorizontal,menor,ref);
-        stmp=Leer(VaHorizontal,menor,ref);
+        L= new LinkedList();
+        string* stmp;
+        ColocarFichas();
+        int dif=menor;
+        if (VaHorizontal){
+             menor= MenorDesdeTablero(VaHorizontal,ref,menor);
+             stmp=Leer(VaHorizontal,ref,menor);
+        }
+        else{
+            menor= MenorDesdeTablero(VaHorizontal,menor,ref);
+            stmp=Leer(VaHorizontal,menor,ref);
+        }
+
+        dif=dif-menor;
+        if ((*stmp).length()<mayor-menor+1){
+            cout<<"Fragmentación, las fichas colocadas no se conectan"<<endl;
+        }
+
+        if ((*stmp).length()==tam){
+            cout<<"La palabra no conecta con otras "<<*stmp<<endl;
+        }
+
+        cout<<"Palabra principal: "<<*stmp<<endl;
+        L->Add(stmp);
+        AgregarPerpendiculares(L);
     }
 
-    dif=dif-menor;
-    if ((*stmp).length()!=mayor-menor+1){
-        cout<<"Fragmentación, las fichas colocadas no se conectan"<<endl;
+    if (L->getT()>0) val=ValidarPalabras(L);
+    else val=false;
+    string s=Bolsa::getInstance().fichas_turno(tam);
+    bool hayfichas;
+    if (s.length()==tam){
+        hayfichas=true;
     }
-
-    if ((*stmp).length()==tam){
-        cout<<"La palabra no conecta con otras "<<*stmp<<endl;
+    else{
+        hayfichas=false;
     }
-
-    cout<<"Palabra principal: "<<*stmp<<endl;
-    L->Add(stmp);
-    AgregarPerpendiculares(L);
-    return ValidarPalabras(L);
+    return T.SerializarRespuestaTurnoPropio(val,hayfichas,PuntajeFichas(),s);
 }
 /**
  * @brief Tablero_Servidor::AgregarPerpendiculares Agrega a una lista palabras perpendiculares a la principal
@@ -262,7 +274,6 @@ bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
         tmp=tmp->getNext();
     }
     cout<<"-VALIDADCIÓN EXITOSA"<<endl;
-    PuntajeFichas();
     return true;
 }
 /**

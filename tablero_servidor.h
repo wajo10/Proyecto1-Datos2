@@ -6,6 +6,7 @@
 using namespace std;
 
 #include "traductorservidor.h"
+#include "bolsa.h"
 
 
 
@@ -31,7 +32,7 @@ public:
         return instance;
     }
     void ColocarFichas();
-    bool LeerPalabras();
+    string LeerPalabras();
     void AgregarPerpendiculares(LinkedList* L);
     void ColocarFichaManual(char letra,int fila, int columna);
     int MenorDesdeTablero(bool VaHorizontal,int fila, int columna);
