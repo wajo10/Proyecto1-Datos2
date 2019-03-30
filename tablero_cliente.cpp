@@ -213,3 +213,8 @@ void Tablero_Cliente::RecibirRespuesta(string json)
     puntos+=p;
 }
 
+void Tablero_Cliente::RecibirRespuestaAjena(string json)
+{
+
+}
+

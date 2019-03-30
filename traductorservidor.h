@@ -18,6 +18,13 @@ public:
     }
     void DeserializarFichasJugadas(string json, int* tam,bool* EsHorizontal, char* letras,int* filas,int* columnas);
     string SerializarRespuestaTurnoPropio(bool val, bool hayfichas,int puntos, string repo);
+    string SerializarRespuestaTurnoAjeno(string json);
+    int getID(string json);
+
+    string getPalabra(string json);
+
+    void DeserializarCrearSala(string json,string* ip);
+    string SerializarRespuestaCrearSala(bool val, int codigo, int turno);
 };
 
 #endif // TRADUCTORSERVIDOR_H

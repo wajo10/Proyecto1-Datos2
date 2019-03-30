@@ -34,6 +34,7 @@ public:
         return instance;
     }
     void RecibirRespuesta(string json);
+    void RecibirRespuestaAjena(string json);
 
     bool getHayFichas() const;
     void setHayFichas(bool value);

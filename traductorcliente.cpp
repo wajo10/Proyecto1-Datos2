@@ -1,4 +1,5 @@
 #include "traductorcliente.h"
+#include "qdebug.h"
 
 
 TraductorCliente::TraductorCliente()
@@ -9,7 +10,7 @@ TraductorCliente::TraductorCliente()
 string TraductorCliente::SerilizarFichasJugadas(int tam, bool EsHorizontal, char letras[], int filas[], int columnas[])
 {
     const char* json = "{\"tam\":0,"
-                       "\"id\":0,"
+                       "\"id\":2,"
                        "\"horizontal\":true,"
                        "\"letras\":\"abcdefg\","
                        "\"filas\":[0,0,0,0,0,0,0],"
@@ -41,4 +42,66 @@ void TraductorCliente::DeserializarRespuestaTurnoPropio(string json,bool *val, b
     *hayfichas=d["hayfichas"].GetBool();
     *puntos=d["puntos"].GetInt();
     *repo=d["repo"].GetString();
+}
+
+void TraductorCliente::DeserializarRespuestaTurnoAjeno(string json, int *tam, bool *EsHorizontal, char *letras, int *filas, int *columnas)
+{
+    Document d;
+    d.Parse(json.c_str());
+    *tam =d["tam"].GetInt();
+    string stmp;
+    for (int i=0;i<*tam;i++){
+        stmp=d["letras"].GetString();
+        letras[i]=stmp[i];
+        filas[i]=d["filas"].GetArray()[i].GetInt();
+        columnas[i]= d["columnas"].GetArray()[i].GetInt();
+    }
+}
+
+int TraductorCliente::getID(string json)
+{
+    Document d;
+    d.Parse(json.c_str());
+    return d["id"].GetInt();
+}
+
+string TraductorCliente::SerializarAgregarPalabra(string palabra)
+{
+    const char* json = "{\"palabra\":\"123456789\","
+                       "\"id\":3}";
+
+    Document d;
+    d.Parse(json);
+    d["palabra"].SetString(palabra.c_str(),sizeof(char)*palabra.length());
+
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+
+    return buffer.GetString();
+}
+
+string TraductorCliente::SerializarCrearSala(string ip)
+{
+    const char* json = "{\"ip\":\"0.0.0.0\","
+                       "\"id\":0}";
+
+    Document d;
+    d.Parse(json);
+    d["ip"].SetString(ip.c_str(),sizeof(char)*ip.length());
+
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+
+    return buffer.GetString();
+}
+
+string TraductorCliente::DeSerializarRespuestaCrearSala(string json, bool *val, int *codigo, int *turno)
+{
+    Document d;
+    d.Parse(json.c_str());
+    *val =d["val"].GetBool();
+    *codigo =d["codigo"].GetInt();
+    *turno =d["turno"].GetInt();
 }
