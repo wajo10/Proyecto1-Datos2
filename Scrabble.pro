@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    Socket.cpp \
         main.cpp \
         mainwindow.cpp \
     palabra.cpp \
@@ -41,6 +42,7 @@ SOURCES += \
     botones.cpp
 
 HEADERS += \
+    Socket.h \
         mainwindow.h \
     palabra.h \
     jugador.h \
