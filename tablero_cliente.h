@@ -35,6 +35,7 @@ public:
     }
     void RecibirRespuesta(string json);
     void RecibirRespuestaAjena(string json);
+    void limpiarJugadas();
 
     bool getHayFichas() const;
     void setHayFichas(bool value);

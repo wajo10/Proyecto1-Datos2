@@ -25,6 +25,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 
     if(Tc->getVal()){
+        Tc->limpiarJugadas();
         qDebug() << Tc->getRepo().c_str();
         MainWindow::request(Tc->getRepo());
         if (Tc->getHayFichas()){

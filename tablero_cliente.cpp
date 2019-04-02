@@ -94,6 +94,7 @@ string Tablero_Cliente::ResumenFichas()
     int columnas[7];
     char letras[7];
     cout<<"RESUMEN DE FICHAS DEL TURNO: ";
+    qDebug()<<tam<<"SE AGREGARON ESAS FICHAS";
     int i=0;
     Node* tmp=this->FichasJugadas->getFirst();
     Ficha* F;
@@ -219,5 +220,11 @@ void Tablero_Cliente::RecibirRespuesta(string json)
 void Tablero_Cliente::RecibirRespuestaAjena(string json)
 {
 
+}
+
+void Tablero_Cliente::limpiarJugadas()
+{
+    delete(this->FichasJugadas);
+    this->FichasJugadas=new LinkedList();
 }
 
