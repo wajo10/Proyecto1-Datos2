@@ -32,6 +32,7 @@ public:
     static void request(string s);
     explicit MainWindow(QWidget *parent = nullptr);
     static QGraphicsScene * scene;
+    static void fichaAdversario(char,int,int);
     QGraphicsScene **ptrScene = &scene;
     ~MainWindow();
 

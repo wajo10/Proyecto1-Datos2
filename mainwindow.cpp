@@ -8,6 +8,16 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = new QGraphicsScene(this);
 }
 
+void MainWindow::fichaAdversario(char letra, int fila, int columna)
+{
+    Ficha *fichaAdv = new Ficha(letra);
+    fichaAdv->setX((columna*43.65)+41.513);
+    fichaAdv->setY((fila*43.65)+44);
+    fichaAdv->setSejugo(true);
+    fichaAdv->flagMove=false;
+    scene->addItem(fichaAdv);
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
