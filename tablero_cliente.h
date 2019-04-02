@@ -19,6 +19,9 @@ private:
     bool HayFichas=true;
     bool Val;
     int puntos;
+    QString ip;
+    QString puerto;
+    QString expertoCel;
     string repo;
 public:
     Tablero_Cliente();
@@ -37,6 +40,7 @@ public:
     void RecibirRespuestaAjena(string json);
     void limpiarJugadas();
     void ColocarFicha(int*,int*,int);
+    void readInfo();
 
     bool getHayFichas() const;
     void setHayFichas(bool value);
@@ -44,6 +48,9 @@ public:
     void setVal(bool value);
     string getRepo() const;
     void setRepo(const string &value);
+    QString getIp();
+    QString getPuerto();
+    QString getExpertoCel();
 };
 
 #endif // TABLERO_CLIENTE_H

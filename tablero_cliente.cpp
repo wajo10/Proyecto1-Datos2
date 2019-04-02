@@ -237,3 +237,31 @@ void Tablero_Cliente::ColocarFicha(int *fila, int *columna, int tam)
     }
 }
 
+void Tablero_Cliente::readInfo()
+{
+    QFile file(":/txt/txt/info.txt");
+    if (!file.exists()){
+        qDebug()<<"Error, no existe el archivo";
+    }
+    else{
+        file.open(QFile::ReadOnly);
+        QTextStream stream(&file);
+        ip = stream.readLine();
+        puerto = stream.readLine();
+        expertoCel = stream.readLine();
+    }
+}
+QString Tablero_Cliente::getIp(){
+    return this->ip;
+}
+
+QString Tablero_Cliente::getPuerto()
+{
+    return this->puerto;
+}
+
+QString Tablero_Cliente::getExpertoCel()
+{
+    return this->expertoCel;
+}
+

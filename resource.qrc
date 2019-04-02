@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/txt">
         <file>txt/words_alpha.txt</file>
+        <file>txt/info.txt</file>
     </qresource>
     <qresource prefix="/images">
         <file>Hud.png</file>

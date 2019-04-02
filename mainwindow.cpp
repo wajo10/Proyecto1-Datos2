@@ -102,3 +102,11 @@ void MainWindow::request(string agregar)
     }
 
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    Tablero_Cliente::getInstance().readInfo();
+    qDebug()<<ui->lineEdit->text()<<Tablero_Cliente::getInstance().getIp()<<
+              Tablero_Cliente::getInstance().getPuerto();
+
+}
