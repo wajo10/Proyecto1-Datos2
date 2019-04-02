@@ -209,7 +209,10 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
             this->setX(xInicial);
             this->setY(yInicial);
         }
-
+        if(this->letra==' '){
+            Comodin w;
+            w.show();
+        }
     }
     else{
 

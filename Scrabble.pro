@@ -41,7 +41,8 @@ SOURCES += \
     botones.cpp \
     traductorcliente.cpp \
     traductorservidor.cpp \
-    socket.cpp
+    socket.cpp \
+    comodin.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -59,10 +60,12 @@ HEADERS += \
     botones.h \
     traductorcliente.h \
     traductorservidor.h \
-    socket.h
+    socket.h \
+    comodin.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    comodin.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

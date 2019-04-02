@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include "bolsa.h"
 #include <QDebug>
+#include "comodin.h"
 
 
 class Ficha: public QObject, public QGraphicsPixmapItem

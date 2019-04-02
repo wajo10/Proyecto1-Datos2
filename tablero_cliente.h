@@ -23,6 +23,9 @@ private:
     QString puerto;
     QString expertoCel;
     string repo;
+    int puertoServidor;
+    int turno;
+
 public:
     Tablero_Cliente();
     bool JugarFicha(Ficha* F,int fila, int columna);
@@ -51,6 +54,10 @@ public:
     QString getIp();
     QString getPuerto();
     QString getExpertoCel();
+    int getPuertoServidor() const;
+    void setPuertoServidor(int value);
+    int getTurno() const;
+    void setTurno(int value);
 };
 
 #endif // TABLERO_CLIENTE_H

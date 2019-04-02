@@ -6,7 +6,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
-    setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 }
 
 void MainWindow::fichaAdversario(char *letra, int *fila, int *columna, int tam)
@@ -33,6 +32,29 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_pushButton_clicked()
+{
+    Tablero_Cliente::getInstance().readInfo();
+    Tablero_Cliente* TabClien = &Tablero_Cliente::getInstance();
+    Socket* sock = &Socket::getInstance();
+    string nombre = ui->lineEdit->text().toUtf8().constData();
+    string codigo = ui->lineEdit_2->text().toUtf8().constData();
+    string ip = TabClien->getIp().toUtf8().constData();
+    string puertoStr = TabClien->getPuerto().toUtf8().constData();
+    int puerto = std::stoi(puertoStr.c_str());
+    TraductorCliente* TC=&TraductorCliente::getInstance();
+    string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
+    qDebug()<<unirseSala.c_str();
+    string confirmacion = sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+    bool val;
+    int puerto2;
+    int turno;
+    TC->DeSerializarRespuestaUnirseSala(confirmacion,&val,&puerto2,&turno);
+    if (val){
+        TabClien->setPuertoServidor(puerto2);
+        TabClien->setTurno(turno);
+    }
+}
+void MainWindow:: crearTablero()
 {
     Bolsa *bolsa = new Bolsa();
     string Iniciales = bolsa->fichas_turno(7);
@@ -69,7 +91,6 @@ void MainWindow::on_pushButton_clicked()
     Boton->setY(404);
     scene->addItem(Boton);
 }
-
 void MainWindow::on_lineEdit_editingFinished()
 {
 
@@ -115,7 +136,12 @@ void MainWindow::on_pushButton_2_clicked()
     int puerto = std::stoi("8080");
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string crearSala = TC->SerializarCrearSala(ip,nombre);
-    qDebug()<<crearSala.c_str();
-    sock->enviar(crearSala,puerto,"192.168.100.18");
+    string respuesta = sock->enviar(crearSala,puerto,"192.168.100.18",true);
+    TabClien->setTurno(1);
+    int codigo=0;
+    TC->DeSerializarRespuestaCrearSala(respuesta,&codigo);
+    qDebug()<<codigo;
+    QString A=QString::number(codigo);
+    ui->lineEdit_3->setText("Esperando jugadores, el código de jugador es: "+A);
 
 }

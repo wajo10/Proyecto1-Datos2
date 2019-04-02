@@ -8,13 +8,14 @@
 #include <unistd.h>
 #include <string.h>
 #include <bits/stdc++.h>
+#include "QDebug"
 #define PORT 8081
 using namespace std;
 Socket::Socket() {
     int Puerto_prueba=8081;
 }
 
-int Socket::enviar(string Mensaje,int puerto,string ip) {
+string Socket::enviar(string Mensaje,int puerto,string ip, bool escuchar) {
     int n = Mensaje.length();
     char char_array[n + 1];
     strcpy(char_array, Mensaje.c_str());
@@ -23,7 +24,7 @@ int Socket::enviar(string Mensaje,int puerto,string ip) {
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         printf("\n Socket creation error \n");
-        return -1;
+        return "";
     }
 
     memset(&serv_addr, '0', sizeof(serv_addr));
@@ -35,21 +36,28 @@ int Socket::enviar(string Mensaje,int puerto,string ip) {
     if(inet_pton(AF_INET, ip.c_str(), &serv_addr.sin_addr)<=0)
     {
         printf("\nInvalid address/ Address not supported \n");
-        return -1;
+        return "";
     }
 
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
         printf("\nConnection Failed \n");
-        return -1;
+        return "";
     }
-    send(sock , hello , strlen(hello) , 0 );/*
+    send(sock , hello , strlen(hello) , 0 );
 
-    valread = static_cast<int>(read(sock , buffer, 1024));
-    // send(sock , hello , strlen(hello) , 0 );
+
+    /*send(sock , hello , strlen(hello) , 0 );
     close(sock);
     printf("%s\n",buffer );*/
-    return 0;
+    if (escuchar){
+        valread = (read(sock , buffer, 1024));
+        close(sock);
+        return buffer;
+    }
+    else{
+        return "";
+    }
 }
 void Socket::escuchar(string Mensaje,int puerto) {
 

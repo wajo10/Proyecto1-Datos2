@@ -81,6 +81,34 @@ string TraductorCliente::SerializarAgregarPalabra(string palabra)
     return buffer.GetString();
 }
 
+string TraductorCliente::SerializarUnirseSala(string ip, string nombre, string codigo)
+{
+    const char* json = "{\"ip\":\"0.0.0.0\","
+                        "\"nombre\":\"lol\","
+                        "\"codigo\":123456,"
+                       "\"id\":1 }";
+
+    Document d;
+    d.Parse(json);
+    d["ip"].SetString(ip.c_str(),sizeof(char)*ip.length());
+    d["nombre"].SetString(nombre.c_str(),sizeof(char)*nombre.length());
+    d["codigo"].SetInt(stoi(codigo));
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+
+    return buffer.GetString();
+}
+
+void TraductorCliente::DeSerializarRespuestaUnirseSala(string json, bool *val, int *puerto, int *turno)
+{
+    Document d;
+    d.Parse(json.c_str());
+    *val =d["val"].GetBool();
+    *puerto =d["puerto"].GetInt();
+    *turno =d["turno"].GetInt();
+}
+
 string TraductorCliente::SerializarCrearSala(string ip,string nombre)
 {
     const char* json = "{\"ip\":\"0.0.0.0\","
@@ -99,11 +127,9 @@ string TraductorCliente::SerializarCrearSala(string ip,string nombre)
     return buffer.GetString();
 }
 
-string TraductorCliente::DeSerializarRespuestaCrearSala(string json, bool *val, int *codigo, int *turno)
+void TraductorCliente::DeSerializarRespuestaCrearSala(string json, int* codigo)
 {
     Document d;
     d.Parse(json.c_str());
-    *val =d["val"].GetBool();
     *codigo =d["codigo"].GetInt();
-    *turno =d["turno"].GetInt();
 }

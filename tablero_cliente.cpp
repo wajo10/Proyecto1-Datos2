@@ -37,6 +37,26 @@ void Tablero_Cliente::setRepo(const string &value)
     repo = value;
 }
 
+int Tablero_Cliente::getPuertoServidor() const
+{
+    return puertoServidor;
+}
+
+void Tablero_Cliente::setPuertoServidor(int value)
+{
+    puertoServidor = value;
+}
+
+int Tablero_Cliente::getTurno() const
+{
+    return turno;
+}
+
+void Tablero_Cliente::setTurno(int value)
+{
+    turno = value;
+}
+
 Tablero_Cliente::Tablero_Cliente()
 {
     this->FichasJugadas=new LinkedList();
