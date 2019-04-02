@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "traductorcliente.h"
 #include "traductorservidor.h"
+#include "socket.h"
 
 
 botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
@@ -14,33 +15,7 @@ botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
-    Tablero_Servidor* Ts=&Tablero_Servidor::getInstance();
-
-    string s1=Tc->ResumenFichas();
-    TraductorServidor::getInstance().SerializarRespuestaTurnoAjeno(s1);
-    Ts->Desempaquetar(s1);
-    string s2=Ts->LeerPalabras();
-    Tc->RecibirRespuesta(s2);
-
-
-    if(Tc->getVal()){
-        qDebug() << Tc->getRepo().c_str();
-        MainWindow::request(Tc->getRepo());
-        if (Tc->getHayFichas()){
-
-        }
-        else{
-            qDebug()<< "no hay suficientes fichas en bolsa para reponer";
-        }
-    }
-    else{
-        if (Tc->getHayFichas()){
-            qDebug()<< "Fichas inválidas";
-        }
-        else{
-            qDebug()<< "Fin del juego";
-        }
-        Tc->RemoverFichas();
-    }
+    string s1=Tablero_Cliente::getInstance().ResumenFichas();
+    Socket* S=&Socket::getInstance();
+    S->enviar(s1,8080);
 }
