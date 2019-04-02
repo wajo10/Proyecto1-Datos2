@@ -36,6 +36,7 @@ public:
     void RecibirRespuesta(string json);
     void RecibirRespuestaAjena(string json);
     void limpiarJugadas();
+    void ColocarFicha(int*,int*,int);
 
     bool getHayFichas() const;
     void setHayFichas(bool value);

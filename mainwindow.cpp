@@ -8,14 +8,22 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = new QGraphicsScene(this);
 }
 
-void MainWindow::fichaAdversario(char letra, int fila, int columna)
+void MainWindow::fichaAdversario(char *letra, int *fila, int *columna, int tam)
 {
-    Ficha *fichaAdv = new Ficha(letra);
-    fichaAdv->setX((columna*43.65)+41.513);
-    fichaAdv->setY((fila*43.65)+44);
-    fichaAdv->setSejugo(true);
-    fichaAdv->flagMove=false;
-    scene->addItem(fichaAdv);
+    int contador=0;
+    char *ptrLetra=letra;
+    int *ptrFila = fila;
+    int *ptrColumna = columna;
+    while(contador<tam){
+        Ficha *fichaAdv = new Ficha(*(ptrLetra+contador));
+        fichaAdv->setX((*(ptrColumna+contador)*43.65)+42);
+        fichaAdv->setY((*(ptrFila+contador)*43.65)+44);
+        fichaAdv->setSejugo(true);
+        fichaAdv->flagMove=false;
+        scene->addItem(fichaAdv);
+        Tablero_Cliente::getInstance().ColocarFicha(fila,columna,tam);
+        contador++;
+    }
 }
 
 MainWindow::~MainWindow()

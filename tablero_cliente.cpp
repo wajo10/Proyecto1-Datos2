@@ -228,3 +228,12 @@ void Tablero_Cliente::limpiarJugadas()
     this->FichasJugadas=new LinkedList();
 }
 
+void Tablero_Cliente::ColocarFicha(int *fila, int *columna, int tam)
+{
+    int aux = 0;
+    while(aux<tam){
+        this->FichasColocadas[*(fila+aux)][*(columna+aux)]=1;
+        aux++;
+    }
+}
+

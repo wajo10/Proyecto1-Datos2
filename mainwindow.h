@@ -10,6 +10,7 @@
 #include "ficha.h"
 #include "botones.h"
 #include "bolsa.h"
+#include "tablero_cliente.h"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ public:
     static void request(string s);
     explicit MainWindow(QWidget *parent = nullptr);
     static QGraphicsScene * scene;
-    static void fichaAdversario(char,int,int);
+    static void fichaAdversario(char*,int*,int*,int);
     QGraphicsScene **ptrScene = &scene;
     ~MainWindow();
 
