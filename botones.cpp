@@ -19,6 +19,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
     else{
         int solicitar = Tablero_Cliente::getInstance().getFichasJugadas().getT();
+        Tablero_Cliente::getInstance().setJugadas();
         MainWindow::request(solicitar);
     }
 }

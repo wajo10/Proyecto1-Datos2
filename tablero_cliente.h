@@ -24,6 +24,7 @@ public:
     void RemoverFichas();
     void print();
     LinkedList getFichasJugadas();
+    void setJugadas(); // Hacer que las fichas validadas no se muevan mas
 
     static Tablero_Cliente& getInstance(){
         static Tablero_Cliente instance;

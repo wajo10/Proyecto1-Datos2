@@ -171,6 +171,15 @@ void Ficha:: setPlayed(){
     }
 }
 
+void Ficha::setSejugo(bool flag)
+{
+    this->seJugo = flag;
+}
+bool Ficha::getSeJugo()
+{
+    return this->seJugo;
+}
+
 void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
 {
     if (flagMove){
