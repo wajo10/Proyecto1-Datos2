@@ -40,7 +40,8 @@ SOURCES += \
     pantalla.cpp \
     botones.cpp \
     traductorcliente.cpp \
-    traductorservidor.cpp
+    traductorservidor.cpp \
+    socket.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -57,7 +58,8 @@ HEADERS += \
     pantalla.h \
     botones.h \
     traductorcliente.h \
-    traductorservidor.h
+    traductorservidor.h \
+    socket.h
 
 FORMS += \
         mainwindow.ui
