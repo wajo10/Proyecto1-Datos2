@@ -176,14 +176,17 @@ void Tablero_Cliente::RemoverFichas()
         F=(Ficha*)tmp->getData();
         fila=F->getFila();
         columna=F->getColumna();
-        this->FichasColocadas[fila][columna]=0;
-        F->setX(F->xInicial);
-        F->setY(F->yInicial);
-        F->flagMove =true;
-        if(*(F->ptrPosicionUnplayed + i)==0){
-            *(F->ptrPosicionUnplayed + i)=1;
-             F->posInicial = i;
-            }
+        if (!F->getSeJugo()){
+            this->FichasColocadas[fila][columna]=0;
+            F->setX(F->xInicial);
+            F->setY(F->yInicial);
+            F->flagMove =true;
+            if(*(F->ptrPosicionUnplayed + i)==0){
+                *(F->ptrPosicionUnplayed + i)=1;
+                 F->posInicial = i;
+                }
+        }
+
         tmp=tmp->getNext();
         i++;
     }

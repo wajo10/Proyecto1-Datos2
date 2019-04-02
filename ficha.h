@@ -16,6 +16,7 @@ private:
     int Fila;
     int Columna;
     int Valor;
+    bool seJugo = false;
     static int posiciones[7];
 public:
     Ficha(QGraphicsItem *parent=nullptr);
@@ -38,6 +39,8 @@ public:
     static int *ptrPosicionUnplayed;
     void setUnplayed();
     void setPlayed();
+    bool getSeJugo();
+    void setSejugo(bool);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
