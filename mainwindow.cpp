@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
+    setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
 }
 
 void MainWindow::fichaAdversario(char *letra, int *fila, int *columna, int tam)
@@ -106,7 +107,15 @@ void MainWindow::request(string agregar)
 void MainWindow::on_pushButton_2_clicked()
 {
     Tablero_Cliente::getInstance().readInfo();
-    qDebug()<<ui->lineEdit->text()<<Tablero_Cliente::getInstance().getIp()<<
-              Tablero_Cliente::getInstance().getPuerto();
+    Tablero_Cliente* TabClien = &Tablero_Cliente::getInstance();
+    Socket* sock = &Socket::getInstance();
+    string nombre = ui->lineEdit->text().toUtf8().constData();
+    string ip = TabClien->getIp().toUtf8().constData();
+    string puertoStr = TabClien->getPuerto().toUtf8().constData();
+    int puerto = std::stoi("8080");
+    TraductorCliente* TC=&TraductorCliente::getInstance();
+    string crearSala = TC->SerializarCrearSala(ip,nombre);
+    qDebug()<<crearSala.c_str();
+    sock->enviar(crearSala,puerto,"192.168.100.18");
 
 }

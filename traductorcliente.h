@@ -24,7 +24,7 @@ public:
 
     string SerializarAgregarPalabra(string palabra);
 
-    string SerializarCrearSala(string ip);
+    string SerializarCrearSala(string ip,string nombre);
     string DeSerializarRespuestaCrearSala(string json,bool* val,int* codigo,int* turno);
 };
 

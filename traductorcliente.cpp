@@ -81,14 +81,16 @@ string TraductorCliente::SerializarAgregarPalabra(string palabra)
     return buffer.GetString();
 }
 
-string TraductorCliente::SerializarCrearSala(string ip)
+string TraductorCliente::SerializarCrearSala(string ip,string nombre)
 {
     const char* json = "{\"ip\":\"0.0.0.0\","
-                       "\"id\":0}";
+                        "\"nombre\":\"lol\","
+                       "\"id\":0 }";
 
     Document d;
     d.Parse(json);
     d["ip"].SetString(ip.c_str(),sizeof(char)*ip.length());
+    d["nombre"].SetString(nombre.c_str(),sizeof(char)*nombre.length());
 
     StringBuffer buffer;
     Writer<StringBuffer> writer(buffer);

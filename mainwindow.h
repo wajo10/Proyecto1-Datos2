@@ -11,6 +11,8 @@
 #include "botones.h"
 #include "bolsa.h"
 #include "tablero_cliente.h"
+#include "traductorcliente.h"
+#include "socket.h"
 
 using namespace std;
 

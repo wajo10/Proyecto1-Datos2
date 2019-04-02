@@ -14,12 +14,10 @@ Socket::Socket() {
     int Puerto_prueba=8081;
 }
 
-int Socket::enviar(string Mensaje,int puerto) {
+int Socket::enviar(string Mensaje,int puerto,string ip) {
     int n = Mensaje.length();
     char char_array[n + 1];
     strcpy(char_array, Mensaje.c_str());
-    char *mensaje_enviar=char_array;
-    char char_array2[] ="holaafeoil9090oaaaaaaaaaaaaa";
     char *hello = char_array;
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -34,7 +32,7 @@ int Socket::enviar(string Mensaje,int puerto) {
     serv_addr.sin_port = htons(puerto);
 
     // Convert IPv4 and IPv6 addresses from text to binary form
-    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)
+    if(inet_pton(AF_INET, ip.c_str(), &serv_addr.sin_addr)<=0)
     {
         printf("\nInvalid address/ Address not supported \n");
         return -1;
@@ -45,12 +43,12 @@ int Socket::enviar(string Mensaje,int puerto) {
         printf("\nConnection Failed \n");
         return -1;
     }
-    send(sock , hello , strlen(hello) , 0 );
-    printf("Hello message sent\n");
+    send(sock , hello , strlen(hello) , 0 );/*
+
     valread = static_cast<int>(read(sock , buffer, 1024));
     // send(sock , hello , strlen(hello) , 0 );
     close(sock);
-    printf("%s\n",buffer );
+    printf("%s\n",buffer );*/
     return 0;
 }
 void Socket::escuchar(string Mensaje,int puerto) {

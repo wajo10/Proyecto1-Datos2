@@ -25,9 +25,13 @@ private:
     char *hello="hola guapo";
 public:
     Socket();
-    int enviar(string Mensaje,int puerto);
+    int enviar(string Mensaje,int puerto,string ip);
     void escuchar(string Mensaje,int puerto);
     void prueba(char *mensaje,int puerto);
+    static Socket &getInstance(){
+        static Socket instance;
+        return instance;
+    }
 };
 
 
