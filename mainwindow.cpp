@@ -157,7 +157,7 @@ void MainWindow::on_pushButton_2_clicked()
     Tablero_Cliente* TabClien = &Tablero_Cliente::getInstance();
     Socket* sock = &Socket::getInstance();
     string nombre = ui->lineEdit->text().toUtf8().constData();
-    int tsala = stoi(ui->lineEdit->text().toUtf8().constData());
+    int tsala = stoi(ui->lineEdit_2->text().toUtf8().constData());
     string ip = TabClien->getIp().toUtf8().constData();
     string puertoStr = TabClien->getPuerto().toUtf8().constData();
     int puerto = std::stoi("8080");
