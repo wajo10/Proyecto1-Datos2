@@ -142,6 +142,6 @@ void MainWindow::on_pushButton_2_clicked()
     TC->DeSerializarRespuestaCrearSala(respuesta,&codigo);
     qDebug()<<codigo;
     QString A=QString::number(codigo);
-    ui->lineEdit_3->setText("Esperando jugadores, el código de jugador es: "+A);
+    ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
 
 }

@@ -207,13 +207,16 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>30</x>
       <y>200</y>
-      <width>331</width>
+      <width>341</width>
       <height>28</height>
      </rect>
     </property>
     <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="readOnly">
      <bool>true</bool>
     </property>
    </widget>
