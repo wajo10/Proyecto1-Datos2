@@ -34,7 +34,7 @@ string TraductorCliente::SerilizarFichasJugadas(int tam, bool EsHorizontal, char
     return buffer.GetString();
 }
 
-void TraductorCliente::DeserializarRespuestaTurnoPropio(string json,bool *val, bool *hayfichas, int *puntos, string *repo)
+void TraductorCliente::DeserializarRespuestaTurnoPropio(string json,bool *val, bool *hayfichas, int *puntos, string *repo, string *resumen)
 {
     Document d;
     d.Parse(json.c_str());
@@ -42,8 +42,8 @@ void TraductorCliente::DeserializarRespuestaTurnoPropio(string json,bool *val, b
     *hayfichas=d["hayfichas"].GetBool();
     *puntos=d["puntos"].GetInt();
     *repo=d["repo"].GetString();
+    *resumen=d["resumen"].GetString();
 }
-
 void TraductorCliente::DeserializarRespuestaTurnoAjeno(string json, int *tam, bool *EsHorizontal, char *letras, int *filas, int *columnas)
 {
     Document d;

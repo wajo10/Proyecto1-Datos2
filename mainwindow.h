@@ -40,6 +40,8 @@ public:
 
     void crearTablero(string iniciales);
     void cicloPartida(int tsala, int turno, int puerto, int c);
+    void puntaje(int pts);
+    void resumen(string res);
 private slots:
     void on_pushButton_clicked();
 
@@ -49,6 +51,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QLabel *label = new QLabel();
+    QLabel *labelP = new QLabel();
 
 };
 

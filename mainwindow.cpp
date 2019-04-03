@@ -65,7 +65,9 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setPuertoServidor(puerto2);
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
-    crearTablero(iniciales);
+    crearTablero("inicial");
+    puntaje(0);
+    resumen("");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -92,6 +94,7 @@ void MainWindow:: crearTablero(string Iniciales)
         ficha->posInicial = i;
         scene->addItem(ficha);
         ficha->setUnplayed();
+        Ficha::flagTurno=true;
         xInicial+=57;
     }
     qDebug()<<scene<<"Main";
@@ -116,6 +119,24 @@ void MainWindow::cicloPartida(int tsala, int turno, int puerto, int c)
 
         cicloPartida(tsala,turno,puerto,++c);
     }
+}
+
+void MainWindow::puntaje(int pts)
+{
+    labelP->setText("Puntaje:" + QString::number((pts)));
+    labelP->setGeometry(800,600,100,100);
+    labelP->QWidget::setAttribute(Qt::WA_TranslucentBackground);
+    scene->addWidget(labelP);
+}
+
+void MainWindow::resumen(string res)
+{
+   label->setText("Resumen:" +QString::fromStdString(res));
+   label->setGeometry(800,500,300,100);
+   label->QWidget::setAttribute(Qt::WA_TranslucentBackground);
+   scene->addWidget(label);
+
+
 }
 void MainWindow::on_lineEdit_editingFinished()
 {

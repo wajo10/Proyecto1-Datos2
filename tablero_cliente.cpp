@@ -67,6 +67,16 @@ void Tablero_Cliente::setTsala(int value)
     tsala = value;
 }
 
+int Tablero_Cliente::getPuntos() const
+{
+    return puntos;
+}
+
+void Tablero_Cliente::setPuntos(int value)
+{
+    puntos = value;
+}
+
 Tablero_Cliente::Tablero_Cliente()
 {
     this->FichasJugadas=new LinkedList();
@@ -243,7 +253,7 @@ LinkedList Tablero_Cliente::getFichasJugadas()
 void Tablero_Cliente::RecibirRespuesta(string json)
 {
     int p=0;
-    TraductorCliente::getInstance().DeserializarRespuestaTurnoPropio(json,&Val,&HayFichas,&p,&repo);
+    TraductorCliente::getInstance().DeserializarRespuestaTurnoPropio(json,&Val,&HayFichas,&p,&repo,&resumen);
     puntos+=p;
 }
 
@@ -254,6 +264,7 @@ void Tablero_Cliente::RecibirRespuestaAjena(string json)
 
 void Tablero_Cliente::limpiarJugadas()
 {
+
     delete(this->FichasJugadas);
     this->FichasJugadas=new LinkedList();
 }

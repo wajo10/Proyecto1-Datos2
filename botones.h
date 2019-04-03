@@ -5,6 +5,9 @@
 #include <QGraphicsPixmapItem>
 #include "tablero_cliente.h"
 #include "socket.h"
+#include <stdlib.h>
+#include <iostream>
+#include <string>
 
 class botones: public QObject, public QGraphicsPixmapItem
 {

@@ -23,6 +23,7 @@ private:
     QString puerto;
     QString expertoCel;
     string repo;
+    string resumen;
     int puertoServidor;
     int turno;
     int tsala;
@@ -60,6 +61,8 @@ public:
     void setTurno(int value);
     int getTsala() const;
     void setTsala(int value);
+    int getPuntos() const;
+    void setPuntos(int value);
 };
 
 #endif // TABLERO_CLIENTE_H

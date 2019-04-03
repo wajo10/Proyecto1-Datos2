@@ -18,7 +18,7 @@ public:
         return instance;
     }
     string SerilizarFichasJugadas(int tam, bool EsHorizontal,char letras[7],int filas[7], int columnas[7]);
-    void DeserializarRespuestaTurnoPropio(string json,bool* val, bool* hayfichas,int* puntos, string* repo);
+    void DeserializarRespuestaTurnoPropio(string json,bool* val, bool* hayfichas,int* puntos, string* repo, string *resumen);
     void DeserializarRespuestaTurnoAjeno(string json, int *tam, bool *EsHorizontal, char *letras, int *filas, int *columnas);
     int getID(string json);
 

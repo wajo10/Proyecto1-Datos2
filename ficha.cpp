@@ -55,7 +55,7 @@ Ficha::Ficha(char letra){
 }
 //Deteccion
 void Ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
-    if (flagMove){
+    if (flagMove && flagTurno){
         this->setX(ev->scenePos().x()-22);
         this->setY(ev->scenePos().y()-22);
     }
@@ -102,8 +102,6 @@ int *Ficha::getFichasIniciales()
 {
     return ptrPosicionUnplayed;
 }
-
-
 
 int Ficha::Puntos(char letra)
 {
