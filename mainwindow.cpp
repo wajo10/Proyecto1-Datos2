@@ -44,7 +44,15 @@ void MainWindow::on_pushButton_clicked()
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
     qDebug()<<unirseSala.c_str();
-    sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+    if (validacion=="0"){
+        qDebug()<<"No existe la sala";
+        return;
+    }
+    else if (validacion=="2"){
+        qDebug()<<"La sala está llena";
+        return;
+    }
 
     string confirmacion = sock->escuchar2(8080);
     bool val;
