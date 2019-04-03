@@ -45,6 +45,7 @@ void MainWindow::on_pushButton_clicked()
     string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
     qDebug()<<unirseSala.c_str();
     string validacion=sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+    qDebug()<<validacion.c_str();
     if (validacion=="0"){
         qDebug()<<"No existe la sala";
         return;
@@ -59,10 +60,8 @@ void MainWindow::on_pushButton_clicked()
     int turno;
     string iniciales;
     TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales);
-    if (val){
-        TabClien->setPuertoServidor(puerto2);
-        TabClien->setTurno(turno);
-    }
+    TabClien->setPuertoServidor(puerto2);
+    TabClien->setTurno(turno);
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
