@@ -33,37 +33,40 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    Tablero_Cliente::getInstance().readInfo();
-    Tablero_Cliente* TabClien = &Tablero_Cliente::getInstance();
-    Socket* sock = &Socket::getInstance();
-    string nombre = ui->lineEdit->text().toUtf8().constData();
-    string codigo = ui->lineEdit_2->text().toUtf8().constData();
-    string ip = TabClien->getIp().toUtf8().constData();
-    string puertoStr = TabClien->getPuerto().toUtf8().constData();
-    int puerto = std::stoi(puertoStr.c_str());
-    TraductorCliente* TC=&TraductorCliente::getInstance();
-    string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
-    qDebug()<<unirseSala.c_str();
-    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.18",true);
-    qDebug()<<validacion.c_str();
-    if (validacion=="0"){
-        qDebug()<<"No existe la sala";
-        return;
-    }
-    else if (validacion=="2"){
-        qDebug()<<"La sala está llena";
-        return;
-    }
+//    Tablero_Cliente::getInstance().readInfo();
+//    Tablero_Cliente* TabClien = &Tablero_Cliente::getInstance();
+//    Socket* sock = &Socket::getInstance();
+//    string nombre = ui->lineEdit->text().toUtf8().constData();
+//    string codigo = ui->lineEdit_2->text().toUtf8().constData();
+//    string ip = TabClien->getIp().toUtf8().constData();
+//    string puertoStr = TabClien->getPuerto().toUtf8().constData();
+//    int puerto = std::stoi(puertoStr.c_str());
+//    TraductorCliente* TC=&TraductorCliente::getInstance();
+//    string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
+//    qDebug()<<unirseSala.c_str();
+//    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+//    qDebug()<<validacion.c_str();
+//    if (validacion=="0"){
+//        qDebug()<<"No existe la sala";
+//        return;
+//    }
+//    else if (validacion=="2"){
+//        qDebug()<<"La sala está llena";
+//        return;
+//    }
 
-    string confirmacion = sock->escuchar2(8080);
-    qDebug()<<confirmacion.c_str();
-    int puerto2;
-    int turno;
-    string iniciales;
-    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales);
-    TabClien->setPuertoServidor(puerto2);
-    TabClien->setTurno(turno);
-    crearTablero(iniciales);
+//    string confirmacion = sock->escuchar2(8080);
+//    qDebug()<<confirmacion.c_str();
+//    int puerto2;
+//    int turno;
+//    int tsala;
+//    string iniciales;
+//    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales,&tsala);
+//    TabClien->setPuertoServidor(puerto2);
+//    TabClien->setTurno(turno);
+//    TabClien->setTsala(tsala);
+    crearTablero("inicial");
+    cicloPartida(2,2,808);
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -99,6 +102,15 @@ void MainWindow:: crearTablero(string Iniciales)
     Boton->setX(1000);
     Boton->setY(404);
     scene->addItem(Boton);
+}
+
+void MainWindow::cicloPartida(int tsala, int turno, int puerto)
+{
+    int c =1;
+    if(c%tsala == turno){
+        Ficha::flagTurno = true;
+    }
+    c++;
 }
 void MainWindow::on_lineEdit_editingFinished()
 {
@@ -140,11 +152,12 @@ void MainWindow::on_pushButton_2_clicked()
     Tablero_Cliente* TabClien = &Tablero_Cliente::getInstance();
     Socket* sock = &Socket::getInstance();
     string nombre = ui->lineEdit->text().toUtf8().constData();
+    int tsala = stoi(ui->lineEdit->text().toUtf8().constData());
     string ip = TabClien->getIp().toUtf8().constData();
     string puertoStr = TabClien->getPuerto().toUtf8().constData();
     int puerto = std::stoi("8080");
     TraductorCliente* TC=&TraductorCliente::getInstance();
-    string crearSala = TC->SerializarCrearSala(ip,nombre);
+    string crearSala = TC->SerializarCrearSala(ip,nombre,tsala);
     string respuesta = sock->enviar(crearSala,puerto,"192.168.100.18",true);
     TabClien->setTurno(1);
     int codigo=0;
@@ -158,9 +171,10 @@ void MainWindow::on_pushButton_2_clicked()
     int puerto2;
     int turno;
     string iniciales;
-    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales);
+    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales,&tsala);
     TabClien->setPuertoServidor(puerto2);
     TabClien->setTurno(turno);
+    TabClien->setTsala(tsala);
     crearTablero(iniciales);
 
 }

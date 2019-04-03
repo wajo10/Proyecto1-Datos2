@@ -57,6 +57,16 @@ void Tablero_Cliente::setTurno(int value)
     turno = value;
 }
 
+int Tablero_Cliente::getTsala() const
+{
+    return tsala;
+}
+
+void Tablero_Cliente::setTsala(int value)
+{
+    tsala = value;
+}
+
 Tablero_Cliente::Tablero_Cliente()
 {
     this->FichasJugadas=new LinkedList();

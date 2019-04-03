@@ -25,6 +25,7 @@ private:
     string repo;
     int puertoServidor;
     int turno;
+    int tsala;
 public:
     Tablero_Cliente();
     bool JugarFicha(Ficha* F,int fila, int columna);
@@ -57,6 +58,8 @@ public:
     void setPuertoServidor(int value);
     int getTurno() const;
     void setTurno(int value);
+    int getTsala() const;
+    void setTsala(int value);
 };
 
 #endif // TABLERO_CLIENTE_H

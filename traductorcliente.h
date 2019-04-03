@@ -25,9 +25,9 @@ public:
     string SerializarAgregarPalabra(string palabra);
 
     string SerializarUnirseSala(string ip,string nombre, string codigo);
-    void DeSerializarRespuestaUnirseSala(string json,int* puerto,int* turno,string* iniciales);
+    void DeSerializarRespuestaUnirseSala(string json,int* puerto,int* turno,string* iniciales, int* tsala);
 
-    string SerializarCrearSala(string ip,string nombre);
+    string SerializarCrearSala(string ip,string nombre, int cantidadJugadores);
     void DeSerializarRespuestaCrearSala(string json,int* codigo);
 };
 

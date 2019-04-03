@@ -18,6 +18,7 @@ Ficha::Ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 }
 int* Ficha:: ptrPosicionUnplayed = posiciones;
 int Ficha:: posiciones[7];
+bool Ficha:: flagTurno = false;
 Ficha::Ficha(char letra){
 //Casos para cada letra
     this->letra = letra;
@@ -183,7 +184,7 @@ bool Ficha::getSeJugo()
 
 void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arrastrar
 {
-    if (flagMove){
+    if (flagMove && flagTurno){
         int* posicion = agregar(event->scenePos().x(), event->scenePos().y());
         this->columna = *(posicion);
         this->fila = *(posicion+1);
@@ -225,7 +226,7 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
 
 void Ficha::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (flagMove){
+    if (flagMove && flagTurno){
        xInicial = (int)this->x();
        yInicial = (int)this->y();
     }

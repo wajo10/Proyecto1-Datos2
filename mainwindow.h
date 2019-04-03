@@ -39,6 +39,7 @@ public:
     ~MainWindow();
 
     void crearTablero(string iniciales);
+    void cicloPartida(int tsala, int turno, int puerto);
 private slots:
     void on_pushButton_clicked();
 

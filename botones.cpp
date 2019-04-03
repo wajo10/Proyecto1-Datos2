@@ -12,29 +12,33 @@ botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
+    if (Ficha::flagTurno){
+        Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
 
-    string s1=Tc->ResumenFichas();
+        string s1=Tc->ResumenFichas();
 
 
-    if(Tc->getVal()){
-        Tc->limpiarJugadas();
-        qDebug() << Tc->getRepo().c_str();
-        MainWindow::request(Tc->getRepo());
-        if (Tc->getHayFichas()){
+        if(Tc->getVal()){
+            Tc->limpiarJugadas();
+            qDebug() << Tc->getRepo().c_str();
+            MainWindow::request(Tc->getRepo());
+            if (Tc->getHayFichas()){
 
+            }
+            else{
+                qDebug()<< "no hay suficientes fichas en bolsa para reponer";
+            }
         }
         else{
-            qDebug()<< "no hay suficientes fichas en bolsa para reponer";
+            if (Tc->getHayFichas()){
+                qDebug()<< "Fichas inválidas";
+            }
+            else{
+                qDebug()<< "Fin del juego";
+            }
+            Tc->RemoverFichas();
         }
+
     }
-    else{
-        if (Tc->getHayFichas()){
-            qDebug()<< "Fichas inválidas";
-        }
-        else{
-            qDebug()<< "Fin del juego";
-        }
-        Tc->RemoverFichas();
-    }
+
 }

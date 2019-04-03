@@ -41,6 +41,7 @@ public:
     void setPlayed();
     bool getSeJugo();
     void setSejugo(bool);
+    static bool flagTurno;
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
