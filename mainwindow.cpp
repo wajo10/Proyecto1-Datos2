@@ -65,13 +65,14 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setPuertoServidor(puerto2);
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
-    crearTablero("inicial");
+    crearTablero(iniciales);
     puntaje(0);
     resumen("");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
     char array[7];
+    qDebug()<<scene<<"$$$";
 
     //Crear view
     QGraphicsView * view = new QGraphicsView(scene);
@@ -148,12 +149,14 @@ void MainWindow::request(string agregar)
     int xInicial = 807;
 
     int cantidad= agregar.length();
-
+    qDebug()<<agregar.c_str();
     for (int i=0;i<cantidad;i++){
+        qDebug()<<"#";
         int aux=0;
         int* ptrIniciales = Ficha::ptrPosicionUnplayed;
         array[i] = agregar[i];
         Ficha * ficha = new Ficha(array[i]);
+        qDebug()<<scene<<"$$$";
         scene->addItem(ficha);
         while( aux<7){
             qDebug()<<*(ptrIniciales+aux)<<"AUX";
@@ -166,6 +169,7 @@ void MainWindow::request(string agregar)
             }
             aux++;
         }
+        qDebug()<<"&";
 
 
     }
