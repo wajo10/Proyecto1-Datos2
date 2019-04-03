@@ -4,7 +4,6 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QMouseEvent>
-#include "bolsa.h"
 #include <QDebug>
 
 

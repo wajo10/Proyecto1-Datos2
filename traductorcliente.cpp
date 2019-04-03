@@ -106,7 +106,7 @@ void TraductorCliente::DeSerializarRespuestaUnirseSala(string json, int *puerto,
     d.Parse(json.c_str());
     *puerto =d["puerto"].GetInt();
     *turno =d["turno"].GetInt();
-    *iniciales=d["inciales"].GetString();
+    *iniciales=d["iniciales"].GetString();
 }
 
 string TraductorCliente::SerializarCrearSala(string ip,string nombre)

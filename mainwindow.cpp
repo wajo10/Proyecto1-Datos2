@@ -56,12 +56,14 @@ void MainWindow::on_pushButton_clicked()
     }
 
     string confirmacion = sock->escuchar2(8080);
+    qDebug()<<confirmacion.c_str();
     int puerto2;
     int turno;
     string iniciales;
     TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales);
     TabClien->setPuertoServidor(puerto2);
     TabClien->setTurno(turno);
+    crearTablero(iniciales);
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -150,5 +152,15 @@ void MainWindow::on_pushButton_2_clicked()
     qDebug()<<codigo;
     QString A=QString::number(codigo);
     ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
+
+    string confirmacion = sock->escuchar2(8080);
+    qDebug()<<confirmacion.c_str();
+    int puerto2;
+    int turno;
+    string iniciales;
+    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales);
+    TabClien->setPuertoServidor(puerto2);
+    TabClien->setTurno(turno);
+    crearTablero(iniciales);
 
 }

@@ -38,7 +38,6 @@ SOURCES += \
     pantalla.cpp \
     botones.cpp \
     traductorcliente.cpp \
-    traductorservidor.cpp \
     socket.cpp \
     comodin.cpp
 
@@ -48,16 +47,13 @@ HEADERS += \
     jugador.h \
     tablero.h \
     sala.h \
-    bolsa.h \
     ficha.h \
     linkedlist.h \
     node.h \
-    tablero_servidor.h \
     tablero_cliente.h \
     pantalla.h \
     botones.h \
     traductorcliente.h \
-    traductorservidor.h \
     socket.h \
     comodin.h
 

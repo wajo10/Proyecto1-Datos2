@@ -1,7 +1,6 @@
 #include "linkedlist.h"
 #include "mainwindow.h"
 #include "traductorcliente.h"
-#include "traductorservidor.h"
 #include "comodin.h"
 
 

@@ -9,7 +9,6 @@
 #include "pantalla.h"
 #include "ficha.h"
 #include "botones.h"
-#include "bolsa.h"
 #include "tablero_cliente.h"
 #include "traductorcliente.h"
 #include "socket.h"
