@@ -31,11 +31,9 @@ SOURCES += \
     jugador.cpp \
     tablero.cpp \
     sala.cpp \
-    bolsa.cpp \
     ficha.cpp \
     linkedlist.cpp \
     node.cpp \
-    tablero_servidor.cpp \
     tablero_cliente.cpp \
     pantalla.cpp \
     botones.cpp \
