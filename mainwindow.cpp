@@ -44,11 +44,14 @@ void MainWindow::on_pushButton_clicked()
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
     qDebug()<<unirseSala.c_str();
-    string confirmacion = sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+    sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+
+    string confirmacion = sock->escuchar2(8080);
     bool val;
     int puerto2;
     int turno;
-    TC->DeSerializarRespuestaUnirseSala(confirmacion,&val,&puerto2,&turno);
+    string iniciales;
+    TC->DeSerializarRespuestaUnirseSala(confirmacion,&val,&puerto2,&turno,&iniciales);
     if (val){
         TabClien->setPuertoServidor(puerto2);
         TabClien->setTurno(turno);
