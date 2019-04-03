@@ -22,16 +22,14 @@ private:
     char buffer[1024] = {0};
     char char_array;
     struct sockaddr_in serv_addr;
-    char *hello="hola guapo";
 public:
     Socket();
     string enviar(string Mensaje,int puerto,string ip, bool);
-    void escuchar(string Mensaje,int puerto);
-    void prueba(char *mensaje,int puerto);
     static Socket &getInstance(){
         static Socket instance;
         return instance;
     }
+    string escuchar2(int puerto);
 };
 
 

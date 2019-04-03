@@ -25,7 +25,6 @@ private:
     string repo;
     int puertoServidor;
     int turno;
-
 public:
     Tablero_Cliente();
     bool JugarFicha(Ficha* F,int fila, int columna);

@@ -39,7 +39,7 @@ public:
     QGraphicsScene **ptrScene = &scene;
     ~MainWindow();
 
-    void crearTablero();
+    void crearTablero(string iniciales);
 private slots:
     void on_pushButton_clicked();
 

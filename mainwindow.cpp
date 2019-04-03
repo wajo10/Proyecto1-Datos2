@@ -44,20 +44,27 @@ void MainWindow::on_pushButton_clicked()
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
     qDebug()<<unirseSala.c_str();
-    string confirmacion = sock->enviar(unirseSala,puerto,"192.168.100.18",true);
-    bool val;
+    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+    qDebug()<<validacion.c_str();
+    if (validacion=="0"){
+        qDebug()<<"No existe la sala";
+        return;
+    }
+    else if (validacion=="2"){
+        qDebug()<<"La sala está llena";
+        return;
+    }
+
+    string confirmacion = sock->escuchar2(8080);
     int puerto2;
     int turno;
-    TC->DeSerializarRespuestaUnirseSala(confirmacion,&val,&puerto2,&turno);
-    if (val){
-        TabClien->setPuertoServidor(puerto2);
-        TabClien->setTurno(turno);
-    }
+    string iniciales;
+    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales);
+    TabClien->setPuertoServidor(puerto2);
+    TabClien->setTurno(turno);
 }
-void MainWindow:: crearTablero()
+void MainWindow:: crearTablero(string Iniciales)
 {
-    Bolsa *bolsa = new Bolsa();
-    string Iniciales = bolsa->fichas_turno(7);
     char array[7];
 
     //Crear view
