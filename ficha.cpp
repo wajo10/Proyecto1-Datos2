@@ -4,9 +4,10 @@
 #include <stdlib.h>
 #include "tablero_cliente.h"
 #include <QGraphicsSceneMouseEvent>
+#include "comodin.h"
 
 char Ficha::getLetra() const{
-    return letra;
+   return this->letra;
 }
 
 
@@ -210,8 +211,9 @@ void Ficha::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)//Terminar de arra
             this->setY(yInicial);
         }
         if(this->letra==' '){
-            Comodin w;
-            w.show();
+            Comodin *x = new Comodin();
+            x->setFicha(this);
+            x->show();
         }
     }
     else{

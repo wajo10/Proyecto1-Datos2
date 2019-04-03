@@ -5,6 +5,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include "ficha.h"
+using namespace std;
 
 namespace Ui {
 class Comodin;
@@ -17,6 +19,9 @@ class Comodin : public QDialog
 public:
     explicit Comodin(QWidget *parent = nullptr);
     ~Comodin();
+    Comodin (Ficha* ficha);
+    Ficha *getFicha() const;
+    void setFicha(Ficha *value);
 
 private slots:
 
@@ -24,6 +29,7 @@ private slots:
 
 private:
     Ui::Comodin *ui;
+    Ficha *ficha;
 };
 
 #endif // COMODIN_H

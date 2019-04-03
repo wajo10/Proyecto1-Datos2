@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "traductorcliente.h"
 #include "traductorservidor.h"
+#include "comodin.h"
 
 
 int main(int argc, char *argv[])
