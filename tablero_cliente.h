@@ -57,6 +57,7 @@ public:
     void setPuertoServidor(int value);
     int getTurno() const;
     void setTurno(int value);
+    bool Validar(string *s);
 };
 
 #endif // TABLERO_CLIENTE_H

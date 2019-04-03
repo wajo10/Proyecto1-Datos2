@@ -284,4 +284,22 @@ QString Tablero_Cliente::getExpertoCel()
 {
     return this->expertoCel;
 }
+bool Tablero_Cliente::Validar(string *s)
+{
+    QFile file(":/txt/txt/words_alpha.txt");
+    if(!file.exists()){
+        qDebug() <<"No abre el diccionario xd";
+        return false;
+    }
+    else{
+        if (!file.open(QIODevice::Append | QIODevice::Text))
+                return true;
+
+            QTextStream out(&file);
+            out << s<< "\n";
+        file.flush();
+        file.close();
+        return false;
+    }
+}
 

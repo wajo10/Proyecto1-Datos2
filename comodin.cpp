@@ -14,7 +14,9 @@ Comodin::~Comodin()
     delete ui;
 }
 
-
+/**
+ * @brief Comodin::on_pushButton_clicked setea la nueva letra al comodin
+ */
 void Comodin::on_pushButton_clicked()
 {
     string letra = ui->lineEdit->text().toUtf8().constData();

@@ -15,13 +15,8 @@ botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
-    Tablero_Servidor* Ts=&Tablero_Servidor::getInstance();
 
     string s1=Tc->ResumenFichas();
-    TraductorServidor::getInstance().SerializarRespuestaTurnoAjeno(s1);
-    Ts->Desempaquetar(s1);
-    string s2=Ts->LeerPalabras();
-    Tc->RecibirRespuesta(s2);
 
 
     if(Tc->getVal()){

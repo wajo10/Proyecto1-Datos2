@@ -18,6 +18,10 @@ Ficha::Ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 }
 int* Ficha:: ptrPosicionUnplayed = posiciones;
 int Ficha:: posiciones[7];
+/**
+ * @brief Ficha::Ficha Constructor de ficha
+ * @param letra
+ */
 Ficha::Ficha(char letra){
 //Casos para cada letra
     this->letra = letra;
@@ -52,7 +56,10 @@ Ficha::Ficha(char letra){
 
 };
 }
-//Deteccion
+/**
+ * @brief Ficha::mouseMoveEvent movimiento de la ficha con el cursor
+ * @param ev
+ */
 void Ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
     if (flagMove){
         this->setX(ev->scenePos().x()-22);
@@ -103,7 +110,11 @@ int *Ficha::getFichasIniciales()
 }
 
 
-
+/**
+ * @brief Ficha::Puntos determina los puntos que otorga cad letra
+ * @param letra
+ * @return
+ */
 int Ficha::Puntos(char letra)
 {
     std::map<char, char> m;
@@ -152,8 +163,9 @@ Ficha::Ficha(int Fila,int Columna,char letra)
     this->Fila=Fila;
     this->Columna=Columna;
 }
-//Setea las posiciones ocupadas de las fichas no utilizadas
-
+/**
+ * @brief Ficha::setUnplayed Setea las posiciones ocupadas de las fichas no utilizadas
+ */
 void Ficha::setUnplayed()
 {   int contador= 0;
     while(contador < 7){
@@ -164,7 +176,9 @@ void Ficha::setUnplayed()
 
     }
 }
-
+/**
+ * @brief Ficha::setPlayed Setea el flag de las fichas como jugadas
+ */
 void Ficha:: setPlayed(){
     posiciones[this->posInicial]=0;
     for(int i =0; i<7;i++){
