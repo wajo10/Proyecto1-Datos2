@@ -100,11 +100,10 @@ string TraductorCliente::SerializarUnirseSala(string ip, string nombre, string c
     return buffer.GetString();
 }
 
-void TraductorCliente::DeSerializarRespuestaUnirseSala(string json, bool *val, int *puerto, int *turno, string* iniciales)
+void TraductorCliente::DeSerializarRespuestaUnirseSala(string json, int *puerto, int *turno, string* iniciales)
 {
     Document d;
     d.Parse(json.c_str());
-    *val =d["val"].GetBool();
     *puerto =d["puerto"].GetInt();
     *turno =d["turno"].GetInt();
     *iniciales=d["inciales"].GetString();

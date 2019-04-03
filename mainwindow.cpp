@@ -55,20 +55,17 @@ void MainWindow::on_pushButton_clicked()
     }
 
     string confirmacion = sock->escuchar2(8080);
-    bool val;
     int puerto2;
     int turno;
     string iniciales;
-    TC->DeSerializarRespuestaUnirseSala(confirmacion,&val,&puerto2,&turno,&iniciales);
+    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales);
     if (val){
         TabClien->setPuertoServidor(puerto2);
         TabClien->setTurno(turno);
     }
 }
-void MainWindow:: crearTablero()
+void MainWindow:: crearTablero(string Iniciales)
 {
-    Bolsa *bolsa = new Bolsa();
-    string Iniciales = bolsa->fichas_turno(7);
     char array[7];
 
     //Crear view
