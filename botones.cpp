@@ -43,6 +43,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.9",true);
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
+            Ficha::flagTurno=false;
             puntaje(Tc->getPuntos());
             resumen(Tc->getResumen());
             Tc->limpiarJugadas();
@@ -67,6 +68,5 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
 
     }
-    Ficha::flagTurno=false;
-    MainWindow::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
+    //MainWindow::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
 }

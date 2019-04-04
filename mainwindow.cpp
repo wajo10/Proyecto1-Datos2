@@ -95,7 +95,7 @@ void MainWindow:: crearTablero(string Iniciales)
         ficha->posInicial = i;
         scene->addItem(ficha);
         ficha->setUnplayed();
-        Ficha::flagTurno=true;
+
         xInicial+=57;
     }
     qDebug()<<scene<<"Main";
@@ -105,6 +105,8 @@ void MainWindow:: crearTablero(string Iniciales)
     Boton->setX(1000);
     Boton->setY(404);
     scene->addItem(Boton);
+    Ficha::flagTurno=false;
+    cicloPartida(Tablero_Cliente::getInstance().getTsala(),Tablero_Cliente::getInstance().getTurno(),Tablero_Cliente::getInstance().getPuertoServidor());
 }
 
 void MainWindow::cicloPartida(int tsala, int turno, int puerto)
@@ -117,7 +119,9 @@ void MainWindow::cicloPartida(int tsala, int turno, int puerto)
         return;
     }
     else{
+        qDebug()<<"LISTENING";
         string json = Socket::getInstance().escuchar2(8080);
+        qDebug()<<json.c_str()<<"jSON";
         int tam;
         char letras[7];
         int filas[7];
