@@ -44,7 +44,7 @@ void MainWindow::on_pushButton_clicked()
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
     qDebug()<<unirseSala.c_str();
-    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.18",true);
+    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.9",true);
     qDebug()<<validacion.c_str();
     if (validacion=="0"){
         qDebug()<<"No existe la sala";
@@ -66,8 +66,6 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    puntaje(0);
-    resumen("");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -122,23 +120,6 @@ void MainWindow::cicloPartida(int tsala, int turno, int puerto, int c)
     }
 }
 
-void MainWindow::puntaje(int pts)
-{
-    labelP->setText("Puntaje:" + QString::number((pts)));
-    labelP->setGeometry(800,600,100,100);
-    labelP->QWidget::setAttribute(Qt::WA_TranslucentBackground);
-    scene->addWidget(labelP);
-}
-
-void MainWindow::resumen(string res)
-{
-   label->setText("Resumen:" +QString::fromStdString(res));
-   label->setGeometry(800,500,300,100);
-   label->QWidget::setAttribute(Qt::WA_TranslucentBackground);
-   scene->addWidget(label);
-
-
-}
 void MainWindow::on_lineEdit_editingFinished()
 {
 
@@ -188,7 +169,7 @@ void MainWindow::on_pushButton_2_clicked()
     int puerto = std::stoi("8080");
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string crearSala = TC->SerializarCrearSala(ip,nombre,tsala);
-    string respuesta = sock->enviar(crearSala,puerto,"192.168.100.18",true);
+    string respuesta = sock->enviar(crearSala,puerto,"192.168.100.9",true);
     TabClien->setTurno(1);
     int codigo=0;
     TC->DeSerializarRespuestaCrearSala(respuesta,&codigo);

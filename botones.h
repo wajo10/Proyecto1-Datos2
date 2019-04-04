@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <QLabel>
 
 class botones: public QObject, public QGraphicsPixmapItem
 {
@@ -15,7 +16,10 @@ class botones: public QObject, public QGraphicsPixmapItem
 public:
     botones (QGraphicsItem *parent=nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
+    void puntaje(int pts);
+    QLabel *label = new QLabel();
+    QLabel *labelR = new QLabel();
+    void resumen(string res);
 };
 
 #endif // BOTONES_H

@@ -51,8 +51,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QLabel *label = new QLabel();
-    QLabel *labelP = new QLabel();
 
 };
 
