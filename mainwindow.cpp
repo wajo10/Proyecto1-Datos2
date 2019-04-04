@@ -106,11 +106,12 @@ void MainWindow:: crearTablero(string Iniciales)
     Boton->setY(404);
     scene->addItem(Boton);
     Ficha::flagTurno=false;
-    cicloPartida(Tablero_Cliente::getInstance().getTsala(),Tablero_Cliente::getInstance().getTurno(),Tablero_Cliente::getInstance().getPuertoServidor());
+    cicloPartida(Tablero_Cliente::getInstance().getTsala(),Tablero_Cliente::getInstance().getTurno()-1,Tablero_Cliente::getInstance().getPuertoServidor());
 }
 
 void MainWindow::cicloPartida(int tsala, int turno, int puerto)
 {
+    qDebug()<<turno;
     if(c>50){
         return;
     }

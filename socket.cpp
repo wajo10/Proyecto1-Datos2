@@ -44,6 +44,7 @@ string Socket::enviar(string Mensaje,int puerto,string ip, bool escuchar) {
         printf("\nConnection Failed \n");
         return "";
     }
+    qDebug()<<hello;
     send(sock , hello , strlen(hello) , 0 );
 
 
