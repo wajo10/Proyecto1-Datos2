@@ -174,7 +174,7 @@ void MainWindow::on_pushButton_2_clicked()
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string crearSala = TC->SerializarCrearSala(ip,nombre,tsala);
     string respuesta = sock->enviar(crearSala,puerto,"192.168.100.9",true);
-    TabClien->setTurno(1);
+    TabClien->setTurno(0);
     int codigo=0;
     TC->DeSerializarRespuestaCrearSala(respuesta,&codigo);
     qDebug()<<codigo;
