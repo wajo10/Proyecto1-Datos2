@@ -77,6 +77,16 @@ void Tablero_Cliente::setPuntos(int value)
     puntos = value;
 }
 
+string Tablero_Cliente::getResumen() const
+{
+    return resumen;
+}
+
+void Tablero_Cliente::setResumen(const string &value)
+{
+    resumen = value;
+}
+
 Tablero_Cliente::Tablero_Cliente()
 {
     this->FichasJugadas=new LinkedList();

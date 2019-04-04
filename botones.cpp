@@ -41,6 +41,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
             puntaje(Tc->getPuntos());
+            resumen(Tc->getResumen());
             Tc->limpiarJugadas();
             qDebug() << Tc->getRepo().c_str();
             if (Tc->getHayFichas()){

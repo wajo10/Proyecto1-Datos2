@@ -63,6 +63,8 @@ public:
     void setTsala(int value);
     int getPuntos() const;
     void setPuntos(int value);
+    string getResumen() const;
+    void setResumen(const string &value);
 };
 
 #endif // TABLERO_CLIENTE_H
