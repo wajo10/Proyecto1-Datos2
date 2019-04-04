@@ -44,7 +44,7 @@ void MainWindow::on_pushButton_clicked()
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
     qDebug()<<unirseSala.c_str();
-    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.9",true);
+    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.11",true);
     qDebug()<<validacion.c_str();
     if (validacion=="0"){
         qDebug()<<"No existe la sala";
@@ -55,7 +55,7 @@ void MainWindow::on_pushButton_clicked()
         return;
     }
 
-    string confirmacion = sock->escuchar2(8080);
+    string confirmacion = sock->escuchar2(8082);
     qDebug()<<confirmacion.c_str();
     int puerto2;
     int turno;
@@ -66,14 +66,14 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    botones::getInstance().puntaje(0);
+    //botones::getInstance().puntaje(0);
     botones::getInstance().resumen(" ");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
     char array[7];
     qDebug()<<scene<<"$$$";
-
+    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
     //Crear view
     QGraphicsView * view = new QGraphicsView(scene);
     view->show();
@@ -106,22 +106,24 @@ void MainWindow:: crearTablero(string Iniciales)
     Boton->setY(404);
     scene->addItem(Boton);
     Ficha::flagTurno=false;
-    cicloPartida(Tablero_Cliente::getInstance().getTsala(),Tablero_Cliente::getInstance().getTurno()-1,Tablero_Cliente::getInstance().getPuertoServidor());
+    cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
 }
 
 void MainWindow::cicloPartida(int tsala, int turno, int puerto)
 {
+    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
     qDebug()<<turno;
-    if(c>50){
+    if(Tc->getC() >50){
         return;
     }
-    if(c%tsala == turno){
+    if(Tc->getC() %tsala == turno){
         Ficha::flagTurno = true;
+        Tc->setC(Tc->getC()+1);
         return;
     }
     else{
         qDebug()<<"LISTENING";
-        string json = Socket::getInstance().escuchar2(8080);
+        string json = Socket::getInstance().escuchar2(8083);
         qDebug()<<json.c_str()<<"jSON";
         int tam;
         char letras[7];
@@ -129,7 +131,7 @@ void MainWindow::cicloPartida(int tsala, int turno, int puerto)
         int columnas[7];
         TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas);
         fichaAdversario(letras,filas,columnas,tam);
-        c++;
+        Tc->setC(Tc->getC()+1);
         cicloPartida(tsala,turno,puerto);
     }
 }
@@ -178,7 +180,7 @@ void MainWindow::on_pushButton_2_clicked()
     int puerto = std::stoi("8080");
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string crearSala = TC->SerializarCrearSala(ip,nombre,tsala);
-    string respuesta = sock->enviar(crearSala,puerto,"192.168.100.9",true);
+    string respuesta = sock->enviar(crearSala,puerto,"192.168.100.11",true);
     TabClien->setTurno(0);
     int codigo=0;
     TC->DeSerializarRespuestaCrearSala(respuesta,&codigo);
@@ -186,7 +188,7 @@ void MainWindow::on_pushButton_2_clicked()
     QString A=QString::number(codigo);
     ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
 
-    string confirmacion = sock->escuchar2(8080);
+    string confirmacion = sock->escuchar2(8082);
     qDebug()<<confirmacion.c_str();
     int puerto2;
     int turno;
@@ -196,17 +198,8 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    botones::getInstance().puntaje(0);
+    //botones::getInstance().puntaje(0);
     botones::getInstance().resumen(" ");
 
 }
 
-int MainWindow::getC() const
-{
-    return c;
-}
-
-void MainWindow::setC(int value)
-{
-    c = value;
-}

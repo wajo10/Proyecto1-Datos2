@@ -87,6 +87,16 @@ void Tablero_Cliente::setResumen(const string &value)
     resumen = value;
 }
 
+int Tablero_Cliente::getC() const
+{
+    return c;
+}
+
+void Tablero_Cliente::setC(int value)
+{
+    c = value;
+}
+
 Tablero_Cliente::Tablero_Cliente()
 {
     this->FichasJugadas=new LinkedList();
@@ -215,7 +225,9 @@ bool Tablero_Cliente::VerificarSentido(int fila, int columna)
         }
     }
 }
-
+/**
+ * @brief Tablero_Cliente::RemoverFichas Mueve las fichas colocadas a su posicin inicial
+ */
 void Tablero_Cliente::RemoverFichas()
 {
     Node* tmp=this->FichasJugadas->getFirst();
@@ -266,11 +278,9 @@ void Tablero_Cliente::RecibirRespuesta(string json)
     TraductorCliente::getInstance().DeserializarRespuestaTurnoPropio(json,&Val,&HayFichas,&p,&repo,&resumen);
     puntos+=p;
 }
-
-void Tablero_Cliente::RecibirRespuestaAjena(string json)
-{
-
-}
+/**
+ * @brief Tablero_Cliente::limpiarJugadas quita la lista de fichas utilizadas para luego ser reutilizada
+ */
 
 void Tablero_Cliente::limpiarJugadas()
 {
@@ -287,6 +297,9 @@ void Tablero_Cliente::ColocarFicha(int *fila, int *columna, int tam)
         aux++;
     }
 }
+/**
+ * @brief Tablero_Cliente::readInfo lee el txt con la ip, puerto y numero del experto
+ */
 
 void Tablero_Cliente::readInfo()
 {

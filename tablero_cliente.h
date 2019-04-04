@@ -27,6 +27,7 @@ private:
     int puertoServidor;
     int turno;
     int tsala;
+    int c =0;
 public:
     Tablero_Cliente();
     bool JugarFicha(Ficha* F,int fila, int columna);
@@ -41,7 +42,6 @@ public:
         return instance;
     }
     void RecibirRespuesta(string json);
-    void RecibirRespuestaAjena(string json);
     void limpiarJugadas();
     void ColocarFicha(int*,int*,int);
     void readInfo();
@@ -65,6 +65,8 @@ public:
     void setPuntos(int value);
     string getResumen() const;
     void setResumen(const string &value);
+    int getC() const;
+    void setC(int value);
 };
 
 #endif // TABLERO_CLIENTE_H

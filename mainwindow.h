@@ -40,8 +40,6 @@ public:
 
     void crearTablero(string iniciales);
     void cicloPartida(int tsala, int turno, int puerto);
-    int getC() const;
-    void setC(int value);
 
 private slots:
     void on_pushButton_clicked();
@@ -52,7 +50,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    int c = 0;
 
 
 };

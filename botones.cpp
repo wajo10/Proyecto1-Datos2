@@ -40,7 +40,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
     Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
     if (Ficha::flagTurno){
         string s1=Tc->ResumenFichas();
-        string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.9",true);
+        string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
             Ficha::flagTurno=false;
@@ -68,5 +68,5 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
 
     }
-    //MainWindow::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
+    MainWindow::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
 }
