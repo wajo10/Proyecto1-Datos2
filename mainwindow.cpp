@@ -106,35 +106,10 @@ void MainWindow:: crearTablero(string Iniciales)
     Boton->setY(404);
     scene->addItem(Boton);
     Ficha::flagTurno=false;
-    cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
+    botones::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno());
 }
 
-void MainWindow::cicloPartida(int tsala, int turno, int puerto)
-{
-    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
-    qDebug()<<turno;
-    if(Tc->getC() >50){
-        return;
-    }
-    if(Tc->getC() %tsala == turno){
-        Ficha::flagTurno = true;
-        Tc->setC(Tc->getC()+1);
-        return;
-    }
-    else{
-        qDebug()<<"LISTENING";
-        string json = Socket::getInstance().escuchar2(8083);
-        qDebug()<<json.c_str()<<"jSON";
-        int tam;
-        char letras[7];
-        int filas[7];
-        int columnas[7];
-        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas);
-        fichaAdversario(letras,filas,columnas,tam);
-        Tc->setC(Tc->getC()+1);
-        cicloPartida(tsala,turno,puerto);
-    }
-}
+
 
 void MainWindow::on_lineEdit_editingFinished()
 {

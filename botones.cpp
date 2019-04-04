@@ -32,7 +32,32 @@ void botones::resumen(string res)
    labelR->setFont(font);
    MainWindow::scene->addWidget(labelR);
 }
-
+void botones::cicloPartida(int tsala, int turno)
+{
+    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
+    qDebug()<<turno;
+    if(Tc->getC() >50){
+        return;
+    }
+    if(Tc->getC() %tsala == turno){
+        Ficha::flagTurno = true;
+        Tc->setC(Tc->getC()+1);
+        return;
+    }
+    else{
+        qDebug()<<"LISTENING";
+        string json = Socket::getInstance().escuchar2(8083);
+        qDebug()<<json.c_str()<<"jSON";
+        int tam;
+        char letras[7];
+        int filas[7];
+        int columnas[7];
+        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas);
+        MainWindow::getInstance().fichaAdversario(letras,filas,columnas,tam);
+        Tc->setC(Tc->getC()+1);
+        cicloPartida(tsala,turno);
+    }
+}
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 {
@@ -44,9 +69,10 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
             Ficha::flagTurno=false;
-            puntaje(Tc->getPuntos());
-            resumen(Tc->getResumen());
+            //puntaje(Tc->getPuntos());
+            //resumen(Tc->getResumen());
             Tc->limpiarJugadas();
+            cicloPartida(Tc->getTsala(),Tc->getTurno());
             qDebug() << Tc->getRepo().c_str();
             if (Tc->getHayFichas()){
                 MainWindow::request(Tc->getRepo());
@@ -68,5 +94,4 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
 
     }
-    MainWindow::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
 }

@@ -24,6 +24,7 @@ public:
         static botones instance;
         return instance;
     }
+    void cicloPartida(int tsala, int turno);
 };
 
 #endif // BOTONES_H
