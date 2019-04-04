@@ -6,7 +6,7 @@
 #include "tablero_cliente.h"
 #include "socket.h"
 #include <stdlib.h>
-#include <iostream>
+//#include <iostream>
 #include <string>
 #include <QLabel>
 
@@ -25,6 +25,7 @@ public:
         return instance;
     }
     void cicloPartida(int tsala, int turno);
+    void fichaAdversario(char *letra, int *fila, int *columna, int tam);
 };
 
 #endif // BOTONES_H

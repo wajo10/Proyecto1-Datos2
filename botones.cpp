@@ -53,9 +53,26 @@ void botones::cicloPartida(int tsala, int turno)
         int filas[7];
         int columnas[7];
         TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas);
-        MainWindow::getInstance().fichaAdversario(letras,filas,columnas,tam);
+        fichaAdversario(letras,filas,columnas,tam);
         Tc->setC(Tc->getC()+1);
         cicloPartida(tsala,turno);
+    }
+}
+void botones::fichaAdversario(char *letra, int *fila, int *columna, int tam)
+{
+    int contador=0;
+    char *ptrLetra=letra;
+    int *ptrFila = fila;
+    int *ptrColumna = columna;
+    while(contador<tam){
+        Ficha *fichaAdv = new Ficha(*(ptrLetra+contador));
+        fichaAdv->setX((*(ptrColumna+contador)*43.65)+42);
+        fichaAdv->setY((*(ptrFila+contador)*43.65)+44);
+        fichaAdv->setSejugo(true);
+        fichaAdv->flagMove=false;
+        MainWindow::scene->addItem(fichaAdv);
+        Tablero_Cliente::getInstance().ColocarFicha(fila,columna,tam);
+        contador++;
     }
 }
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -72,7 +89,6 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
             //puntaje(Tc->getPuntos());
             //resumen(Tc->getResumen());
             Tc->limpiarJugadas();
-            cicloPartida(Tc->getTsala(),Tc->getTurno());
             qDebug() << Tc->getRepo().c_str();
             if (Tc->getHayFichas()){
                 MainWindow::request(Tc->getRepo());
@@ -81,8 +97,8 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
             else{
                 qDebug()<< "no hay suficientes fichas en bolsa para reponer";
             }
-
-        }
+           cicloPartida(Tc->getTsala(),Tc->getTurno());
+        }      
         else{
             if (Tc->getHayFichas()){
                 qDebug()<< "Fichas inválidas";

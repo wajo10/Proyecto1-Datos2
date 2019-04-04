@@ -8,23 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = new QGraphicsScene(this);
 }
 
-void MainWindow::fichaAdversario(char *letra, int *fila, int *columna, int tam)
-{
-    int contador=0;
-    char *ptrLetra=letra;
-    int *ptrFila = fila;
-    int *ptrColumna = columna;
-    while(contador<tam){
-        Ficha *fichaAdv = new Ficha(*(ptrLetra+contador));
-        fichaAdv->setX((*(ptrColumna+contador)*43.65)+42);
-        fichaAdv->setY((*(ptrFila+contador)*43.65)+44);
-        fichaAdv->setSejugo(true);
-        fichaAdv->flagMove=false;
-        scene->addItem(fichaAdv);
-        Tablero_Cliente::getInstance().ColocarFicha(fila,columna,tam);
-        contador++;
-    }
-}
 
 MainWindow::~MainWindow()
 {
@@ -67,7 +50,7 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
     //botones::getInstance().puntaje(0);
-    botones::getInstance().resumen(" ");
+    //botones::getInstance().resumen(" ");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -174,7 +157,7 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
     //botones::getInstance().puntaje(0);
-    botones::getInstance().resumen(" ");
+    //botones::getInstance().resumen(" ");
 
 }
 
