@@ -20,6 +20,10 @@ public:
     QLabel *label = new QLabel();
     QLabel *labelR = new QLabel();
     void resumen(string res);
+    static botones & getInstance(){
+        static botones instance;
+        return instance;
+    }
 };
 
 #endif // BOTONES_H

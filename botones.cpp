@@ -11,31 +11,34 @@ botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 };
 void botones::puntaje(int pts)
 {
-    label->setGeometry(800,600,100,100);
+    label->setGeometry(750,500,700,100);
     label->setText("Puntaje:" + QString::number((pts)));
     label->QWidget::setAttribute(Qt::WA_TranslucentBackground);
+    QFont font = label->font();
+    font.setPointSize(30);
+    font.setBold(true);
+    label->setFont(font);
     MainWindow::scene->addWidget(label);
 }
 
 void botones::resumen(string res)
 {
    labelR->setText("Resumen:" +QString::fromStdString(res));
-   labelR->setGeometry(800,500,300,100);
+   labelR->setGeometry(750,600,1000,100);
    labelR->QWidget::setAttribute(Qt::WA_TranslucentBackground);
+   QFont font = labelR->font();
+   font.setPointSize(10);
+   font.setBold(true);
+   labelR->setFont(font);
    MainWindow::scene->addWidget(labelR);
 }
 
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
+
 {
-    puntaje(5);
-    resumen("Wajo");
-    //MainWindow::getInstance().resumen("A");
-
-    MainWindow::request("qt");
-
+    TraductorCliente* TradC=&TraductorCliente::getInstance();
+    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
     if (Ficha::flagTurno){
-        TraductorCliente* TradC=&TraductorCliente::getInstance();
-        Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
         string s1=Tc->ResumenFichas();
         string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.9",true);
         Tc->RecibirRespuesta(respuesta);
@@ -64,5 +67,6 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
 
     }
-
+    Ficha::flagTurno=false;
+    MainWindow::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno(),Tc->getPuertoServidor());
 }

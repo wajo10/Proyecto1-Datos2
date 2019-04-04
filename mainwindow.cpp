@@ -66,6 +66,8 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
+    botones::getInstance().puntaje(0);
+    botones::getInstance().resumen(" ");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -105,7 +107,7 @@ void MainWindow:: crearTablero(string Iniciales)
     scene->addItem(Boton);
 }
 
-void MainWindow::cicloPartida(int tsala, int turno, int puerto, int c)
+void MainWindow::cicloPartida(int tsala, int turno, int puerto)
 {
     if(c>50){
         return;
@@ -115,8 +117,15 @@ void MainWindow::cicloPartida(int tsala, int turno, int puerto, int c)
         return;
     }
     else{
-
-        cicloPartida(tsala,turno,puerto,++c);
+        string json = Socket::getInstance().escuchar2(8080);
+        int tam;
+        char letras[7];
+        int filas[7];
+        int columnas[7];
+        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas);
+        fichaAdversario(letras,filas,columnas,tam);
+        c++;
+        cicloPartida(tsala,turno,puerto);
     }
 }
 
@@ -130,13 +139,11 @@ void MainWindow::request(string agregar)
     int xInicial = 807;
 
     int cantidad= agregar.length();
-    qDebug()<<agregar.c_str();
     for (int i=0;i<cantidad;i++){
         int aux=0;
         int* ptrIniciales = Ficha::ptrPosicionUnplayed;
         array[i] = agregar[i];
         Ficha * ficha = new Ficha(array[i]);
-        qDebug()<<scene<<"$$$";
         scene->addItem(ficha);
         while( aux<7){
             if (*(ptrIniciales+aux)==0){
@@ -183,6 +190,18 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setPuertoServidor(puerto2);
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
-    crearTablero(iniciales);
+    crearTablero("inicial");
+    botones::getInstance().puntaje(0);
+    botones::getInstance().resumen(" ");
 
+}
+
+int MainWindow::getC() const
+{
+    return c;
+}
+
+void MainWindow::setC(int value)
+{
+    c = value;
 }

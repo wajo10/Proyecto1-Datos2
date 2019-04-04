@@ -44,7 +44,7 @@ void TraductorCliente::DeserializarRespuestaTurnoPropio(string json,bool *val, b
     *repo=d["repo"].GetString();
     *resumen=d["resumen"].GetString();
 }
-void TraductorCliente::DeserializarRespuestaTurnoAjeno(string json, int *tam, bool *EsHorizontal, char *letras, int *filas, int *columnas)
+void TraductorCliente::DeserializarRespuestaTurnoAjeno(string json, int *tam, char *letras, int *filas, int *columnas)
 {
     Document d;
     d.Parse(json.c_str());
