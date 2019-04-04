@@ -132,7 +132,6 @@ void MainWindow::request(string agregar)
     int cantidad= agregar.length();
     qDebug()<<agregar.c_str();
     for (int i=0;i<cantidad;i++){
-        qDebug()<<"#";
         int aux=0;
         int* ptrIniciales = Ficha::ptrPosicionUnplayed;
         array[i] = agregar[i];
@@ -140,7 +139,6 @@ void MainWindow::request(string agregar)
         qDebug()<<scene<<"$$$";
         scene->addItem(ficha);
         while( aux<7){
-            qDebug()<<*(ptrIniciales+aux)<<"AUX";
             if (*(ptrIniciales+aux)==0){
                  ficha->setX(57*aux+xInicial);
                  ficha->setY(237);
@@ -150,7 +148,6 @@ void MainWindow::request(string agregar)
             }
             aux++;
         }
-        qDebug()<<"&";
 
 
     }
