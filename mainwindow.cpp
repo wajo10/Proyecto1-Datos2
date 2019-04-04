@@ -190,7 +190,7 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setPuertoServidor(puerto2);
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
-    crearTablero("inicial");
+    crearTablero(iniciales);
     botones::getInstance().puntaje(0);
     botones::getInstance().resumen(" ");
 
