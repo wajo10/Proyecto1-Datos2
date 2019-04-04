@@ -65,7 +65,7 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setPuertoServidor(puerto2);
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
-    crearTablero("inicial");
+    crearTablero(iniciales);
     puntaje(0);
     resumen("");
 }

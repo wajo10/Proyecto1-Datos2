@@ -16,10 +16,10 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         TraductorCliente* TradC=&TraductorCliente::getInstance();
         Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
         string s1=Tc->ResumenFichas();
-        string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),Tc->getIp().toUtf8().constData(),true);
+        string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.18",true);
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
-            MainWindow::getInstance().puntaje(Tc->getPuntos());
+            //MainWindow::getInstance().puntaje(Tc->getPuntos());
             Tc->limpiarJugadas();
             qDebug() << Tc->getRepo().c_str();
             if (Tc->getHayFichas()){
