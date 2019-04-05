@@ -102,9 +102,10 @@ string Socket::escuchar2(int puerto)
             exit(EXIT_FAILURE);
         }
         memset(buffer,0,1024);
-
+        char *hello = "Hello from server";
         valread = read( new_socket , buffer, 1024);
-        close(sock);
+        send(new_socket , hello , strlen(hello) , 0 );
+        close(new_socket);
         return buffer;      
 }
 

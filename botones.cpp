@@ -64,7 +64,7 @@ void botones::cicloPartida(int tsala, int turno)
     }
     else{
         qDebug()<<"LISTENING";
-        string json = Socket::getInstance().escuchar2(8079);
+        string json = Socket::getInstance().escuchar2(8080+Tc->getC());
         qDebug()<<json.c_str()<<"jSON";
         int tam;
         char letras[7];

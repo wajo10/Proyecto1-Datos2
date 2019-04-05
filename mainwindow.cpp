@@ -156,8 +156,6 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    //botones::getInstance().puntaje(0);
-    //botones::getInstance().resumen(" ");
 
 }
 
