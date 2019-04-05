@@ -2,6 +2,7 @@
 #include "tablero_cliente.h"
 #include "mainwindow.h"
 #include "traductorcliente.h"
+#include <QGraphicsProxyWidget>
 
 
 
@@ -9,8 +10,21 @@ botones::botones(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
    setPixmap(QPixmap(":/images/jugar.png"));
 
 };
+void botones::freeWidget(QWidget* foo)
+{
+    const auto proxy = foo->graphicsProxyWidget();
+    MainWindow::scene->removeItem(proxy);
+    proxy->setWidget(nullptr);
+    foo->setParent(nullptr);
+    delete proxy;
+}
+
 void botones::puntaje(int pts)
 {
+    if (!flagPuntaje){
+        freeWidget(label);
+    }
+    flagPuntaje=false;
     label->setGeometry(750,500,700,100);
     label->setText("Puntaje:" + QString::number((pts)));
     label->QWidget::setAttribute(Qt::WA_TranslucentBackground);
@@ -23,6 +37,10 @@ void botones::puntaje(int pts)
 
 void botones::resumen(string res)
 {
+    if (!flagResumen){
+        freeWidget(labelR);
+   }
+   flagResumen=false;
    labelR->setText("Resumen:" +QString::fromStdString(res));
    labelR->setGeometry(750,600,1000,100);
    labelR->QWidget::setAttribute(Qt::WA_TranslucentBackground);
@@ -80,14 +98,16 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     TraductorCliente* TradC=&TraductorCliente::getInstance();
     Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
+    puntaje(5);
+    puntaje(22);
     if (Ficha::flagTurno){
         string s1=Tc->ResumenFichas();
         string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
             Ficha::flagTurno=false;
-            //puntaje(Tc->getPuntos());
-            //resumen(Tc->getResumen());
+            puntaje(Tc->getPuntos());
+            resumen(Tc->getResumen());
             Tc->limpiarJugadas();
             qDebug() << Tc->getRepo().c_str();
             if (Tc->getHayFichas()){
@@ -98,7 +118,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 qDebug()<< "no hay suficientes fichas en bolsa para reponer";
             }
            cicloPartida(Tc->getTsala(),Tc->getTurno());
-        }      
+        }
         else{
             if (Tc->getHayFichas()){
                 qDebug()<< "Fichas inválidas";

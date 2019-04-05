@@ -49,8 +49,8 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    //botones::getInstance().puntaje(0);
-    //botones::getInstance().resumen(" ");
+    botones::getInstance().puntaje(0);
+    botones::getInstance().resumen(" ");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -156,8 +156,8 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    //botones::getInstance().puntaje(0);
-    //botones::getInstance().resumen(" ");
+    botones::getInstance().puntaje(0);
+    botones::getInstance().resumen(" ");
 
 }
 

@@ -13,6 +13,9 @@
 class botones: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+private:
+    bool flagPuntaje = true;
+    bool flagResumen = true;
 public:
     botones (QGraphicsItem *parent=nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -26,6 +29,8 @@ public:
     }
     void cicloPartida(int tsala, int turno);
     void fichaAdversario(char *letra, int *fila, int *columna, int tam);
+    void freeWidget(QWidget *foo);
+    void freeWidgetR(QWidget *foo);
 };
 
 #endif // BOTONES_H
