@@ -104,7 +104,7 @@ string Socket::escuchar2(int puerto)
         memset(buffer,0,1024);
 
         valread = read( new_socket , buffer, 1024);
-        close(sock);
+        close(new_socket);
         return buffer;      
 }
 

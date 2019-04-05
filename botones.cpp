@@ -64,7 +64,7 @@ void botones::cicloPartida(int tsala, int turno)
     }
     else{
         qDebug()<<"LISTENING";
-        string json = Socket::getInstance().escuchar2(8079);
+        string json = Socket::getInstance().escuchar2(8070+turno);
         qDebug()<<json.c_str()<<"jSON";
         int tam;
         char letras[7];
@@ -102,7 +102,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
     puntaje(22);
     if (Ficha::flagTurno){
         string s1=Tc->ResumenFichas();
-        string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
+        string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.9",true);
         qDebug()<<respuesta.c_str()<<"RESPUESTA";
         int len = respuesta.length();
         if (respuesta[len]==respuesta[len-1]){

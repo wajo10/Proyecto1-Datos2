@@ -27,7 +27,7 @@ void MainWindow::on_pushButton_clicked()
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string unirseSala = TC->SerializarUnirseSala(ip,nombre,codigo);
     qDebug()<<unirseSala.c_str();
-    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.11",true);
+    string validacion=sock->enviar(unirseSala,puerto,"192.168.100.9",true);
     qDebug()<<validacion.c_str();
     if (validacion=="0"){
         qDebug()<<"No existe la sala";
@@ -138,7 +138,7 @@ void MainWindow::on_pushButton_2_clicked()
     int puerto = std::stoi("8080");
     TraductorCliente* TC=&TraductorCliente::getInstance();
     string crearSala = TC->SerializarCrearSala(ip,nombre,tsala);
-    string respuesta = sock->enviar(crearSala,puerto,"192.168.100.11",true);
+    string respuesta = sock->enviar(crearSala,puerto,"192.168.100.9",true);
     TabClien->setTurno(0);
     int codigo=0;
     TC->DeSerializarRespuestaCrearSala(respuesta,&codigo);
