@@ -38,7 +38,7 @@ void MainWindow::on_pushButton_clicked()
         return;
     }
 
-    string confirmacion = sock->escuchar2(8082);
+    string confirmacion = sock->escuchar2(8078);
     qDebug()<<confirmacion.c_str();
     int puerto2;
     int turno;
@@ -49,8 +49,8 @@ void MainWindow::on_pushButton_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    botones::getInstance().puntaje(0);
-    botones::getInstance().resumen(" ");
+    //botones::getInstance().puntaje(0);
+    //botones::getInstance().resumen(" ");
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -146,7 +146,7 @@ void MainWindow::on_pushButton_2_clicked()
     QString A=QString::number(codigo);
     ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
 
-    string confirmacion = sock->escuchar2(8082);
+    string confirmacion = sock->escuchar2(8078);
     qDebug()<<confirmacion.c_str();
     int puerto2;
     int turno;
@@ -156,8 +156,8 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setTurno(turno);
     TabClien->setTsala(tsala);
     crearTablero(iniciales);
-    botones::getInstance().puntaje(0);
-    botones::getInstance().resumen(" ");
+    //botones::getInstance().puntaje(0);
+    //botones::getInstance().resumen(" ");
 
 }
 

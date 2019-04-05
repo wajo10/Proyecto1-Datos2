@@ -13,15 +13,6 @@
 using namespace std;
 class Socket {
 private:
-    int Puerto=8080;
-    int sock = 0;
-    int server_fd, new_socket, valread;
-    struct sockaddr_in address;
-    int opt = 1;
-    int addrlen = sizeof(address);
-    char buffer[1024] = {0};
-    char char_array;
-    struct sockaddr_in serv_addr;
 public:
     Socket();
     string enviar(string Mensaje,int puerto,string ip, bool);

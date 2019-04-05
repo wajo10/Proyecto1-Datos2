@@ -50,6 +50,7 @@ void TraductorCliente::DeserializarRespuestaTurnoAjeno(string json, int *tam, ch
     d.Parse(json.c_str());
     *tam =d["tam"].GetInt();
     string stmp;
+    qDebug()<<json.c_str()<<"TRADUCTOR CLIENTE";
     for (int i=0;i<*tam;i++){
         stmp=d["letras"].GetString();
         letras[i]=stmp[i];

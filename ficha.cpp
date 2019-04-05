@@ -14,7 +14,6 @@ char Ficha::getLetra() const{
 int* agregar(int,int);
 Ficha::Ficha(QGraphicsItem *parent):QObject (), QGraphicsPixmapItem(parent){
 
-
 }
 int* Ficha:: ptrPosicionUnplayed = posiciones;
 int Ficha:: posiciones[7];
@@ -53,7 +52,10 @@ Ficha::Ficha(char letra){
 
 };
 }
-//Deteccion
+/**
+ * @brief Ficha::mouseMoveEvent detecta si el mouse esta presionado  y moviendose
+ * @param ev
+ */
 void Ficha:: mouseMoveEvent(QGraphicsSceneMouseEvent *ev){
     if (flagMove && flagTurno){
         this->setX(ev->scenePos().x()-22);
@@ -102,7 +104,11 @@ int *Ficha::getFichasIniciales()
 {
     return ptrPosicionUnplayed;
 }
-
+/**
+ * @brief Ficha::Puntos Da puntos por la letra
+ * @param letra
+ * @return
+ */
 int Ficha::Puntos(char letra)
 {
     std::map<char, char> m;
