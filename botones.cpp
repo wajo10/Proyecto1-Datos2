@@ -96,6 +96,8 @@ void botones::fichaAdversario(char *letra, int *fila, int *columna, int tam)
 void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 {
+    preguntarExperto *x = new preguntarExperto();
+    x->show();
     TraductorCliente* TradC=&TraductorCliente::getInstance();
     Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
     puntaje(5);
@@ -127,6 +129,9 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         else{
             if (Tc->getHayFichas()){
                 qDebug()<< "Fichas inválidas";
+                preguntarExperto *x = new preguntarExperto();
+                x->show();
+
             }
             else{
                 qDebug()<< "Fin del juego";

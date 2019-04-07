@@ -39,7 +39,8 @@ SOURCES += \
     botones.cpp \
     traductorcliente.cpp \
     socket.cpp \
-    comodin.cpp
+    comodin.cpp \
+    preguntarexperto.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -55,11 +56,13 @@ HEADERS += \
     botones.h \
     traductorcliente.h \
     socket.h \
-    comodin.h
+    comodin.h \
+    preguntarexperto.h
 
 FORMS += \
         mainwindow.ui \
-    comodin.ui
+    comodin.ui \
+    preguntarexperto.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

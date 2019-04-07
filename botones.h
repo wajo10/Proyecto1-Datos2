@@ -9,6 +9,7 @@
 //#include <iostream>
 #include <string>
 #include <QLabel>
+#include "preguntarexperto.h"
 
 class botones: public QObject, public QGraphicsPixmapItem
 {

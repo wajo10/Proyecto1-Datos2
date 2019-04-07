@@ -195,7 +195,7 @@
      <number>6</number>
     </property>
     <property name="placeholderText">
-     <string>Código</string>
+     <string>Código/Cantidad </string>
     </property>
     <property name="cursorMoveStyle">
      <enum>Qt::VisualMoveStyle</enum>
