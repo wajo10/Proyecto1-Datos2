@@ -98,11 +98,9 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     TraductorCliente* TradC=&TraductorCliente::getInstance();
     Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
-    puntaje(5);
-    puntaje(22);
     if (Ficha::flagTurno){
         string s1=Tc->ResumenFichas();
-        qDebug()<<Tc->getPuertoServidor()<<"PUERTO SERV";
+        qDebug()<<s1.c_str()<<Tc->getPuertoServidor()<<"192.168.100.11"<<true<<"PUERTO SERV";
         string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
         qDebug()<<respuesta.c_str()<<"RESPUESTA";
         int len = respuesta.length();

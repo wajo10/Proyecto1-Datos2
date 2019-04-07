@@ -19,14 +19,17 @@ string TraductorCliente::SerilizarFichasJugadas(int tam, bool EsHorizontal, char
     Document d;
     d.Parse(json);
     d["tam"].SetInt(tam);
-    d["horizontal"].SetBool(EsHorizontal);
-    string stmp;
-    for (int j=0;j<tam;j++){
-        stmp=d["letras"].GetString();
-        stmp[j]=letras[j];
-        d["letras"].SetString(stmp.c_str(),sizeof (char)*7);
-        d["filas"].GetArray()[j]=filas[j];
-        d["columnas"].GetArray()[j]=columnas[j];
+    if (tam!=0) {
+        d["horizontal"].SetBool(EsHorizontal);
+        string stmp;
+        for (int j=0;j<tam;j++){
+            stmp=d["letras"].GetString();
+            stmp[j]=letras[j];
+            d["letras"].SetString(stmp.c_str(),sizeof (char)*7);
+            d["filas"].GetArray()[j]=filas[j];
+            d["columnas"].GetArray()[j]=columnas[j];
+
+        }
     }
     StringBuffer buffer;
     Writer<StringBuffer> writer(buffer);

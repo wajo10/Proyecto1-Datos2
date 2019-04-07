@@ -146,8 +146,9 @@ bool Tablero_Cliente::VerificarPos(int fila, int columna)
 string Tablero_Cliente::ResumenFichas()
 {
     int tam=this->FichasJugadas->getT();
+    TraductorCliente T=TraductorCliente::getInstance();
     if (tam==0){
-        return "";
+        return T.SerilizarFichasJugadas(0,0,0,0,0);
     }
 
     int filas[7];
@@ -168,7 +169,6 @@ string Tablero_Cliente::ResumenFichas()
         tmp=tmp->getNext();
     }
     cout<<endl;
-    TraductorCliente T=TraductorCliente::getInstance();
     string s=T.SerilizarFichasJugadas(tam,VaHorizontal,letras,filas,columnas);
     return s;
 }
