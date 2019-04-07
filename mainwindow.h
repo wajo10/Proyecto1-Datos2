@@ -31,14 +31,20 @@ public:
         static MainWindow instance;
         return instance;
     }
+    /**
+     * @brief request Agrega las fichas de reposicion al tablero
+     * @param s
+     */
     static void request(string s);
     explicit MainWindow(QWidget *parent = nullptr);
     static QGraphicsScene * scene;
     QGraphicsScene **ptrScene = &scene;
     ~MainWindow();
-
+    /**
+     * @brief crearTablero creacion inicial grafica del tablero con sus fichas
+     * @param iniciales
+     */
     void crearTablero(string iniciales);
-    void cicloPartida(int tsala, int turno);
 
 private slots:
     void on_pushButton_clicked();

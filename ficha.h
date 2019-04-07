@@ -21,10 +21,25 @@ private:
 public:
     Ficha(QGraphicsItem *parent=nullptr);
     int yInicial, xInicial, fila, columna, posInicial;
+    /**
+     * @brief agregar agrega graficamente las fichas con su imagen respectiva
+     * @param x
+     * @param y
+     * @return
+     */
     int *agregar(int x, int y);
+
     int inicial = 44;//Espacio antes de las celdas
+
     Ficha(char letra);
+    /**
+     * @brief Ficha Constructor de ficha con fila y columna
+     * @param Fila
+     * @param Columna
+     * @param letra
+     */
     Ficha(int Fila,int Columna,char letra);
+
     char getLetra() const;
     void setLetra(char value);
     int getFila() const;

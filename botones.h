@@ -20,18 +20,42 @@ private:
 public:
     botones (QGraphicsItem *parent=nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    /**
+     * @brief puntaje Actualiza graficamente el puntaje
+     * @param pts
+     */
     void puntaje(int pts);
+    /**
+     * @brief resumen Actualiza graficamente el resumen de la ultima palabra
+     * @param res
+     */
+    void resumen(string res);
     QLabel *label = new QLabel();
     QLabel *labelR = new QLabel();
-    void resumen(string res);
+
     static botones & getInstance(){
         static botones instance;
         return instance;
     }
+    /**
+     * @brief cicloPartida Actualiza el turno de cada juador
+     * @param tsala
+     * @param turno
+     */
     void cicloPartida(int tsala, int turno);
+    /**
+     * @brief fichaAdversario Agrega las fichas que el adversario agrego
+     * @param letra
+     * @param fila
+     * @param columna
+     * @param tam
+     */
     void fichaAdversario(char *letra, int *fila, int *columna, int tam);
+    /**
+     * @brief freeWidget Limpia lo que habia de labels antes de volverlos a agregar para actualizar
+     * @param foo
+     */
     void freeWidget(QWidget *foo);
-    void freeWidgetR(QWidget *foo);
 };
 
 #endif // BOTONES_H

@@ -91,13 +91,6 @@ void MainWindow:: crearTablero(string Iniciales)
     Ficha::flagTurno=false;
     botones::getInstance().cicloPartida(Tc->getTsala(),Tc->getTurno());
 }
-
-
-
-void MainWindow::on_lineEdit_editingFinished()
-{
-
-}
 void MainWindow::request(string agregar)
 {
     char array[7];
