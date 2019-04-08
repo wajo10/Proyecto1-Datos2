@@ -19,7 +19,7 @@ public:
     }
     string SerilizarFichasJugadas(int tam, bool EsHorizontal,char letras[7],int filas[7], int columnas[7]);
     void DeserializarRespuestaTurnoPropio(string json,bool* val, bool* hayfichas,int* puntos, string* repo, string *resumen);
-    void DeserializarRespuestaTurnoAjeno(string json, int *tam, char *letras, int *filas, int *columnas);
+    void DeserializarRespuestaTurnoAjeno(string json, int *tam, char *letras, int *filas, int *columnas, string *ganador);
     int getID(string json);
 
     string SerializarAgregarPalabra(string palabra);

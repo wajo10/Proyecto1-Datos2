@@ -70,9 +70,17 @@ void botones::cicloPartida(int tsala, int turno)
         char letras[7];
         int filas[7];
         int columnas[7];
-        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas);
+        string *ganador;
+        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas,ganador);
+        if (*ganador != ""){
+            preguntarExperto *x = new preguntarExperto;
+            x->addText("Fin del juego");
+            x->show();
+            qDebug()<< "Fin del juego";
+            return;
+        }
         if (tam !=0){
-        fichaAdversario(letras,filas,columnas,tam);
+            fichaAdversario(letras,filas,columnas,tam);
         }
         Tc->setC(Tc->getC()+1);
         cicloPartida(tsala,turno);
@@ -99,7 +107,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 {
     TraductorCliente* TradC=&TraductorCliente::getInstance();
-    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();
+    Tablero_Cliente* Tc=&Tablero_Cliente::getInstance();   
     if (Ficha::flagTurno){
         string s1=Tc->ResumenFichas();
         qDebug()<<s1.c_str()<<Tc->getPuertoServidor()<<"192.168.100.11"<<true<<"PUERTO SERV";
@@ -108,7 +116,8 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
        qDebug()<<respuesta.c_str()<<"RESPUESTA2";
        if (respuesta == "1"){
            Ficha::flagTurno=false;
-           cicloPartida(Tc->getTsala(),Tc->getTurno());           qDebug()<<"RESPUESTA";
+           cicloPartida(Tc->getTsala(),Tc->getTurno());
+           qDebug()<<"RESPUESTA";
            return;
        }
         Tc->RecibirRespuesta(respuesta);
