@@ -72,7 +72,9 @@ void botones::cicloPartida(int tsala, int turno)
         int filas[7];
         int columnas[7];
         TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas);
+        if (tam !=0){
         fichaAdversario(letras,filas,columnas,tam);
+        }
         Tc->setC(Tc->getC()+1);
         cicloPartida(tsala,turno);
     }
@@ -103,8 +105,13 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         string s1=Tc->ResumenFichas();
         qDebug()<<s1.c_str()<<Tc->getPuertoServidor()<<"192.168.100.11"<<true<<"PUERTO SERV";
         string respuesta;
-        respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
-        qDebug()<<respuesta.c_str()<<"RESPUESTA2";
+       respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
+       qDebug()<<respuesta.c_str()<<"RESPUESTA2";
+       if (respuesta == "1"){
+           Ficha::flagTurno=false;
+           cicloPartida(Tc->getTsala(),Tc->getTurno());           qDebug()<<"RESPUESTA";
+           return;
+       }
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
             Ficha::flagTurno=false;
