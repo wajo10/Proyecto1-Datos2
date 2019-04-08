@@ -102,13 +102,17 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if (Ficha::flagTurno){
         string s1=Tc->ResumenFichas();
         qDebug()<<s1.c_str()<<Tc->getPuertoServidor()<<"192.168.100.11"<<true<<"PUERTO SERV";
-        string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
-        qDebug()<<respuesta.c_str()<<"RESPUESTA";
-        int len = respuesta.length();
+        string respuesta;
         if (Tc->getFichasJugadas().getT() == 0){
             Ficha::flagTurno=false;
             cicloPartida(Tc->getTsala(),Tc->getTurno());
+            string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",false);
+            qDebug()<<respuesta.c_str()<<"RESPUESTA";
             return;
+        }
+        else {
+            string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
+            qDebug()<<respuesta.c_str()<<"RESPUESTA";
         }
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){
