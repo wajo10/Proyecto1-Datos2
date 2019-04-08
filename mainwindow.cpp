@@ -140,6 +140,6 @@ void MainWindow::on_pushButton_3_clicked()
 {
     qDebug()<<*this->flagPtr<<"FLAG";
     if (*(this->flagPtr)){
-        crearTablero(*iniciales);
+        crearTablero("vxbdabc");
     }
 }

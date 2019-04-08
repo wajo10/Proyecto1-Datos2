@@ -43,15 +43,42 @@ private:
 public:
     //______________
     //Métodos propios del objeto
+    /**
+     * @brief ResumenFichas
+     * @return
+     */
     string ResumenFichas(); 
+    /**
+     * @brief RemoverFichas Quita las fichas colocadas del array
+     */
     void RemoverFichas();
+    /**
+     * @brief RecibirRespuesta
+     * @param json
+     */
     void RecibirRespuesta(string json);
+    /**
+     * @brief limpiarJugadas elimina la lista de fichas
+     */
     void limpiarJugadas();
+    /**
+     * @brief ColocarFicha coloca ficha en fila y columna
+     */
     void ColocarFicha(int*,int*,int);
+    /**
+     * @brief JugarFicha Verifica donde se coloca la ficha
+     * @param F
+     * @param fila
+     * @param columna
+     * @return
+     */
     bool JugarFicha(Ficha* F,int fila, int columna);
 
     //______________
     //Métodos de implementación
+    /**
+     * @brief readInfo Lee el txt y saca ip, puerto y telefono
+     */
     void readInfo();
     void print();
     static Tablero_Cliente& getInstance(){

@@ -17,7 +17,6 @@ class preguntarExperto : public QDialog
 public:
     explicit preguntarExperto(QWidget *parent = nullptr);
     ~preguntarExperto();
-
     void addText(string s);
 private slots:
     void on_buttonBox_accepted();

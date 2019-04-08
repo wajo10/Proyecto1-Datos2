@@ -7,7 +7,6 @@ preguntarExperto::preguntarExperto(QWidget *parent) :
 {
     ui->setupUi(this);
 }
-
 preguntarExperto::~preguntarExperto()
 {
 //    delete ui;
@@ -17,7 +16,11 @@ void preguntarExperto::on_buttonBox_accepted()
 {
     if (!finalizo){
         TraductorCliente *Tc = &TraductorCliente::getInstance();
-        string s = Tc->SerializarNuevaPalabra("");
+        Tablero_Cliente *TabClien = &Tablero_Cliente::getInstance();
+        Socket *sock = &Socket::getInstance();
+        int size =TabClien->getResumen().length();
+        string s = Tc->SerializarNuevaPalabra(TabClien->getResumen().substr(0,size-1));
+        sock->enviar(s,8078,"192.168.100.11",false);
     }
     else{
        qDebug()<<"GAME OVER";
@@ -27,13 +30,19 @@ void preguntarExperto::on_buttonBox_accepted()
 
 void preguntarExperto::on_buttonBox_rejected()
 {
-    Socket *sock = &Socket::getInstance();
-    TraductorCliente *Tc = &TraductorCliente::getInstance();
-    Tablero_Cliente *TabClien = &Tablero_Cliente::getInstance();
+    if(!finalizo){
+        Socket *sock = &Socket::getInstance();
+        TraductorCliente *Tc = &TraductorCliente::getInstance();
+        Tablero_Cliente *TabClien = &Tablero_Cliente::getInstance();
 
-    string s = Tc->SerializarNuevaPalabra("");
-    qDebug()<<TabClien->getPuertoServidor()<<"PUERTO";
-    sock->enviar(s,TabClien->getPuertoServidor(),"192.168.100.11",false);
+        string s = Tc->SerializarNuevaPalabra("");
+        qDebug()<<TabClien->getPuertoServidor()<<"PUERTO";
+        sock->enviar(s,8078,"192.168.100.11",false);
+    }
+    else{
+       qDebug()<<"GAME OVER";
+    }
+
 }
 void preguntarExperto::addText(string s){
     finalizo=true;
