@@ -276,7 +276,7 @@ void Tablero_Cliente::RecibirRespuesta(string json)
 {
     int p=0;
     TraductorCliente::getInstance().DeserializarRespuestaTurnoPropio(json,&Val,&HayFichas,&p,&repo,&resumen);
-    puntos+=p;
+    if (Val==true) puntos+=p;
 }
 /**
  * @brief Tablero_Cliente::limpiarJugadas quita la lista de fichas utilizadas para luego ser reutilizada
