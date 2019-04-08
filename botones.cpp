@@ -70,13 +70,13 @@ void botones::cicloPartida(int tsala, int turno)
         char letras[7];
         int filas[7];
         int columnas[7];
-        string *ganador;
-        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas,ganador);
-        if (*ganador != ""){
+        string ganador;
+        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas,&ganador);
+        if (ganador != ""){
             preguntarExperto *x = new preguntarExperto;
-            x->addText("Fin del juego");
+            x->addText("Fin del juego. Ganador: "+ganador);
             x->show();
-            qDebug()<< "Fin del juego";
+            qDebug()<< "Fin del juego"<<"ganador";
             return;
         }
         if (tam !=0){
@@ -145,9 +145,9 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
             else{
                 preguntarExperto *x = new preguntarExperto;
-                x->addText("Fin del juego");
+                x->addText("Fin del juego. Ganador:" +Tc->getRepo());
                 x->show();
-                qDebug()<< "Fin del juego";
+                qDebug()<< "Fin del juego"<<Tc->getRepo().c_str();
             }
             Tc->RemoverFichas();
         }

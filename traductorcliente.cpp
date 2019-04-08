@@ -15,7 +15,7 @@ string TraductorCliente::SerilizarFichasJugadas(int tam, bool EsHorizontal, char
                        "\"letras\":\"abcdefg\","
                        "\"filas\":[0,0,0,0,0,0,0],"
                        "\"columnas\":[0,0,0,0,0,0,0],"
-                       "\"ganador\":\"hghfghf\"}";
+                       "\"ganador\":\"\"}";
 
     Document d;
     d.Parse(json);
@@ -53,7 +53,7 @@ void TraductorCliente::DeserializarRespuestaTurnoAjeno(string json, int *tam, ch
     Document d;
     d.Parse(json.c_str());
     *ganador =d["ganador"].GetString();
-    if(*ganador=="") return;
+    if(*ganador!="") return;
     *tam =d["tam"].GetInt();
     string stmp;
     qDebug()<<json.c_str()<<"TRADUCTOR CLIENTE";
