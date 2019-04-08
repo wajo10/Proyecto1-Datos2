@@ -23,7 +23,7 @@ void listener::run()
     Socket* sock = &Socket::getInstance();
     TraductorCliente* TC=&TraductorCliente::getInstance();
     if (this->id==0){ //Caso esperar crear sala
-        string confirmacion = sock->escuchar2(8078);
+        string confirmacion = sock->escuchar2(8080);
         qDebug()<<confirmacion.c_str();
         int puerto2;
         int turno;
@@ -35,7 +35,7 @@ void listener::run()
         *flag = true;
     }
     else if (this->id == 1) {
-        string confirmacion = sock->escuchar2(8078);
+        string confirmacion = sock->escuchar2(8080);
         qDebug()<<confirmacion.c_str();
         int puerto2;
         int turno;
