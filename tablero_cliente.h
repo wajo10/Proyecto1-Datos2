@@ -11,41 +11,54 @@ using namespace std;
 class Tablero_Cliente
 {
 private:
+    //______________
+    //Atributos propios del objeto
     bool FichasColocadas[15][15];
-    bool VaHorizontal;
+    string nombre;
     LinkedList* FichasJugadas;
+    int puntos;
+    int turno;
+    int c =0;
+
+    //______________
+    //Atributos de implementación
+    bool VaHorizontal;
     int referencia;
     int menor;
     bool HayFichas=true;
     bool Val;
-    int puntos;
     QString ip;
     QString puerto;
     QString expertoCel;
     string repo;
     string resumen;
     int puertoServidor;
-    int turno;
     int tsala;
-    int c =0;
-public:
+
+    //______________
+    //Métodos internos
     Tablero_Cliente();
-    bool JugarFicha(Ficha* F,int fila, int columna);
     bool VerificarPos(int fila, int columna);
-    string ResumenFichas();
     bool VerificarSentido(int fila,int columna);
+public:
+    //______________
+    //Métodos propios del objeto
+    string ResumenFichas(); 
     void RemoverFichas();
+    void RecibirRespuesta(string json);
+    void limpiarJugadas();
+    void ColocarFicha(int*,int*,int);
+    bool JugarFicha(Ficha* F,int fila, int columna);
+
+    //______________
+    //Métodos de implementación
+    void readInfo();
     void print();
-    LinkedList getFichasJugadas();
     static Tablero_Cliente& getInstance(){
         static Tablero_Cliente instance;
         return instance;
     }
-    void RecibirRespuesta(string json);
-    void limpiarJugadas();
-    void ColocarFicha(int*,int*,int);
-    void readInfo();
-
+    LinkedList getFichasJugadas();
     bool getHayFichas() const;
     void setHayFichas(bool value);
     bool getVal() const;
