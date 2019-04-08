@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include "traductorcliente.h"
+#include "socket.h"
+#include "tablero_cliente.h"
 
 namespace Ui {
 class preguntarExperto;

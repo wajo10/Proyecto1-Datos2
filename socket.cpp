@@ -49,7 +49,6 @@ string Socket::enviar(string Mensaje,int puerto,string ip, bool escuchar) {
             valread = read( sock , buffer, 1024);
             return buffer;
         }
-
         return "";
 }
 /**

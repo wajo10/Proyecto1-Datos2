@@ -15,12 +15,6 @@ preguntarExperto::~preguntarExperto()
 
 void preguntarExperto::on_buttonBox_accepted()
 {
-   qDebug()<<"Preguntar a experto";
-
-}
-
-void preguntarExperto::on_buttonBox_rejected()
-{
     if (!finalizo){
         TraductorCliente *Tc = &TraductorCliente::getInstance();
         string s = Tc->SerializarNuevaPalabra("");
@@ -28,6 +22,18 @@ void preguntarExperto::on_buttonBox_rejected()
     else{
        qDebug()<<"GAME OVER";
     }
+
+}
+
+void preguntarExperto::on_buttonBox_rejected()
+{
+    Socket *sock = &Socket::getInstance();
+    TraductorCliente *Tc = &TraductorCliente::getInstance();
+    Tablero_Cliente *TabClien = &Tablero_Cliente::getInstance();
+
+    string s = Tc->SerializarNuevaPalabra("");
+    qDebug()<<TabClien->getPuertoServidor()<<"PUERTO";
+    sock->enviar(s,TabClien->getPuertoServidor(),"192.168.100.11",false);
 }
 void preguntarExperto::addText(string s){
     finalizo=true;
