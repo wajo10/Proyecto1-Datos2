@@ -17,6 +17,8 @@ class botones: public QObject, public QGraphicsPixmapItem
 private:
     bool flagPuntaje = true;
     bool flagResumen = true;
+    bool flagHilo = false;
+    bool *flagHiloPtr = &flagHilo;
 public:
     botones (QGraphicsItem *parent=nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

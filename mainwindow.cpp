@@ -130,6 +130,7 @@ void MainWindow::on_pushButton_2_clicked()
     ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
     listener *l1 = new listener(0,tsala,puerto,nombre,flagPtr, iniciales);
 }
+
 void MainWindow::on_lineEdit_editingFinished()
 {
 

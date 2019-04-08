@@ -16,10 +16,12 @@ public:
     listener(int id,int tsala, int puerto, string nombre, bool *flag, string* iniciales);
     void run();
 
+    listener(int id, int tsala, int turno);
 private:
     int id;
     int tsala;
     int puerto;
+    int turno;
     string nombre;
     bool *flag;
     string *iniciales;

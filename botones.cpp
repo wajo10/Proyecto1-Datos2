@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "traductorcliente.h"
 #include <QGraphicsProxyWidget>
+#include "listener.h"
 
 
 
@@ -63,27 +64,7 @@ void botones::cicloPartida(int tsala, int turno)
         return;
     }
     else{
-        qDebug()<<"LISTENING";
-        string json = Socket::getInstance().escuchar2(Tc->getPuertoServidor()+Tc->getC());
-        qDebug()<<json.c_str()<<"jSON";
-        int tam;
-        char letras[7];
-        int filas[7];
-        int columnas[7];
-        string ganador;
-        TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas,&ganador);
-        if (ganador != ""){
-            preguntarExperto *x = new preguntarExperto;
-            x->addText("Fin del juego. Ganador: "+ganador);
-            x->show();
-            qDebug()<< "Fin del juego"<<"ganador";
-            return;
-        }
-        if (tam !=0){
-            fichaAdversario(letras,filas,columnas,tam);
-        }
-        Tc->setC(Tc->getC()+1);
-        cicloPartida(tsala,turno);
+       listener *l = new listener(2,tsala,turno);
     }
 }
 void botones::fichaAdversario(char *letra, int *fila, int *columna, int tam)
