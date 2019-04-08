@@ -140,3 +140,18 @@ void TraductorCliente::DeSerializarRespuestaCrearSala(string json, int* codigo)
     d.Parse(json.c_str());
     *codigo =d["codigo"].GetInt();
 }
+
+string TraductorCliente::SerializarNuevaPalabra(string palabra)
+{
+    const char* json = "{\"palabra\":\"123456789\"}";
+
+    Document d;
+    d.Parse(json);
+    d["palabra"].SetString(palabra.c_str(),sizeof(char)*palabra.length());
+
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+
+    return buffer.GetString();
+}

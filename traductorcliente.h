@@ -29,6 +29,8 @@ public:
 
     string SerializarCrearSala(string ip,string nombre, int cantidadJugadores);
     void DeSerializarRespuestaCrearSala(string json,int* codigo);
+
+    string SerializarNuevaPalabra(string palabra);
 };
 
 #endif // TRADUCTORCLIENTE_H

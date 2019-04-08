@@ -2,6 +2,7 @@
 #define PREGUNTAREXPERTO_H
 
 #include <QDialog>
+#include "traductorcliente.h"
 
 namespace Ui {
 class preguntarExperto;

@@ -58,6 +58,7 @@ void botones::cicloPartida(int tsala, int turno)
         return;
     }
     if(Tc->getC() %tsala == turno){
+        qDebug()<<"ENTRO AL IF";
         Ficha::flagTurno = true;
         Tc->setC(Tc->getC()+1);
         return;
@@ -104,8 +105,10 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         string respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
         qDebug()<<respuesta.c_str()<<"RESPUESTA";
         int len = respuesta.length();
-        if (respuesta[len]==respuesta[len-1]){
-            respuesta.substr(0,len-1);
+        if (Tc->getFichasJugadas().getT() == 0){
+            Ficha::flagTurno=false;
+            cicloPartida(Tc->getTsala(),Tc->getTurno());
+            return;
         }
         Tc->RecibirRespuesta(respuesta);
         if(Tc->getVal()){

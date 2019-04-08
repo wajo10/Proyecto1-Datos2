@@ -15,11 +15,12 @@ preguntarExperto::~preguntarExperto()
 
 void preguntarExperto::on_buttonBox_accepted()
 {
-    qDebug()<<"Preguntar a experto";
+   qDebug()<<"Preguntar a experto";
 
 }
 
 void preguntarExperto::on_buttonBox_rejected()
 {
-
+    TraductorCliente *Tc = &TraductorCliente::getInstance();
+    string s = Tc->SerializarNuevaPalabra("");
 }
