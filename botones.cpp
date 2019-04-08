@@ -64,9 +64,30 @@ void botones::cicloPartida(int tsala, int turno)
         return;
     }
     else{
-       listener *l = new listener(2,tsala,turno);
-    }
-}
+
+        qDebug()<<"LISTENING";
+             string json = Socket::getInstance().escuchar2(Tc->getPuertoServidor()+Tc->getC());
+             qDebug()<<json.c_str()<<"jSON";
+             int tam;
+             char letras[7];
+             int filas[7];
+             int columnas[7];
+             string ganador;
+             TraductorCliente::getInstance().DeserializarRespuestaTurnoAjeno(json,&tam,letras,filas,columnas,&ganador);
+             if (ganador != ""){
+                 preguntarExperto *x = new preguntarExperto;
+                 x->addText("Fin del juego. Ganador: "+ganador);
+                 x->show();
+                 qDebug()<< "Fin del juego"<<"ganador";
+                 return;
+             }
+             if (tam !=0){
+                 fichaAdversario(letras,filas,columnas,tam);
+             }
+             Tc->setC(Tc->getC()+1);
+             cicloPartida(tsala,turno);
+       }
+ }
 void botones::fichaAdversario(char *letra, int *fila, int *columna, int tam)
 {
     int contador=0;
@@ -93,6 +114,7 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
         string s1=Tc->ResumenFichas();
         qDebug()<<s1.c_str()<<Tc->getPuertoServidor()<<"192.168.100.11"<<true<<"PUERTO SERV";
         string respuesta;
+        qDebug()<<"ANTES DE ENVIAR";
        respuesta = Socket::getInstance().enviar(s1,Tc->getPuertoServidor(),"192.168.100.11",true);
        qDebug()<<respuesta.c_str()<<"RESPUESTA2";
        if (respuesta == "1"){
@@ -122,7 +144,6 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 qDebug()<< "Fichas inválidas";
                 preguntarExperto *x = new preguntarExperto();
                 x->show();
-
             }
             else{
                 preguntarExperto *x = new preguntarExperto;
