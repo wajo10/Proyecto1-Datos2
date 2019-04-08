@@ -39,7 +39,7 @@ void MainWindow::on_pushButton_clicked()
         return;
     }
     int tsala;
-    listener *l1 = new listener(0,tsala,puerto,nombre,flagPtr, iniciales);
+    listener *l1 = new listener(0,tsala,8083,nombre,flagPtr, iniciales);
 
 }
 void MainWindow:: crearTablero(string Iniciales)
@@ -128,7 +128,7 @@ void MainWindow::on_pushButton_2_clicked()
 //    qDebug()<<codigo;
     QString A=QString::number(codigo);
     ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
-    listener *l1 = new listener(0,tsala,puerto,nombre,flagPtr, iniciales);
+    listener *l1 = new listener(0,tsala,8083,nombre,flagPtr, iniciales);
 }
 
 void MainWindow::on_lineEdit_editingFinished()
