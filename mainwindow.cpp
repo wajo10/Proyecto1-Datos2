@@ -138,7 +138,6 @@ void MainWindow::on_pushButton_2_clicked()
     qDebug()<<codigo;
     QString A=QString::number(codigo);
     ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
-
     string confirmacion = sock->escuchar2(8078);
     qDebug()<<confirmacion.c_str();
     int puerto2;

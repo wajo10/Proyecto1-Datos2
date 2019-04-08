@@ -10,7 +10,7 @@ preguntarExperto::preguntarExperto(QWidget *parent) :
 
 preguntarExperto::~preguntarExperto()
 {
-    delete ui;
+//    delete ui;
 }
 
 void preguntarExperto::on_buttonBox_accepted()
@@ -21,6 +21,20 @@ void preguntarExperto::on_buttonBox_accepted()
 
 void preguntarExperto::on_buttonBox_rejected()
 {
-    TraductorCliente *Tc = &TraductorCliente::getInstance();
-    string s = Tc->SerializarNuevaPalabra("");
+    if (!finalizo){
+        TraductorCliente *Tc = &TraductorCliente::getInstance();
+        string s = Tc->SerializarNuevaPalabra("");
+    }
+    else{
+       qDebug()<<"GAME OVER";
+    }
+}
+void preguntarExperto::addText(string s){
+    finalizo=true;
+    ui->textEdit->setText(QString::fromStdString(s));
+}
+
+void preguntarExperto::on_textEdit_textChanged()
+{
+
 }

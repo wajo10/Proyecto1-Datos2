@@ -58,7 +58,6 @@ void botones::cicloPartida(int tsala, int turno)
         return;
     }
     if(Tc->getC() %tsala == turno){
-        qDebug()<<"ENTRO AL IF";
         Ficha::flagTurno = true;
         Tc->setC(Tc->getC()+1);
         return;
@@ -136,6 +135,9 @@ void botones::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
             }
             else{
+                preguntarExperto *x = new preguntarExperto;
+                x->addText("Fin del juego");
+                x->show();
                 qDebug()<< "Fin del juego";
             }
             Tc->RemoverFichas();
