@@ -107,7 +107,8 @@ string Socket::escuchar2(int puerto)
         char *hello = "Hello from server";
         valread = read( new_socket , buffer, 1024);
         send(new_socket , hello , strlen(hello) , 0 );
-        close(new_socket);
+        shutdown(new_socket,SHUT_RDWR);
+        close(server_fd);
         return buffer;      
 }
 
