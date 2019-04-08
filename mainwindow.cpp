@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "listener.h"
 QGraphicsScene* MainWindow::scene= nullptr;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,20 +38,9 @@ void MainWindow::on_pushButton_clicked()
         qDebug()<<"La sala está llena";
         return;
     }
-
-    string confirmacion = sock->escuchar2(8078);
-    qDebug()<<confirmacion.c_str();
-    int puerto2;
-    int turno;
     int tsala;
-    string iniciales;
-    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales,&tsala);
-    TabClien->setPuertoServidor(puerto2);
-    TabClien->setTurno(turno);
-    TabClien->setTsala(tsala);
-    crearTablero(iniciales);
-    //botones::getInstance().puntaje(0);
-    //botones::getInstance().resumen(" ");
+    listener *l1 = new listener(0,tsala,puerto,nombre,flagPtr, iniciales);
+
 }
 void MainWindow:: crearTablero(string Iniciales)
 {
@@ -135,24 +125,20 @@ void MainWindow::on_pushButton_2_clicked()
     TabClien->setTurno(0);
     int codigo=0;
     TC->DeSerializarRespuestaCrearSala(respuesta,&codigo);
-    qDebug()<<codigo;
+//    qDebug()<<codigo;
     QString A=QString::number(codigo);
     ui->lineEdit_3->setText("Esperando, el código de jugador es: "+A);
-    string confirmacion = sock->escuchar2(8078);
-    qDebug()<<confirmacion.c_str();
-    int puerto2;
-    int turno;
-    string iniciales;
-    TC->DeSerializarRespuestaUnirseSala(confirmacion,&puerto2,&turno,&iniciales,&tsala);
-    TabClien->setPuertoServidor(puerto2);
-    TabClien->setTurno(turno);
-    TabClien->setTsala(tsala);
-    crearTablero(iniciales);
-
+    listener *l1 = new listener(0,tsala,puerto,nombre,flagPtr, iniciales);
 }
-
-
 void MainWindow::on_lineEdit_editingFinished()
 {
 
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    qDebug()<<*this->flagPtr<<"FLAG";
+    if (*(this->flagPtr)){
+        crearTablero(*iniciales);
+    }
 }

@@ -46,6 +46,7 @@ public:
      */
     void crearTablero(string iniciales);
 
+    void llamada(bool *flag);
 private slots:
     void on_pushButton_clicked();
 
@@ -53,8 +54,15 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
+    bool flag = false;
+    bool *flagPtr = &flag;
+    string inicial="";
+    string *iniciales=&inicial;
+
 
 
 };

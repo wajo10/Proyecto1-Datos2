@@ -220,6 +220,19 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>120</y>
+      <width>84</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Refresh</string>
+    </property>
+   </widget>
    <zorder>label_9</zorder>
    <zorder>pushButton</zorder>
    <zorder>lineEdit</zorder>
@@ -234,6 +247,7 @@
    <zorder>label_8</zorder>
    <zorder>lineEdit_2</zorder>
    <zorder>lineEdit_3</zorder>
+   <zorder>pushButton_3</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

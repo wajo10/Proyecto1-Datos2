@@ -40,7 +40,8 @@ SOURCES += \
     traductorcliente.cpp \
     socket.cpp \
     comodin.cpp \
-    preguntarexperto.cpp
+    preguntarexperto.cpp \
+    listener.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -57,7 +58,8 @@ HEADERS += \
     traductorcliente.h \
     socket.h \
     comodin.h \
-    preguntarexperto.h
+    preguntarexperto.h \
+    listener.h
 
 FORMS += \
         mainwindow.ui \
